@@ -1,0 +1,84 @@
+/*
+ * Copyright (c) 2016-2018, FusionAuth, All Rights Reserved
+ */
+savantVersion = "1.0.0"
+
+pubVersion = ""
+project(group: "io.fusionauth", name: "fusionauth-ruby-client", version: "1.0", licenses: ["ApacheV2_0"]) {
+  workflow {
+    standard()
+  }
+
+  publishWorkflow {
+    subversion(repository: "http://svn.inversoft.org/savant")
+  }
+
+  pubVersion = project.version.toString().replaceAll('-', '.pre.')
+  publications {
+    main {
+      publication(name: "fusionauth_client", type: "gem", file: "pkg/fusionauth_client-${pubVersion}.gem")
+    }
+  }
+}
+
+// Plugins
+file = loadPlugin(id: "org.savantbuild.plugin:file:${savantVersion}")
+release = loadPlugin(id: "org.savantbuild.plugin:release-git:${savantVersion}")
+
+target(name: "clean", description: "Cleans build directory") {
+  file.prune(dir: 'pkg')
+}
+
+target(name: "compile", description: "Compiles the source code") {
+  ProcessBuilder pb = new ProcessBuilder('rake', 'build').inheritIO()
+  clearEnvironment(pb)
+  if (pb.start().waitFor() != 0) {
+    fail("Build failed")
+  }
+}
+
+target(name: "test", description: "Runs the project's unit tests", dependsOn: ["compile"]) {
+  ProcessBuilder pb = new ProcessBuilder('rake', 'test').inheritIO()
+  clearEnvironment(pb)
+  if (pb.start().waitFor() != 0) {
+    fail("Tests failed")
+  }
+}
+
+target(name: "int", description: "Releases a local integration build of the project", dependsOn: ["compile"]) {
+  // No-op
+}
+
+target(name: "idea", description: "Updates the IntelliJ IDEA module file") {
+  // No-op
+}
+
+target(name: "bundle", description: "Builds the project release bundle", dependsOn: ["int"]) {
+}
+
+target(name: "gem-publish", description: "Publish the GEM file", dependsOn: ["clean", "compile"]) {
+  ProcessBuilder pb = new ProcessBuilder('gem', 'push', "pkg/fusionauth_client-${pubVersion}.gem").inheritIO()
+  clearEnvironment(pb)
+  if (pb.start().waitFor() != 0) {
+    fail("Tests failed")
+  }
+}
+
+target(name: "release", description: "Releases a full version of the project", dependsOn: ["clean", "int"]) {
+  release.release()
+
+//  if (new ProcessBuilder('gem', 'push', "pkg/fusionauth_client-${pubVersion}.gem").inheritIO().start().waitFor() != 0) {
+//    fail("Tests failed")
+//  }
+}
+
+/**
+ * Clears out the RBENV variables in the environment.
+ *
+ * @param pb THe ProcessBuilder to clear out.
+ */
+private static void clearEnvironment(ProcessBuilder pb) {
+  pb.environment().remove("RBENV_VERSION")
+  pb.environment().remove("RBENV_DIR")
+  pb.environment().remove("RBENV_ROOT")
+}
