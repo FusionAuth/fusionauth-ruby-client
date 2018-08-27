@@ -86,7 +86,7 @@ module FusionAuth
     end
 
     #
-    # Changes a user's password using their identity (login id and password). Using a loginId instead of the verificationId
+    # Changes a user's password using their identity (login id and password). Using a loginId instead of the changePasswordId
     # bypasses the email verification and allows a password to be changed directly without first calling the #forgotPassword
     # method.
     #
