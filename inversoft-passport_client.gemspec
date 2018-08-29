@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = 'fusionauth_client'
-  spec.version       = '1.0.2'
+  spec.version       = '1.0.3'
   spec.authors       = ['Brian Pontarelli', 'Daniel DeGroff']
   spec.email         = ['brian@fusionauth.io', 'daniel@fusionauth.io']
 
