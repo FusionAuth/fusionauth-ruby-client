@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'fusionauth_client'
   spec.version       = '1.0.4'
   spec.authors       = ['Brian Pontarelli', 'Daniel DeGroff']
-  spec.email         = ['brian@fusionauth.io', 'daniel@fusionauth.io']
+  spec.email         = %w(brian@fusionauth.io daniel@fusionauth.io)
 
   spec.summary       = %q{The Ruby client library for FusionAuth}
   spec.description   = %q{This library contains the Ruby client library that helps you connect your application to FusionAuth.}
