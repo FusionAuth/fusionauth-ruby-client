@@ -35,11 +35,9 @@ client.register!(id, {
     :registration => {
         :applicationId => application_id,
         :data => {
-            :attributes => {
-                :foo => 'bar'
-            },
-            :preferredLanguages => %w(en fr)
+            :foo => 'bar'
         },
+        :preferredLanguages => %w(en fr),
         :roles => %w(user)
     }
 })
