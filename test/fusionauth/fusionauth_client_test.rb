@@ -251,11 +251,9 @@ module FusionAuth
           :registration => {
               :applicationId => application_id,
               :data => {
-                  :attributes => {
-                      :foo => 'bar'
-                  },
-                  :preferredLanguages => %w(en fr)
+                  :foo => 'bar'
               },
+              :preferredLanguages => %w(en fr),
               :roles => %w(user)
           }
       })
@@ -281,11 +279,9 @@ module FusionAuth
           :registration => {
               :applicationId => application_id,
               :data => {
-                  :attributes => {
-                      :foo => 'bar updated'
-                  },
-                  :preferredLanguages => %w(en fr)
+                  :foo => 'bar updated'
               },
+              :preferredLanguages => %w(en fr),
               :roles => %w(admin)
           }
       })
