@@ -649,6 +649,21 @@ module FusionAuth
     end
 
     #
+    # Handles login via third-parties including Social login, external OAuth and OpenID Connect, and other
+    # login systems.
+    #
+    # @param request [OpenStruct, Hash] The third-party login request that contains information from the third-party login
+    #     providers that FusionAuth uses to reconcile the user's account.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def identity_provider_login(request)
+      start.uri('/api/identity-provider/login')
+           .body_handler(FusionAuth::JSONBodyHandler.new(request))
+           .post()
+           .go()
+    end
+
+    #
     # Bulk imports multiple users. This does some validation, but then tries to run batch inserts of users. This reduces
     # latency when inserting lots of users. Therefore, the error response might contain some information about failures,
     # but it will likely be pretty generic.
@@ -721,7 +736,7 @@ module FusionAuth
     # client and revoke the refresh token stored. This API does nothing if the request does not contain an access
     # token or refresh token cookies.
     #
-    # @param global [OpenStruct, Hash] When this value is set to true all of the refresh tokens issued to the owner of the
+    # @param global [Boolean] When this value is set to true all of the refresh tokens issued to the owner of the
     #     provided token will be revoked.
     # @param refresh_token [string] (Optional) The refresh_token as a request parameter instead of coming in via a cookie.
     #     If provided this takes precedence over the cookie.
@@ -920,7 +935,7 @@ module FusionAuth
     #
     # Retrieves a single audit log for the given Id.
     #
-    # @param audit_log_id [OpenStruct, Hash] The Id of the audit log to retrieve.
+    # @param audit_log_id [Numeric] The Id of the audit log to retrieve.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     #
     def retrieve_audit_log(audit_log_id)
@@ -1397,8 +1412,8 @@ module FusionAuth
     # Retrieves the last number of login records for a user.
     #
     # @param user_id [string] The Id of the user.
-    # @param offset [OpenStruct, Hash] The initial record. e.g. 0 is the last login, 100 will be the 100th most recent login.
-    # @param limit [OpenStruct, Hash] (Optional, defaults to 10) The number of records to retrieve.
+    # @param offset [Numeric] The initial record. e.g. 0 is the last login, 100 will be the 100th most recent login.
+    # @param limit [Numeric] (Optional, defaults to 10) The number of records to retrieve.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     #
     def retrieve_user_login_report(user_id, offset, limit)
