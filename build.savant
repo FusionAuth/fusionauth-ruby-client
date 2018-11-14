@@ -72,7 +72,7 @@ target(name: "gem-publish", description: "Publish the GEM file", dependsOn: ["cl
   ProcessBuilder pb = new ProcessBuilder('gem', 'push', "pkg/fusionauth_client-${pubVersion}.gem").inheritIO()
   clearEnvironment(pb)
   if (pb.start().waitFor() != 0) {
-    fail("Tests failed")
+    fail("Gem push failed")
   }
 }
 
