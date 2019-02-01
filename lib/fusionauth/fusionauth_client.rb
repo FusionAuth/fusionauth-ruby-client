@@ -2,7 +2,7 @@ require 'ostruct'
 require 'fusionauth/rest_client'
 
 #
-# Copyright (c) 2018, FusionAuth, All Rights Reserved
+# Copyright (c) 2018-2019, FusionAuth, All Rights Reserved
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -896,7 +896,8 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the actions for the user with the given Id.
+    # Retrieves all of the actions for the user with the given Id. This will return all time based actions that are active,
+    # and inactive as well as non-time based actions.
     #
     # @param user_id [string] The Id of the user to fetch the actions for.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -904,6 +905,35 @@ module FusionAuth
     def retrieve_actions(user_id)
       start.uri('/api/user/action')
            .url_parameter('userId', user_id)
+           .get()
+           .go()
+    end
+
+    #
+    # Retrieves all of the actions for the user with the given Id that are currently preventing the User from logging in.
+    #
+    # @param user_id [string] The Id of the user to fetch the actions for.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def retrieve_actions_preventing_login(user_id)
+      start.uri('/api/user/action')
+           .url_parameter('userId', user_id)
+           .url_parameter('preventingLogin', true)
+           .get()
+           .go()
+    end
+
+    #
+    # Retrieves all of the actions for the user with the given Id that are currently active.
+    # An active action means one that is time based and has not been canceled, and has not ended.
+    #
+    # @param user_id [string] The Id of the user to fetch the actions for.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def retrieve_active_actions(user_id)
+      start.uri('/api/user/action')
+           .url_parameter('userId', user_id)
+           .url_parameter('active', true)
            .get()
            .go()
     end
@@ -1173,6 +1203,21 @@ module FusionAuth
     end
 
     #
+    # Retrieves the last number of login records.
+    #
+    # @param offset [Numeric] The initial record. e.g. 0 is the last login, 100 will be the 100th most recent login.
+    # @param limit [Numeric] (Optional, defaults to 10) The number of records to retrieve.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def retrieve_recent_logins(offset, limit)
+      start.uri('/api/user/recent-login')
+           .url_parameter('offset', offset)
+           .url_parameter('limit', limit)
+           .get()
+           .go()
+    end
+
+    #
     # Retrieves the refresh tokens that belong to the user with the given Id.
     #
     # @param user_id [string] The Id of the user.
@@ -1409,6 +1454,46 @@ module FusionAuth
     end
 
     #
+    # Retrieves the login report between the two instants for a particular user by Id. If you specify an application id, it will only return the
+    # login counts for that application.
+    #
+    # @param application_id [string] (Optional) The application id.
+    # @param user_id [string] The userId id.
+    # @param start [OpenStruct, Hash] The start instant as UTC milliseconds since Epoch.
+    # @param _end [OpenStruct, Hash] The end instant as UTC milliseconds since Epoch.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def retrieve_user_login_report(application_id, user_id, start, _end)
+      start.uri('/api/report/login')
+           .url_parameter('applicationId', application_id)
+           .url_parameter('userId', user_id)
+           .url_parameter('start', start)
+           .url_parameter('end', _end)
+           .get()
+           .go()
+    end
+
+    #
+    # Retrieves the login report between the two instants for a particular user by login Id. If you specify an application id, it will only return the
+    # login counts for that application.
+    #
+    # @param application_id [string] (Optional) The application id.
+    # @param login_id [string] The userId id.
+    # @param start [OpenStruct, Hash] The start instant as UTC milliseconds since Epoch.
+    # @param _end [OpenStruct, Hash] The end instant as UTC milliseconds since Epoch.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def retrieve_user_login_report_by_login_id(application_id, login_id, start, _end)
+      start.uri('/api/report/login')
+           .url_parameter('applicationId', application_id)
+           .url_parameter('loginId', login_id)
+           .url_parameter('start', start)
+           .url_parameter('end', _end)
+           .get()
+           .go()
+    end
+
+    #
     # Retrieves the last number of login records for a user.
     #
     # @param user_id [string] The Id of the user.
@@ -1416,8 +1501,8 @@ module FusionAuth
     # @param limit [Numeric] (Optional, defaults to 10) The number of records to retrieve.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     #
-    def retrieve_user_login_report(user_id, offset, limit)
-      start.uri('/api/report/user-login')
+    def retrieve_user_recent_logins(user_id, offset, limit)
+      start.uri('/api/user/recent-login')
            .url_parameter('userId', user_id)
            .url_parameter('offset', offset)
            .url_parameter('limit', limit)
