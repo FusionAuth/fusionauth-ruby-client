@@ -221,6 +221,21 @@ module FusionAuth
     end
 
     #
+    # Creates a Lambda. You can optionally specify an Id for the lambda, if not provided one will be generated.
+    #
+    # @param lambda_id [string] (Optional) The Id for the lambda. If not provided a secure random UUID will be generated.
+    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the lambda.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def create_lambda(lambda_id, request)
+      start.uri('/api/lambda')
+           .url_segment(lambda_id)
+           .body_handler(FusionAuth::JSONBodyHandler.new(request))
+           .post()
+           .go()
+    end
+
+    #
     # Creates a tenant. You can optionally specify an Id for the tenant, if not provided one will be generated.
     #
     # @param tenant_id [string] (Optional) The Id for the tenant. If not provided a secure random UUID will be generated.
@@ -431,6 +446,19 @@ module FusionAuth
     def delete_identity_provider(identity_provider_id)
       start.uri('/api/identity-provider')
            .url_segment(identity_provider_id)
+           .delete()
+           .go()
+    end
+
+    #
+    # Deletes the lambda for the given Id.
+    #
+    # @param lambda_id [string] The Id of the lambda to delete.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def delete_lambda(lambda_id)
+      start.uri('/api/lambda')
+           .url_segment(lambda_id)
            .delete()
            .go()
     end
@@ -777,6 +805,19 @@ module FusionAuth
            .url_segment(action_id)
            .body_handler(FusionAuth::JSONBodyHandler.new(request))
            .put()
+           .go()
+    end
+
+    #
+    # Complete a login request using a passwordless code
+    #
+    # @param request [OpenStruct, Hash] The passwordless login request that contains all of the information used to complete login.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def passwordless_login(request)
+      start.uri('/api/passwordless/login')
+           .body_handler(FusionAuth::JSONBodyHandler.new(request))
+           .post()
            .go()
     end
 
@@ -1152,6 +1193,30 @@ module FusionAuth
     #
     def retrieve_jwt_public_keys()
       start.uri('/api/jwt/public-key')
+           .get()
+           .go()
+    end
+
+    #
+    # Retrieves the lambda for the given Id.
+    #
+    # @param lambda_id [string] The Id of the lambda.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def retrieve_lambda(lambda_id)
+      start.uri('/api/lambda')
+           .url_segment(lambda_id)
+           .get()
+           .go()
+    end
+
+    #
+    # Retrieves all of the lambdas.
+    #
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def retrieve_lambdas()
+      start.uri('/api/lambda')
            .get()
            .go()
     end
@@ -1594,6 +1659,19 @@ module FusionAuth
     end
 
     #
+    # Searches the event logs with the specified criteria and pagination.
+    #
+    # @param request [OpenStruct, Hash] The search criteria and pagination information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def search_event_logs(request)
+      start.uri('/api/system/event-log/search')
+           .body_handler(FusionAuth::JSONBodyHandler.new(request))
+           .post()
+           .go()
+    end
+
+    #
     # Retrieves the users for the given ids. If any id is invalid, it is ignored.
     #
     # @param ids [Array] The user ids to search for.
@@ -1631,6 +1709,19 @@ module FusionAuth
     def send_email(email_template_id, request)
       start.uri('/api/email/send')
            .url_segment(email_template_id)
+           .body_handler(FusionAuth::JSONBodyHandler.new(request))
+           .post()
+           .go()
+    end
+
+    #
+    # Send a passwordless authentication code in an email to complete login.
+    #
+    # @param request [OpenStruct, Hash] The passwordless send request that contains all of the information used to send an email containing a code.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def send_passwordless_code(request)
+      start.uri('/api/passwordless/send')
            .body_handler(FusionAuth::JSONBodyHandler.new(request))
            .post()
            .go()
@@ -1761,6 +1852,21 @@ module FusionAuth
     #
     def update_integrations(request)
       start.uri('/api/integration')
+           .body_handler(FusionAuth::JSONBodyHandler.new(request))
+           .put()
+           .go()
+    end
+
+    #
+    # Updates the lambda with the given Id.
+    #
+    # @param lambda_id [string] The Id of the lambda to update.
+    # @param request [OpenStruct, Hash] The request that contains all of the new lambda information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def update_lambda(lambda_id, request)
+      start.uri('/api/lambda')
+           .url_segment(lambda_id)
            .body_handler(FusionAuth::JSONBodyHandler.new(request))
            .put()
            .go()
