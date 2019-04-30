@@ -23,6 +23,12 @@ Or install it yourself as:
 Once the gem is installed, you can call FusionAuth APIs like this:
 
 ```ruby
+# Construct the FusionAuth Client
+client = FusionAuth::FusionAuthClient.new(
+    '<YOUR_API_KEY>', 
+    'http://localhost:9011'
+)
+
 # Create a user + registration
 id = SecureRandom.uuid
 client.register!(id, {
