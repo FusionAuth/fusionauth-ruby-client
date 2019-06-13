@@ -55,6 +55,21 @@ module FusionAuth
     end
 
     #
+    # Adds a user to an existing family. The family id must be specified.
+    #
+    # @param family_id [string] The id of the family.
+    # @param request [OpenStruct, Hash] The request object that contains all of the information used to determine which user to add to the family.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def add_user_to_family(family_id, request)
+      start.uri('/api/user/family')
+           .url_segment(family_id)
+           .body_handler(FusionAuth::JSONBodyHandler.new(request))
+           .put()
+           .go()
+    end
+
+    #
     # Cancels the user action.
     #
     # @param action_id [string] The action id of the action to cancel.
@@ -163,6 +178,21 @@ module FusionAuth
     end
 
     #
+    # Creates a user consent type. You can optionally specify an Id for the consent type, if not provided one will be generated.
+    #
+    # @param consent_id [string] (Optional) The Id for the consent. If not provided a secure random UUID will be generated.
+    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the consent.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def create_consent(consent_id, request)
+      start.uri('/api/consent')
+           .url_segment(consent_id)
+           .body_handler(FusionAuth::JSONBodyHandler.new(request))
+           .post()
+           .go()
+    end
+
+    #
     # Creates an email template. You can optionally specify an Id for the template, if not provided one will be generated.
     #
     # @param email_template_id [string] (Optional) The Id for the template. If not provided a secure random UUID will be generated.
@@ -172,6 +202,22 @@ module FusionAuth
     def create_email_template(email_template_id, request)
       start.uri('/api/email/template')
            .url_segment(email_template_id)
+           .body_handler(FusionAuth::JSONBodyHandler.new(request))
+           .post()
+           .go()
+    end
+
+    #
+    # Creates a family with the user id in the request as the owner and sole member of the family. You can optionally specify an id for the
+    # family, if not provided one will be generated.
+    #
+    # @param family_id [string] (Optional) The id for the family. If not provided a secure random UUID will be generated.
+    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the family.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def create_family(family_id, request)
+      start.uri('/api/user/family')
+           .url_segment(family_id)
            .body_handler(FusionAuth::JSONBodyHandler.new(request))
            .post()
            .go()
@@ -298,6 +344,21 @@ module FusionAuth
     end
 
     #
+    # Creates a single User consent.
+    #
+    # @param user_consent_id [string] (Optional) The Id for the User consent. If not provided a secure random UUID will be generated.
+    # @param request [OpenStruct, Hash] The request that contains the user consent information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def create_user_consent(user_consent_id, request)
+      start.uri('/api/user/consent')
+           .url_segment(user_consent_id)
+           .body_handler(FusionAuth::JSONBodyHandler.new(request))
+           .post()
+           .go()
+    end
+
+    #
     # Creates a webhook. You can optionally specify an Id for the webhook, if not provided one will be generated.
     #
     # @param webhook_id [string] (Optional) The Id for the webhook. If not provided a secure random UUID will be generated.
@@ -394,6 +455,19 @@ module FusionAuth
            .url_segment(application_id)
            .url_segment("role")
            .url_segment(role_id)
+           .delete()
+           .go()
+    end
+
+    #
+    # Deletes the consent for the given Id.
+    #
+    # @param consent_id [string] The Id of the consent to delete.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def delete_consent(consent_id)
+      start.uri('/api/consent')
+           .url_segment(consent_id)
            .delete()
            .go()
     end
@@ -939,6 +1013,21 @@ module FusionAuth
     end
 
     #
+    # Removes a user from the family with the given id.
+    #
+    # @param family_id [string] The id of the family to remove the user from.
+    # @param user_id [string] The id of the user to remove from the family.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def remove_user_from_family(family_id, user_id)
+      start.uri('/api/user/family')
+           .url_segment(family_id)
+           .url_segment(user_id)
+           .delete()
+           .go()
+    end
+
+    #
     # Re-sends the verification email to the user.
     #
     # @param email [string] The email address of the user that needs a new verification email.
@@ -1060,6 +1149,30 @@ module FusionAuth
     end
 
     #
+    # Retrieves the Consent for the given Id.
+    #
+    # @param consent_id [string] The Id of the consent.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def retrieve_consent(consent_id)
+      start.uri('/api/consent')
+           .url_segment(consent_id)
+           .get()
+           .go()
+    end
+
+    #
+    # Retrieves all of the consent.
+    #
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def retrieve_consents()
+      start.uri('/api/consent')
+           .get()
+           .go()
+    end
+
+    #
     # Retrieves the daily active user report between the two instants. If you specify an application id, it will only
     # return the daily active counts for that application.
     #
@@ -1125,6 +1238,32 @@ module FusionAuth
     def retrieve_event_log(event_log_id)
       start.uri('/api/system/event-log')
            .url_segment(event_log_id)
+           .get()
+           .go()
+    end
+
+    #
+    # Retrieves all of the families that a user belongs to.
+    #
+    # @param user_id [string] The User's id
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def retrieve_families(user_id)
+      start.uri('/api/user/family')
+           .url_parameter('userId', user_id)
+           .get()
+           .go()
+    end
+
+    #
+    # Retrieves all of the members of a family by the unique Family Id.
+    #
+    # @param family_id [string] The unique Id of the Family.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def retrieve_family_members_by_family_id(family_id)
+      start.uri('/api/user/family')
+           .url_segment(family_id)
            .get()
            .go()
     end
@@ -1371,6 +1510,19 @@ module FusionAuth
     #
     def retrieve_password_validation_rules()
       start.uri('/api/system-configuration/password-validation-rules')
+           .get()
+           .go()
+    end
+
+    #
+    # Retrieves all of the children for the given parent email address.
+    #
+    # @param parent_email [string] The email of the parent.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def retrieve_pending_children(parent_email)
+      start.uri('/api/user/family/pending')
+           .url_parameter('parentEmail', parent_email)
            .get()
            .go()
     end
@@ -1627,6 +1779,32 @@ module FusionAuth
     end
 
     #
+    # Retrieve a single User consent by Id.
+    #
+    # @param user_consent_id [string] The User consent Id
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def retrieve_user_consent(user_consent_id)
+      start.uri('/api/user/consent')
+           .url_segment(user_consent_id)
+           .get()
+           .go()
+    end
+
+    #
+    # Retrieves all of the consents for a User.
+    #
+    # @param user_id [string] The User's Id
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def retrieve_user_consents(user_id)
+      start.uri('/api/user/consent')
+           .url_parameter('userId', user_id)
+           .get()
+           .go()
+    end
+
+    #
     # Retrieves the login report between the two instants for a particular user by Id. If you specify an application id, it will only return the
     # login counts for that application.
     #
@@ -1739,6 +1917,19 @@ module FusionAuth
     end
 
     #
+    # Revokes a single User consent by Id.
+    #
+    # @param user_consent_id [string] The User Consent Id
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def revoke_user_consent(user_consent_id)
+      start.uri('/api/user/consent')
+           .url_segment(user_consent_id)
+           .delete()
+           .go()
+    end
+
+    #
     # Searches the audit logs with the specified criteria and pagination.
     #
     # @param request [OpenStruct, Hash] The search criteria and pagination information.
@@ -1759,6 +1950,19 @@ module FusionAuth
     #
     def search_event_logs(request)
       start.uri('/api/system/event-log/search')
+           .body_handler(FusionAuth::JSONBodyHandler.new(request))
+           .post()
+           .go()
+    end
+
+    #
+    # Searches the login records with the specified criteria and pagination.
+    #
+    # @param request [OpenStruct, Hash] The search criteria and pagination information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def search_login_records(request)
+      start.uri('/api/system/login-record/search')
            .body_handler(FusionAuth::JSONBodyHandler.new(request))
            .post()
            .go()
@@ -1802,6 +2006,19 @@ module FusionAuth
     def send_email(email_template_id, request)
       start.uri('/api/email/send')
            .url_segment(email_template_id)
+           .body_handler(FusionAuth::JSONBodyHandler.new(request))
+           .post()
+           .go()
+    end
+
+    #
+    # Sends out an email to a parent that they need to register and create a family or need to log in and add a child to their existing family.
+    #
+    # @param request [OpenStruct, Hash] The request object that contains the parent email.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def send_family_request_email(request)
+      start.uri('/api/user/family/request')
            .body_handler(FusionAuth::JSONBodyHandler.new(request))
            .post()
            .go()
@@ -1887,6 +2104,21 @@ module FusionAuth
            .url_segment(application_id)
            .url_segment("role")
            .url_segment(role_id)
+           .body_handler(FusionAuth::JSONBodyHandler.new(request))
+           .put()
+           .go()
+    end
+
+    #
+    # Updates the consent with the given Id.
+    #
+    # @param consent_id [string] The Id of the consent to update.
+    # @param request [OpenStruct, Hash] The request that contains all of the new consent information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def update_consent(consent_id, request)
+      start.uri('/api/consent')
+           .url_segment(consent_id)
            .body_handler(FusionAuth::JSONBodyHandler.new(request))
            .put()
            .go()
@@ -2063,6 +2295,21 @@ module FusionAuth
     def update_user_action_reason(user_action_reason_id, request)
       start.uri('/api/user-action-reason')
            .url_segment(user_action_reason_id)
+           .body_handler(FusionAuth::JSONBodyHandler.new(request))
+           .put()
+           .go()
+    end
+
+    #
+    # Updates a single User consent by Id.
+    #
+    # @param user_consent_id [string] The User Consent Id
+    # @param request [OpenStruct, Hash] The request that contains the user consent information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def update_user_consent(user_consent_id, request)
+      start.uri('/api/user/consent')
+           .url_segment(user_consent_id)
            .body_handler(FusionAuth::JSONBodyHandler.new(request))
            .put()
            .go()
