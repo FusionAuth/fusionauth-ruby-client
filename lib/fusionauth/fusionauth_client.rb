@@ -297,6 +297,21 @@ module FusionAuth
     end
 
     #
+    # Creates a Theme. You can optionally specify an Id for the theme, if not provided one will be generated.
+    #
+    # @param theme_id [string] (Optional) The Id for the theme. If not provided a secure random UUID will be generated.
+    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the theme.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def create_theme(theme_id, request)
+      start.uri('/api/theme')
+           .url_segment(theme_id)
+           .body_handler(FusionAuth::JSONBodyHandler.new(request))
+           .post()
+           .go()
+    end
+
+    #
     # Creates a user. You can optionally specify an Id for the user, if not provided one will be generated.
     #
     # @param user_id [string] (Optional) The Id for the user. If not provided a secure random UUID will be generated.
@@ -579,6 +594,19 @@ module FusionAuth
     end
 
     #
+    # Deletes the theme for the given Id.
+    #
+    # @param theme_id [string] The Id of the theme to delete.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def delete_theme(theme_id)
+      start.uri('/api/theme')
+           .url_segment(theme_id)
+           .delete()
+           .go()
+    end
+
+    #
     # Deletes the user for the given Id. This permanently deletes all information, metrics, reports and data associated
     # with the user.
     #
@@ -713,7 +741,7 @@ module FusionAuth
     def generate_email_verification_id(email)
       start.uri('/api/user/verify-email')
            .url_parameter('email', email)
-           .url_parameter('sendVerifyPasswordEmail', false)
+           .url_parameter('sendVerifyEmail', false)
            .put()
            .go()
     end
@@ -843,7 +871,9 @@ module FusionAuth
     end
 
     #
-    # Logs a user in.
+    # Authenticates a user to FusionAuth. 
+    # 
+    # This API optionally requires an API key. See <code>Application.loginConfiguration.requireAuthentication</code>.
     #
     # @param request [OpenStruct, Hash] The login request that contains the user credentials used to log them in.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -990,6 +1020,20 @@ module FusionAuth
       start.uri('/api/jwt/reconcile')
            .body_handler(FusionAuth::JSONBodyHandler.new(request))
            .post()
+           .go()
+    end
+
+    #
+    # Request a refresh of the User search index. This API is not generally necessary and the search index will become consistent in a
+    # reasonable amount of time. There may be scenarios where you may wish to manually request an index refresh. One example may be 
+    # if you are using the Search API or Delete Tenant API immediately following a User Create etc, you may wish to request a refresh to
+    #  ensure the index immediately current before making a query request to the search index.
+    #
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def refresh_user_search_index()
+      start.uri('/api/user/search')
+           .put()
            .go()
     end
 
@@ -1367,16 +1411,27 @@ module FusionAuth
     end
 
     #
-    # Retrieves the Public Key configured for verifying JSON Web Tokens (JWT) by the key Id. If the key Id is provided a
-    # single public key will be returned if one is found by that id. If the optional parameter key Id is not provided all
-    # public keys will be returned.
+    # Retrieves the Public Key configured for verifying JSON Web Tokens (JWT) by the key Id (kid).
     #
-    # @param key_id [string] (Optional) The Id of the public key.
+    # @param key_id [string] The Id of the public key (kid).
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     #
     def retrieve_jwt_public_key(key_id)
       start.uri('/api/jwt/public-key')
-           .url_segment(key_id)
+           .url_parameter('kid', key_id)
+           .get()
+           .go()
+    end
+
+    #
+    # Retrieves the Public Key configured for verifying the JSON Web Tokens (JWT) issued by the Login API by the Application Id.
+    #
+    # @param application_id [string] The Id of the Application for which this key is used.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def retrieve_jwt_public_key_by_application_id(application_id)
+      start.uri('/api/jwt/public-key')
+           .url_parameter('applicationId', application_id)
            .get()
            .go()
     end
@@ -1504,12 +1559,30 @@ module FusionAuth
     end
 
     #
-    # Retrieves the password validation rules.
+    # Retrieves the password validation rules for a specific tenant. This method requires a tenantId to be provided 
+    # through the use of a Tenant scoped API key or an HTTP header X-FusionAuth-TenantId to specify the Tenant Id.
+    # 
+    # This API does not require an API key.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     #
     def retrieve_password_validation_rules()
-      start.uri('/api/system-configuration/password-validation-rules')
+      start.uri('/api/tenant/password-validation-rules')
+           .get()
+           .go()
+    end
+
+    #
+    # Retrieves the password validation rules for a specific tenant.
+    # 
+    # This API does not require an API key.
+    #
+    # @param tenant_id [string] The Id of the tenant.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def retrieve_password_validation_rules_with_tenant_id(tenant_id)
+      start.uri('/api/tenant/password-validation-rules')
+           .url_segment(tenant_id)
            .get()
            .go()
     end
@@ -1619,6 +1692,30 @@ module FusionAuth
     #
     def retrieve_tenants()
       start.uri('/api/tenant')
+           .get()
+           .go()
+    end
+
+    #
+    # Retrieves the theme for the given Id.
+    #
+    # @param theme_id [string] The Id of the theme.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def retrieve_theme(theme_id)
+      start.uri('/api/theme')
+           .url_segment(theme_id)
+           .get()
+           .go()
+    end
+
+    #
+    # Retrieves all of the themes.
+    #
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def retrieve_themes()
+      start.uri('/api/theme')
            .get()
            .go()
     end
@@ -2250,6 +2347,21 @@ module FusionAuth
     def update_tenant(tenant_id, request)
       start.uri('/api/tenant')
            .url_segment(tenant_id)
+           .body_handler(FusionAuth::JSONBodyHandler.new(request))
+           .put()
+           .go()
+    end
+
+    #
+    # Updates the theme with the given Id.
+    #
+    # @param theme_id [string] The Id of the theme to update.
+    # @param request [OpenStruct, Hash] The request that contains all of the new theme information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def update_theme(theme_id, request)
+      start.uri('/api/theme')
+           .url_segment(theme_id)
            .body_handler(FusionAuth::JSONBodyHandler.new(request))
            .put()
            .go()
