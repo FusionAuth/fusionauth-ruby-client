@@ -2161,6 +2161,20 @@ module FusionAuth
     end
 
     #
+    # Start a passwordless login request by generating a passwordless code. This code can be sent to the User using the Send
+    # Passwordless Code API or using a mechanism outside of FusionAuth. The passwordless login is completed by using the Passwordless Login API with this code.
+    #
+    # @param request [OpenStruct, Hash] The passwordless start request that contains all of the information used to begin the passwordless login request.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def start_passwordless_login(request)
+      start.uri('/api/passwordless/start')
+           .body_handler(FusionAuth::JSONBodyHandler.new(request))
+           .post()
+           .go()
+    end
+
+    #
     # Complete login using a 2FA challenge
     #
     # @param request [OpenStruct, Hash] The login request that contains the user credentials used to log them in.
