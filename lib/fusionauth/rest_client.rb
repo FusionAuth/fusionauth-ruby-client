@@ -41,7 +41,7 @@ module FusionAuth
     # @param body_handler [BodyHandler] The body handler.
     # @return [RESTClient] this
     #
-    def body_handler(body_handler)
+    def rbody_handler(body_handler)
       @body_handler = body_handler
       self
     end
@@ -113,7 +113,7 @@ module FusionAuth
         if response.url.scheme == 'https'
           opts[:use_ssl] = true
         end
-        if @body_handler != nil
+        if @body_handler != nil && @body_handler.type != "FormData"
           @body_handler.set_headers(@headers)
         end
 
@@ -154,7 +154,12 @@ module FusionAuth
             raise ArgumentError, "Invalid HTTP method #{@method}"
           end
 
-          request.body = response.request
+          if @body_handler != nil && @body_handler.type == "FormData"
+            request.set_form_data(response.request)
+          else
+            request.body = response.request
+          end
+
           http_response = http.request(request)
         }
 
@@ -182,6 +187,11 @@ module FusionAuth
 
     def headers(headers)
       @headers.merge!(headers)
+      self
+    end
+
+    def patch
+      @method = 'PATCH'
       self
     end
 
@@ -289,6 +299,32 @@ module FusionAuth
     end
   end
 
+  class FormDataBodyHandler
+    attr_accessor :length, :body
+
+    def initialize(body_object)
+      @body = body_object
+    end
+
+    def body_object
+      @body
+    end
+
+    def type
+      "FormData"
+    end
+
+    #
+    # Sets any headers necessary for the body to be processed.
+    #
+    # @param headers [Hash] The headers hash to add any headers needed by this BodyHandler
+    # @return [Object] The object
+    def set_headers(headers)
+      headers['Content-Type'] = 'application/x-www-form-urlencoded'
+      nil
+    end
+  end
+
   class JSONBodyHandler
     attr_accessor :length, :body
 
@@ -302,6 +338,10 @@ module FusionAuth
     # @return [String] The body as a String
     def body_object
       @body
+    end
+
+    def type
+      "JSON"
     end
 
     #
