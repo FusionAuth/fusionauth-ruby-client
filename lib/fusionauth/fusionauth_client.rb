@@ -2505,6 +2505,20 @@ module FusionAuth
     end
 
     #
+    # Begins a login request for a 3rd party login that requires user interaction such as HYPR.
+    #
+    # @param request [OpenStruct, Hash] The third-party login request that contains information from the third-party login
+    #     providers that FusionAuth uses to reconcile the user's account.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def start_identity_provider_login(request)
+      start.uri('/api/identity-provider/start')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
     # Start a passwordless login request by generating a passwordless code. This code can be sent to the User using the Send
     # Passwordless Code API or using a mechanism outside of FusionAuth. The passwordless login is completed by using the Passwordless Login API with this code.
     #
