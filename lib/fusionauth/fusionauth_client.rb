@@ -441,6 +441,24 @@ module FusionAuth
     def deactivate_users(user_ids)
       start.uri('/api/user/bulk')
           .url_parameter('userId', user_ids)
+          .url_parameter('dryRun', false)
+          .url_parameter('hardDelete', false)
+          .delete()
+          .go()
+    end
+
+    #
+    # Deactivates the users found with the given search query string.
+    #
+    # @param query_string [string] The search query string.
+    # @param dry_run [Boolean] Whether to preview or deactivate the users found by the queryString
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def deactivate_users_by_query(query_string, dry_run)
+      start.uri('/api/user/bulk')
+          .url_parameter('queryString', query_string)
+          .url_parameter('dryRun', dry_run)
+          .url_parameter('hardDelete', false)
           .delete()
           .go()
     end
@@ -655,14 +673,32 @@ module FusionAuth
     end
 
     #
-    # Deletes the users with the given ids.
+    # Deletes the users with the given ids, or users matching the provided queryString.
+    # If you provide both userIds and queryString, the userIds will be honored.  This can be used to deactivate or hard-delete 
+    # a user based on the hardDelete request body parameter.
     #
-    # @param request [OpenStruct, Hash] The ids of the users to delete.
+    # @param request [OpenStruct, Hash] The UserDeleteRequest.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     #
     def delete_users(request)
       start.uri('/api/user/bulk')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .delete()
+          .go()
+    end
+
+    #
+    # Delete the users found with the given search query string.
+    #
+    # @param query_string [string] The search query string.
+    # @param dry_run [Boolean] Whether to preview or delete the users found by the queryString
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    #
+    def delete_users_by_query(query_string, dry_run)
+      start.uri('/api/user/bulk')
+          .url_parameter('queryString', query_string)
+          .url_parameter('dryRun', dry_run)
+          .url_parameter('hardDelete', true)
           .delete()
           .go()
     end
