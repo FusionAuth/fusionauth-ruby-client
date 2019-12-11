@@ -98,7 +98,7 @@ module FusionAuth
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     #
     def change_password(change_password_id, request)
-      startAnonymous.uri('/api/user/change-password')
+      start.uri('/api/user/change-password')
           .url_segment(change_password_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
@@ -844,7 +844,7 @@ module FusionAuth
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     #
     def forgot_password(request)
-      startAnonymous.uri('/api/user/forgot-password')
+      start.uri('/api/user/forgot-password')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
           .go()
@@ -1436,7 +1436,7 @@ module FusionAuth
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     #
     def resend_email_verification(email)
-      startAnonymous.uri('/api/user/verify-email')
+      start.uri('/api/user/verify-email')
           .url_parameter('email', email)
           .put()
           .go()
