@@ -1450,7 +1450,7 @@ module FusionAuth
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     #
     def resend_registration_verification(email, application_id)
-      startAnonymous.uri('/api/user/verify-registration')
+      start.uri('/api/user/verify-registration')
           .url_parameter('email', email)
           .url_parameter('applicationId', application_id)
           .put()
