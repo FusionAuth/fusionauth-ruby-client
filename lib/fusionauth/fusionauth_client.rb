@@ -411,7 +411,7 @@ module FusionAuth
     #
     # @param user_ids [Array] The ids of the users to deactivate.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    # @deprecated This method has been renamed to deactivate_users_by_ids, use this method instead.
+    # @deprecated This method has been renamed to deactivate_users_by_ids, use that method instead.
     def deactivate_users(user_ids)
       start.uri('/api/user/bulk')
           .url_parameter('userId', user_ids)
@@ -638,7 +638,7 @@ module FusionAuth
     #
     # @param request [OpenStruct, Hash] The UserDeleteRequest.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    # @deprecated This method has been renamed to delete_users_by_query, use this method instead.
+    # @deprecated This method has been renamed to delete_users_by_query, use that method instead.
     def delete_users(request)
       start.uri('/api/user/bulk')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
@@ -2287,7 +2287,7 @@ module FusionAuth
     #
     # @param ids [Array] The user ids to search for.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    # @deprecated This method has been renamed to search_users_by_ids, use this method instead.
+    # @deprecated This method has been renamed to search_users_by_ids, use that method instead.
     def search_users(ids)
       start.uri('/api/user/search')
           .url_parameter('ids', ids)
@@ -2326,7 +2326,7 @@ module FusionAuth
     # @param request [OpenStruct, Hash] The search criteria and pagination constraints. Fields used: ids, query, queryString, numberOfResults, orderBy, startRow,
     #     and sortFields.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    # @deprecated This method has been renamed to search_users_by_query, use this method instead.
+    # @deprecated This method has been renamed to search_users_by_query, use that method instead.
     def search_users_by_query_string(request)
       start.uri('/api/user/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
