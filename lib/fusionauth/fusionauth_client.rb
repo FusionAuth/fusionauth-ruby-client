@@ -43,16 +43,13 @@ module FusionAuth
 
     #
     # Takes an action on a user. The user being actioned is called the "actionee" and the user taking the action is called the
-    # "actioner". Both user ids are required. You pass the actionee's user id into the method and the actioner's is put into the
-    # request object.
+    # "actioner". Both user ids are required in the request object.
     #
-    # @param actionee_user_id [string] The actionee's user id.
     # @param request [OpenStruct, Hash] The action request that includes all of the information about the action being taken including
     #     the id of the action, any options and the duration (if applicable).
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def action_user(actionee_user_id, request)
+    def action_user(request)
       start.uri('/api/user/action')
-          .url_segment(actionee_user_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
           .go()
