@@ -919,11 +919,15 @@ module FusionAuth
     #
     # @param application_id [string] The Application Id for which you are requesting a new access token be issued.
     # @param encoded_jwt [string] The encoded JWT (access token).
+    # @param refresh_token [string] (Optional) An existing refresh token used to request a refresh token in addition to a JWT in the response.
+    #     <p>The target application represented by the applicationid request parameter must have refresh 
+    #     tokens enabled in order to receive a refresh token in the response.</p>
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def issue_jwt(application_id, encoded_jwt)
+    def issue_jwt(application_id, encoded_jwt, refresh_token)
       start.uri('/api/jwt/issue')
           .authorization('JWT ' + encoded_jwt)
           .url_parameter('applicationId', application_id)
+          .url_parameter('refreshToken', refresh_token)
           .get()
           .go()
     end
