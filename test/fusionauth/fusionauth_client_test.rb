@@ -3,6 +3,8 @@ require 'securerandom'
 
 module FusionAuth
   class FusionAuthClientTest < Minitest::Test
+    @fusionauthUrl = ENV['FUSIONAUTH_URL'] || 'http://localhost:9011'
+    @fusionauthApiKey = ENV['FUSIONAUTH_API_KEY'] || 'API-KEY'
 
     def handle_response (response)
       unless response.was_successful
@@ -12,7 +14,7 @@ module FusionAuth
 
     def test_application_crud
       id = SecureRandom.uuid
-      client = FusionAuth::FusionAuthClient.new('API-KEY', 'http://localhost:9011')
+      client = FusionAuth::FusionAuthClient.new(@fusionauthApiKey, @fusionauthUrl)
       response = client.create_application(id, {
           :application => {
               :name => 'Test application',
@@ -100,7 +102,7 @@ module FusionAuth
 
     def test_email_template_crud
       id = SecureRandom.uuid
-      client = FusionAuth::FusionAuthClient.new('API-KEY', 'http://localhost:9011')
+      client = FusionAuth::FusionAuthClient.new(@fusionauthApiKey, @fusionauthUrl)
 
       # Create the email template
       response = client.create_email_template(id, {
@@ -171,7 +173,7 @@ module FusionAuth
 
     def test_user_crud
       id = SecureRandom.uuid
-      client = FusionAuth::FusionAuthClient.new('API-KEY', 'http://localhost:9011')
+      client = FusionAuth::FusionAuthClient.new(@fusionauthApiKey, @fusionauthUrl)
 
       # Create a user
       response = client.create_user(id, {
@@ -217,7 +219,7 @@ module FusionAuth
     def test_user_registration_crud_and_login
       id = SecureRandom.uuid
       application_id = SecureRandom.uuid
-      client = FusionAuth::FusionAuthClient.new('API-KEY', 'http://localhost:9011')
+      client = FusionAuth::FusionAuthClient.new(@fusionauthApiKey, @fusionauthUrl)
 
       # Create an application
       response = client.create_application(application_id, {
