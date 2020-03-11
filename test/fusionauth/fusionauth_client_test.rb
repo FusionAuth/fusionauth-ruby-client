@@ -3,8 +3,10 @@ require 'securerandom'
 
 module FusionAuth
   class FusionAuthClientTest < Minitest::Test
-    @fusionauthUrl = ENV['FUSIONAUTH_URL'] || 'http://localhost:9011'
-    @fusionauthApiKey = ENV['FUSIONAUTH_API_KEY'] || 'API-KEY'
+    def setup
+      @fusionauthUrl = ENV['FUSIONAUTH_URL'] || 'http://localhost:9011'
+      @fusionauthApiKey = ENV['FUSIONAUTH_API_KEY'] || 'API-KEY'
+    end
 
     def handle_response (response)
       unless response.was_successful
