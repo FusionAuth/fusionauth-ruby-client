@@ -527,11 +527,11 @@ module FusionAuth
     #
     # Deletes the key for the given Id.
     #
-    # @param key_od [string] The Id of the key to delete.
+    # @param key_id [string] The Id of the key to delete.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def delete_key(key_od)
+    def delete_key(key_id)
       start.uri('/api/key')
-          .url_segment(key_od)
+          .url_segment(key_id)
           .delete()
           .go()
     end
