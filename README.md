@@ -56,7 +56,7 @@ response = client.login({
     :password => 'password',
     :applicationId => application_id
 })
-user = response.user
+user = response.success.response.user
 ```
 
 ## Contributing
