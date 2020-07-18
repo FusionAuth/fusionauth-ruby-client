@@ -171,6 +171,20 @@ module FusionAuth
     end
 
     #
+    # Creates a connector.  You can optionally specify an Id for the connector, if not provided one will be generated.
+    #
+    # @param connector_id [string] (Optional) The Id for the connector. If not provided a secure random UUID will be generated.
+    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the connector.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def create_connector(connector_id, request)
+      start.uri('/api/connector')
+          .url_segment(connector_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
     # Creates a user consent type. You can optionally specify an Id for the consent type, if not provided one will be generated.
     #
     # @param consent_id [string] (Optional) The Id for the consent. If not provided a secure random UUID will be generated.
@@ -208,6 +222,34 @@ module FusionAuth
     def create_family(family_id, request)
       start.uri('/api/user/family')
           .url_segment(family_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Creates a form.  You can optionally specify an Id for the form, if not provided one will be generated.
+    #
+    # @param form_id [string] (Optional) The Id for the form. If not provided a secure random UUID will be generated.
+    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the form.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def create_form(form_id, request)
+      start.uri('/api/form')
+          .url_segment(form_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Creates a form field.  You can optionally specify an Id for the form, if not provided one will be generated.
+    #
+    # @param field_id [string] (Optional) The Id for the form field. If not provided a secure random UUID will be generated.
+    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the form field.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def create_form_field(field_id, request)
+      start.uri('/api/form/field')
+          .url_segment(field_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
           .go()
@@ -465,6 +507,18 @@ module FusionAuth
     end
 
     #
+    # Deletes the connector for the given Id.
+    #
+    # @param connector_id [string] The Id of the connector to delete.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_connector(connector_id)
+      start.uri('/api/connector')
+          .url_segment(connector_id)
+          .delete()
+          .go()
+    end
+
+    #
     # Deletes the consent for the given Id.
     #
     # @param consent_id [string] The Id of the consent to delete.
@@ -484,6 +538,30 @@ module FusionAuth
     def delete_email_template(email_template_id)
       start.uri('/api/email/template')
           .url_segment(email_template_id)
+          .delete()
+          .go()
+    end
+
+    #
+    # Deletes the form for the given Id.
+    #
+    # @param form_id [string] The Id of the form to delete.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_form(form_id)
+      start.uri('/api/form')
+          .url_segment(form_id)
+          .delete()
+          .go()
+    end
+
+    #
+    # Deletes the form field for the given Id.
+    #
+    # @param field_id [string] The Id of the form field to delete.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_form_field(field_id)
+      start.uri('/api/form/field')
+          .url_segment(field_id)
           .delete()
           .go()
     end
@@ -1056,6 +1134,20 @@ module FusionAuth
     end
 
     #
+    # Updates, via PATCH, the connector with the given Id.
+    #
+    # @param connector_id [string] The Id of the connector to update.
+    # @param request [OpenStruct, Hash] The request that contains just the new connector information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def patch_connector(connector_id, request)
+      start.uri('/api/connector')
+          .url_segment(connector_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .patch()
+          .go()
+    end
+
+    #
     # Updates, via PATCH, the consent with the given Id.
     #
     # @param consent_id [string] The Id of the consent to update.
@@ -1456,6 +1548,28 @@ module FusionAuth
     end
 
     #
+    # Retrieves the connector with the given Id.
+    #
+    # @param connector_id [string] The Id of the connector.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_connector(connector_id)
+      start.uri('/api/connector')
+          .url_segment(connector_id)
+          .get()
+          .go()
+    end
+
+    #
+    # Retrieves all of the connectors.
+    #
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_connectors()
+      start.uri('/api/connector')
+          .get()
+          .go()
+    end
+
+    #
     # Retrieves the Consent for the given Id.
     #
     # @param consent_id [string] The Id of the consent.
@@ -1562,6 +1676,50 @@ module FusionAuth
     def retrieve_family_members_by_family_id(family_id)
       start.uri('/api/user/family')
           .url_segment(family_id)
+          .get()
+          .go()
+    end
+
+    #
+    # Retrieves the form with the given Id.
+    #
+    # @param form_id [string] The Id of the form.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_form(form_id)
+      start.uri('/api/form')
+          .url_segment(form_id)
+          .get()
+          .go()
+    end
+
+    #
+    # Retrieves the form field with the given Id.
+    #
+    # @param field_id [string] The Id of the form field.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_form_field(field_id)
+      start.uri('/api/form/field')
+          .url_segment(field_id)
+          .get()
+          .go()
+    end
+
+    #
+    # Retrieves all of the forms fields
+    #
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_form_fields()
+      start.uri('/api/form/field')
+          .get()
+          .go()
+    end
+
+    #
+    # Retrieves all of the forms.
+    #
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_forms()
+      start.uri('/api/form')
           .get()
           .go()
     end
@@ -2468,6 +2626,20 @@ module FusionAuth
     end
 
     #
+    # Updates the connector with the given Id.
+    #
+    # @param connector_id [string] The Id of the connector to update.
+    # @param request [OpenStruct, Hash] The request object that contains all of the new connector information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def update_connector(connector_id, request)
+      start.uri('/api/connector')
+          .url_segment(connector_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .put()
+          .go()
+    end
+
+    #
     # Updates the consent with the given Id.
     #
     # @param consent_id [string] The Id of the consent to update.
@@ -2490,6 +2662,34 @@ module FusionAuth
     def update_email_template(email_template_id, request)
       start.uri('/api/email/template')
           .url_segment(email_template_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .put()
+          .go()
+    end
+
+    #
+    # Updates the form with the given Id.
+    #
+    # @param form_id [string] The Id of the form to update.
+    # @param request [OpenStruct, Hash] The request object that contains all of the new form information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def update_form(form_id, request)
+      start.uri('/api/form')
+          .url_segment(form_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .put()
+          .go()
+    end
+
+    #
+    # Updates the form field with the given Id.
+    #
+    # @param field_id [string] The Id of the form field to update.
+    # @param request [OpenStruct, Hash] The request object that contains all of the new form field information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def update_form_field(field_id, request)
+      start.uri('/api/form/field')
+          .url_segment(field_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .put()
           .go()
