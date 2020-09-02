@@ -1472,6 +1472,21 @@ module FusionAuth
     end
 
     #
+    # Re-sends the verification email to the user. If the Application has configured a specific email template this will be used
+    # instead of the tenant configuration.
+    #
+    # @param application_id [string] The unique Application Id to used to resolve an application specific email template.
+    # @param email [string] The email address of the user that needs a new verification email.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def resend_email_verification_with_application_template(application_id, email)
+      start.uri('/api/user/verify-email')
+          .url_parameter('applicationId', application_id)
+          .url_parameter('email', email)
+          .put()
+          .go()
+    end
+
+    #
     # Re-sends the application registration verification email to the user.
     #
     # @param email [string] The email address of the user that needs a new verification email.
