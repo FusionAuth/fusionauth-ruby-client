@@ -16,7 +16,7 @@
 savantVersion = "1.0.0"
 
 pubVersion = ""
-project(group: "io.fusionauth", name: "fusionauth-ruby-client", version: "1.19.6", licenses: ["ApacheV2_0"]) {
+project(group: "io.fusionauth", name: "fusionauth-ruby-client", version: "1.19.7", licenses: ["ApacheV2_0"]) {
   workflow {
     standard()
   }
