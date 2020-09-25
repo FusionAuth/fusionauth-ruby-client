@@ -1115,6 +1115,23 @@ module FusionAuth
     end
 
     #
+    # Inspect an access token issued by FusionAuth.
+    #
+    # @param client_id [string] The unique client identifier. The client Id is the Id of the FusionAuth Application for which this token was generated.
+    # @param token [string] The access token returned by this OAuth provider as the result of a successful authentication.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def oauth2_introspect(client_id, token)
+      body = {
+        "client_id" => client_id,
+        "token" => token
+      }
+      startAnonymous.uri('/oauth2/introspect')
+          .body_handler(FusionAuth::FormDataBodyHandler.new(body))
+          .post()
+          .go()
+    end
+
+    #
     # Complete a login request using a passwordless code
     #
     # @param request [OpenStruct, Hash] The passwordless login request that contains all of the information used to complete login.
