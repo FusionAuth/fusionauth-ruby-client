@@ -940,8 +940,8 @@ module FusionAuth
     # @param encoded_jwt [string] The encoded JWT (access token).
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def generate_two_factor_secret_using_jwt(encoded_jwt)
-      start.uri('/api/two-factor/secret')
-          .authorization('JWT ' + encoded_jwt)
+      startAnonymous.uri('/api/two-factor/secret')
+          .authorization('Bearer ' + encoded_jwt)
           .get()
           .go()
     end
@@ -1043,8 +1043,8 @@ module FusionAuth
     #     tokens enabled in order to receive a refresh token in the response.</p>
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def issue_jwt(application_id, encoded_jwt, refresh_token)
-      start.uri('/api/jwt/issue')
-          .authorization('JWT ' + encoded_jwt)
+      startAnonymous.uri('/api/jwt/issue')
+          .authorization('Bearer ' + encoded_jwt)
           .url_parameter('applicationId', application_id)
           .url_parameter('refreshToken', refresh_token)
           .get()
@@ -2405,7 +2405,7 @@ module FusionAuth
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_user_using_jwt(encoded_jwt)
       startAnonymous.uri('/api/user')
-          .authorization('JWT ' + encoded_jwt)
+          .authorization('Bearer ' + encoded_jwt)
           .get()
           .go()
     end
@@ -2944,6 +2944,18 @@ module FusionAuth
     end
 
     #
+    # Call the UserInfo endpoint to retrieve User Claims from the access token issued by FusionAuth.
+    #
+    # @param encoded_jwt [string] The encoded JWT (access token).
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def user_info(encoded_jwt)
+      startAnonymous.uri('/oauth2/userinfo')
+          .authorization('Bearer ' + encoded_jwt)
+          .post()
+          .go()
+    end
+
+    #
     # Validates the end-user provided user_code from the user-interaction of the Device Authorization Grant.
     # If you build your own activation form you should validate the user provided code prior to beginning the Authorization grant.
     #
@@ -2968,7 +2980,7 @@ module FusionAuth
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def validate_jwt(encoded_jwt)
       startAnonymous.uri('/api/jwt/validate')
-          .authorization('JWT ' + encoded_jwt)
+          .authorization('Bearer ' + encoded_jwt)
           .get()
           .go()
     end
