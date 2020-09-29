@@ -2345,6 +2345,18 @@ module FusionAuth
     end
 
     #
+    # Call the UserInfo endpoint to retrieve User Claims from the access token issued by FusionAuth.
+    #
+    # @param encoded_jwt [string] The encoded JWT (access token).
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_user_info_from_access_token(encoded_jwt)
+      startAnonymous.uri('/oauth2/userinfo')
+          .authorization('Bearer ' + encoded_jwt)
+          .get()
+          .go()
+    end
+
+    #
     # Retrieves the login report between the two instants for a particular user by Id. If you specify an application id, it will only return the
     # login counts for that application.
     #
@@ -2940,18 +2952,6 @@ module FusionAuth
           .url_segment(webhook_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .put()
-          .go()
-    end
-
-    #
-    # Call the UserInfo endpoint to retrieve User Claims from the access token issued by FusionAuth.
-    #
-    # @param encoded_jwt [string] The encoded JWT (access token).
-    # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def user_info(encoded_jwt)
-      startAnonymous.uri('/oauth2/userinfo')
-          .authorization('Bearer ' + encoded_jwt)
-          .post()
           .go()
     end
 
