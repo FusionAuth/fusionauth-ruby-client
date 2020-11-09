@@ -779,7 +779,7 @@ module FusionAuth
 
     #
     # Exchanges an OAuth authorization code for an access token.
-    # If you will be using the Authorization Code grant, you will make a request to the Token endpoint to exchange the authorization code returned from the Authorize endpoint for an access token.
+    # Makes a request to the Token endpoint to exchange the authorization code returned from the Authorize endpoint for an access token.
     #
     # @param code [string] The authorization code returned on the /oauth2/authorize response.
     # @param client_id [string] The unique client identifier. The client Id is the Id of the FusionAuth Application in which you you are attempting to authenticate.
@@ -793,6 +793,31 @@ module FusionAuth
         "client_secret" => client_secret,
         "grant_type" => "authorization_code",
         "redirect_uri" => redirect_uri
+      }
+      startAnonymous.uri('/oauth2/token')
+          .body_handler(FusionAuth::FormDataBodyHandler.new(body))
+          .post()
+          .go()
+    end
+
+    #
+    # Exchanges an OAuth authorization code and code_verifier for an access token.
+    # Makes a request to the Token endpoint to exchange the authorization code returned from the Authorize endpoint and a code_verifier for an access token.
+    #
+    # @param code [string] The authorization code returned on the /oauth2/authorize response.
+    # @param client_id [string] (Optional) The unique client identifier. The client Id is the Id of the FusionAuth Application in which you you are attempting to authenticate. This parameter is optional when the Authorization header is provided.
+    # @param client_secret [string] (Optional) The client secret. This value may optionally be provided in the request body instead of the Authorization header.
+    # @param redirect_uri [string] The URI to redirect to upon a successful request.
+    # @param code_verifier [string] The random string generated previously. Will be compared with the code_challenge sent previously, which allows the OAuth provider to authenticate your app.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def exchange_o_auth_code_for_access_token_using_pkce(code, client_id, client_secret, redirect_uri, code_verifier)
+      body = {
+        "code" => code,
+        "client_id" => client_id,
+        "client_secret" => client_secret,
+        "grant_type" => "authorization_code",
+        "redirect_uri" => redirect_uri,
+        "code_verifier" => code_verifier
       }
       startAnonymous.uri('/oauth2/token')
           .body_handler(FusionAuth::FormDataBodyHandler.new(body))
