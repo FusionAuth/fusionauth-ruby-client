@@ -310,6 +310,20 @@ module FusionAuth
     end
 
     #
+    # Creates an message template. You can optionally specify an Id for the template, if not provided one will be generated.
+    #
+    # @param message_template_id [string] (Optional) The Id for the template. If not provided a secure random UUID will be generated.
+    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the message template.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def create_message_template(message_template_id, request)
+      start.uri('/api/message/template')
+          .url_segment(message_template_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
     # Creates a tenant. You can optionally specify an Id for the tenant, if not provided one will be generated.
     #
     # @param tenant_id [string] (Optional) The Id for the tenant. If not provided a secure random UUID will be generated.
@@ -622,6 +636,18 @@ module FusionAuth
     def delete_lambda(lambda_id)
       start.uri('/api/lambda')
           .url_segment(lambda_id)
+          .delete()
+          .go()
+    end
+
+    #
+    # Deletes the message template for the given Id.
+    #
+    # @param message_template_id [string] The Id of the message template to delete.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_message_template(message_template_id)
+      start.uri('/api/message/template')
+          .url_segment(message_template_id)
           .delete()
           .go()
     end
@@ -1290,6 +1316,20 @@ module FusionAuth
     def patch_lambda(lambda_id, request)
       start.uri('/api/lambda')
           .url_segment(lambda_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .patch()
+          .go()
+    end
+
+    #
+    # Updates, via PATCH, the message template with the given Id.
+    #
+    # @param message_template_id [string] The Id of the message template to update.
+    # @param request [OpenStruct, Hash] The request that contains just the new message template information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def patch_message_template(message_template_id, request)
+      start.uri('/api/message/template')
+          .url_segment(message_template_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .patch()
           .go()
@@ -2008,6 +2048,28 @@ module FusionAuth
           .url_parameter('applicationId', application_id)
           .url_parameter('start', start)
           .url_parameter('end', _end)
+          .get()
+          .go()
+    end
+
+    #
+    # Retrieves the message template for the given Id. If you don't specify the id, this will return all of the message templates.
+    #
+    # @param message_template_id [string] (Optional) The Id of the message template.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_message_template(message_template_id)
+      start.uri('/api/message/template')
+          .url_segment(message_template_id)
+          .get()
+          .go()
+    end
+
+    #
+    # Retrieves all of the message templates.
+    #
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_message_templates()
+      start.uri('/api/message/template')
           .get()
           .go()
     end
@@ -2851,6 +2913,20 @@ module FusionAuth
     def update_lambda(lambda_id, request)
       start.uri('/api/lambda')
           .url_segment(lambda_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .put()
+          .go()
+    end
+
+    #
+    # Updates the message template with the given Id.
+    #
+    # @param message_template_id [string] The Id of the message template to update.
+    # @param request [OpenStruct, Hash] The request that contains all of the new message template information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def update_message_template(message_template_id, request)
+      start.uri('/api/message/template')
+          .url_segment(message_template_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .put()
           .go()

@@ -9,7 +9,5 @@
     <orderEntry type="jdk" jdkName="rbenv: 2.5.1" jdkType="RUBY_SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="bundler (v2.1.4, rbenv: 2.5.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="minitest (v5.8.3, rbenv: 2.5.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="rake (v12.3.3, rbenv: 2.5.1) [gem]" level="application" />
   </component>
 </module>
