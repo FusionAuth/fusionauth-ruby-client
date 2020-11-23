@@ -2065,6 +2065,18 @@ module FusionAuth
     end
 
     #
+    # Creates a preview of the message template provided in the request, normalized to a given locale.
+    #
+    # @param request [OpenStruct, Hash] The request that contains the email template and optionally a locale to render it in.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_message_template_preview(request)
+      start.uri('/api/message/template/preview')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
     # Retrieves all of the message templates.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
