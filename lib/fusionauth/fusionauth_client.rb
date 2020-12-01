@@ -653,6 +653,20 @@ module FusionAuth
     end
 
     #
+    # Deletes the tenant for the given Id asynchronously.
+    # This method is helpful if you do not want to wait for the delete operation to complete.
+    #
+    # @param tenant_id [string] The Id of the tenant to delete.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_tenant_async(tenant_id)
+      start.uri('/api/tenant')
+          .url_segment(tenant_id)
+          .url_parameter('async', true)
+          .delete()
+          .go()
+    end
+
+    #
     # Deletes the theme for the given Id.
     #
     # @param theme_id [string] The Id of the theme to delete.
