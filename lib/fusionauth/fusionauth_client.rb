@@ -2120,6 +2120,18 @@ module FusionAuth
     end
 
     #
+    # Retrieves a single refresh token by unique Id. This is not the same thing as the string value of the refresh token, if you have that, you already have what you need..
+    #
+    # @param user_id [string] The Id of the user.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_refresh_token_by_id(user_id)
+      start.uri('/api/jwt/refresh')
+          .url_segment(user_id)
+          .get()
+          .go()
+    end
+
+    #
     # Retrieves the refresh tokens that belong to the user with the given Id.
     #
     # @param user_id [string] The Id of the user.
