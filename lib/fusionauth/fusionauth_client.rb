@@ -1844,11 +1844,25 @@ module FusionAuth
     #
     # Retrieves the identity provider for the given id or all of the identity providers if the id is null.
     #
-    # @param identity_provider_id [string] (Optional) The identity provider id.
+    # @param identity_provider_id [string] The identity provider Id.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_identity_provider(identity_provider_id)
       start.uri('/api/identity-provider')
           .url_segment(identity_provider_id)
+          .get()
+          .go()
+    end
+
+    #
+    # Retrieves one or more identity provider for the given type. For types such as Google, Facebook, Twitter and LinkedIn, only a single 
+    # identity provider can exist. For types such as OpenID Connect and SAMLv2 more than one identity provider can be configured so this request 
+    # may return multiple identity providers.
+    #
+    # @param type [OpenStruct, Hash] The type of the identity provider.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_identity_provider_by_type(type)
+      start.uri('/api/identity-provider')
+          .url_parameter('type', type)
           .get()
           .go()
     end
