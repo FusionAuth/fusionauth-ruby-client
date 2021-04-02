@@ -56,6 +56,20 @@ module FusionAuth
     end
 
     #
+    # Activates the FusionAuth Reactor using a license id and optionally a license text (for air-gapped deployments)
+    #
+    # @param license_id [string] The license id
+    # @param request [OpenStruct, Hash] An optional request that contains the license text to activate Reactor (useful for air-gap deployments of FusionAuth).
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def activate_reactor(license_id, request)
+      start.uri('/api/reactor')
+          .url_segment(license_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
     # Adds a user to an existing family. The family id must be specified.
     #
     # @param family_id [string] The id of the family.
@@ -207,6 +221,52 @@ module FusionAuth
     def create_email_template(email_template_id, request)
       start.uri('/api/email/template')
           .url_segment(email_template_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Creates an Entity. You can optionally specify an Id for the Entity. If not provided one will be generated.
+    #
+    # @param entity_id [string] (Optional) The Id for the Entity. If not provided a secure random UUID will be generated.
+    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the Entity.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def create_entity(entity_id, request)
+      start.uri('/api/entity')
+          .url_segment(entity_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Creates a Entity Type. You can optionally specify an Id for the Entity Type, if not provided one will be generated.
+    #
+    # @param entity_type_id [string] (Optional) The Id for the Entity Type. If not provided a secure random UUID will be generated.
+    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the Entity Type.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def create_entity_type(entity_type_id, request)
+      start.uri('/api/entity/type')
+          .url_segment(entity_type_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Creates a new permission for an entity type. You must specify the id of the entity type you are creating the permission for.
+    # You can optionally specify an Id for the permission inside the EntityTypePermission object itself, if not provided one will be generated.
+    #
+    # @param entity_type_id [string] The Id of the entity type to create the permission on.
+    # @param permission_id [string] (Optional) The Id of the permission. If not provided a secure random UUID will be generated.
+    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the permission.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def create_entity_type_permission(entity_type_id, permission_id, request)
+      start.uri('/api/entity/type')
+          .url_segment(entity_type_id)
+          .url_segment("permission")
+          .url_segment(permission_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
           .go()
@@ -422,6 +482,16 @@ module FusionAuth
     end
 
     #
+    # Deactivates the FusionAuth Reactor.
+    #
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def deactivate_reactor()
+      start.uri('/api/reactor')
+          .delete()
+          .go()
+    end
+
+    #
     # Deactivates the user with the given Id.
     #
     # @param user_id [string] The Id of the user to deactivate.
@@ -538,6 +608,46 @@ module FusionAuth
     def delete_email_template(email_template_id)
       start.uri('/api/email/template')
           .url_segment(email_template_id)
+          .delete()
+          .go()
+    end
+
+    #
+    # Deletes the Entity for the given Id.
+    #
+    # @param entity_id [string] The Id of the Entity to delete.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_entity(entity_id)
+      start.uri('/api/entity')
+          .url_segment(entity_id)
+          .delete()
+          .go()
+    end
+
+    #
+    # Deletes the Entity Type for the given Id.
+    #
+    # @param entity_type_id [string] The Id of the Entity Type to delete.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_entity_type(entity_type_id)
+      start.uri('/api/entity/type')
+          .url_segment(entity_type_id)
+          .delete()
+          .go()
+    end
+
+    #
+    # Hard deletes a permission. This is a dangerous operation and should not be used in most circumstances. This
+    # permanently removes the given permission from all grants that had it.
+    #
+    # @param entity_type_id [string] The Id of the entityType the the permission belongs to.
+    # @param permission_id [string] The Id of the permission to delete.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_entity_type_permission(entity_type_id, permission_id)
+      start.uri('/api/entity/type')
+          .url_segment(entity_type_id)
+          .url_segment("permission")
+          .url_segment(permission_id)
           .delete()
           .go()
     end
@@ -1256,6 +1366,20 @@ module FusionAuth
     end
 
     #
+    # Updates, via PATCH, the Entity Type with the given Id.
+    #
+    # @param entity_type_id [string] The Id of the Entity Type to update.
+    # @param request [OpenStruct, Hash] The request that contains just the new Entity Type information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def patch_entity_type(entity_type_id, request)
+      start.uri('/api/entity/type')
+          .url_segment(entity_type_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .patch()
+          .go()
+    end
+
+    #
     # Updates, via PATCH, the group with the given Id.
     #
     # @param group_id [string] The Id of the group to update.
@@ -1471,6 +1595,19 @@ module FusionAuth
     end
 
     #
+    # Request a refresh of the Entity search index. This API is not generally necessary and the search index will become consistent in a
+    # reasonable amount of time. There may be scenarios where you may wish to manually request an index refresh. One example may be 
+    # if you are using the Search API or Delete Tenant API immediately following a Entity Create etc, you may wish to request a refresh to
+    #  ensure the index immediately current before making a query request to the search index.
+    #
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def refresh_entity_search_index()
+      start.uri('/api/entity/search')
+          .put()
+          .go()
+    end
+
+    #
     # Request a refresh of the User search index. This API is not generally necessary and the search index will become consistent in a
     # reasonable amount of time. There may be scenarios where you may wish to manually request an index refresh. One example may be 
     # if you are using the Search API or Delete Tenant API immediately following a User Create etc, you may wish to request a refresh to
@@ -1479,6 +1616,16 @@ module FusionAuth
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def refresh_user_search_index()
       start.uri('/api/user/search')
+          .put()
+          .go()
+    end
+
+    #
+    # Regenerates any keys that are used by the FusionAuth Reactor.
+    #
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def regenerate_reactor_keys()
+      start.uri('/api/reactor')
           .put()
           .go()
     end
@@ -1735,6 +1882,40 @@ module FusionAuth
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_email_templates()
       start.uri('/api/email/template')
+          .get()
+          .go()
+    end
+
+    #
+    # Retrieves the Entity for the given Id.
+    #
+    # @param entity_id [string] The Id of the Entity.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_entity(entity_id)
+      start.uri('/api/entity')
+          .url_segment(entity_id)
+          .get()
+          .go()
+    end
+
+    #
+    # Retrieves the Entity Type for the given Id.
+    #
+    # @param entity_type_id [string] The Id of the Entity Type.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_entity_type(entity_type_id)
+      start.uri('/api/entity/type')
+          .url_segment(entity_type_id)
+          .get()
+          .go()
+    end
+
+    #
+    # Retrieves all of the Entity Types.
+    #
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_entity_types()
+      start.uri('/api/entity/type')
           .get()
           .go()
     end
@@ -2115,6 +2296,16 @@ module FusionAuth
     def retrieve_pending_children(parent_email)
       start.uri('/api/user/family/pending')
           .url_parameter('parentEmail', parent_email)
+          .get()
+          .go()
+    end
+
+    #
+    # Retrieves the FusionAuth Reactor status.
+    #
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_reactor_status()
+      start.uri('/api/reactor')
           .get()
           .go()
     end
@@ -2635,6 +2826,42 @@ module FusionAuth
     end
 
     #
+    # Searches entities with the specified criteria and pagination.
+    #
+    # @param request [OpenStruct, Hash] The search criteria and pagination information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_entities(request)
+      start.uri('/api/entity/search')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Retrieves the entities for the given ids. If any id is invalid, it is ignored.
+    #
+    # @param ids [Array] The entity ids to search for.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_entities_by_ids(ids)
+      start.uri('/api/entity/search')
+          .url_parameter('ids', ids)
+          .get()
+          .go()
+    end
+
+    #
+    # Searches the entity types with the specified criteria and pagination.
+    #
+    # @param request [OpenStruct, Hash] The search criteria and pagination information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_entity_types(request)
+      start.uri('/api/entity/type/search')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
     # Searches the event logs with the specified criteria and pagination.
     #
     # @param request [OpenStruct, Hash] The search criteria and pagination information.
@@ -2879,6 +3106,51 @@ module FusionAuth
     def update_email_template(email_template_id, request)
       start.uri('/api/email/template')
           .url_segment(email_template_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .put()
+          .go()
+    end
+
+    #
+    # Updates the Entity with the given Id.
+    #
+    # @param entity_id [string] The Id of the Entity to update.
+    # @param request [OpenStruct, Hash] The request that contains all of the new Entity information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def update_entity(entity_id, request)
+      start.uri('/api/entity')
+          .url_segment(entity_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .put()
+          .go()
+    end
+
+    #
+    # Updates the Entity Type with the given Id.
+    #
+    # @param entity_type_id [string] The Id of the Entity Type to update.
+    # @param request [OpenStruct, Hash] The request that contains all of the new Entity Type information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def update_entity_type(entity_type_id, request)
+      start.uri('/api/entity/type')
+          .url_segment(entity_type_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .put()
+          .go()
+    end
+
+    #
+    # Updates the permission with the given id for the entity type.
+    #
+    # @param entity_type_id [string] The Id of the entityType that the permission belongs to.
+    # @param permission_id [string] The Id of the permission to update.
+    # @param request [OpenStruct, Hash] The request that contains all of the new permission information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def update_entity_type_permission(entity_type_id, permission_id, request)
+      start.uri('/api/entity/type')
+          .url_segment(entity_type_id)
+          .url_segment("permission")
+          .url_segment(permission_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .put()
           .go()
