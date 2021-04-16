@@ -370,6 +370,34 @@ module FusionAuth
     end
 
     #
+    # Creates an message template. You can optionally specify an Id for the template, if not provided one will be generated.
+    #
+    # @param message_template_id [string] (Optional) The Id for the template. If not provided a secure random UUID will be generated.
+    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the message template.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def create_message_template(message_template_id, request)
+      start.uri('/api/message/template')
+          .url_segment(message_template_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Creates a messenger.  You can optionally specify an Id for the messenger, if not provided one will be generated.
+    #
+    # @param messenger_id [string] (Optional) The Id for the messenger. If not provided a secure random UUID will be generated.
+    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the messenger.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def create_messenger(messenger_id, request)
+      start.uri('/api/messenger')
+          .url_segment(messenger_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
     # Creates a tenant. You can optionally specify an Id for the tenant, if not provided one will be generated.
     #
     # @param tenant_id [string] (Optional) The Id for the tenant. If not provided a secure random UUID will be generated.
@@ -737,6 +765,30 @@ module FusionAuth
     end
 
     #
+    # Deletes the message template for the given Id.
+    #
+    # @param message_template_id [string] The Id of the message template to delete.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_message_template(message_template_id)
+      start.uri('/api/message/template')
+          .url_segment(message_template_id)
+          .delete()
+          .go()
+    end
+
+    #
+    # Deletes the messenger for the given Id.
+    #
+    # @param messenger_id [string] The Id of the messenger to delete.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_messenger(messenger_id)
+      start.uri('/api/messenger')
+          .url_segment(messenger_id)
+          .delete()
+          .go()
+    end
+
+    #
     # Deletes the user registration for the given user and application.
     #
     # @param user_id [string] The Id of the user whose registration is being deleted.
@@ -877,11 +929,13 @@ module FusionAuth
     # Disable Two Factor authentication for a user.
     #
     # @param user_id [string] The Id of the User for which you're disabling Two Factor authentication.
+    # @param method_id [string] The two-factor method identifier you wish to disable
     # @param code [string] The Two Factor code used verify the the caller knows the Two Factor secret.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def disable_two_factor(user_id, code)
+    def disable_two_factor(user_id, method_id, code)
       start.uri('/api/user/two-factor')
           .url_parameter('userId', user_id)
+          .url_parameter('methodId', method_id)
           .url_parameter('code', code)
           .delete()
           .go()
@@ -1066,6 +1120,18 @@ module FusionAuth
           .url_parameter('sendVerifyPasswordEmail', false)
           .url_parameter('applicationId', application_id)
           .put()
+          .go()
+    end
+
+    #
+    # Generate two-factor recovery codes for a user. Generating two-factor recovery codes will invalidate any existing recovery codes. 
+    #
+    # @param user_id [string] The Id of the user to generate new Two Factor recovery codes.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def generate_two_factor_recovery_codes(user_id)
+      start.uri('/api/user/two-factor/recovery-code')
+          .url_segment(user_id)
+          .post()
           .go()
     end
 
@@ -1428,6 +1494,34 @@ module FusionAuth
     def patch_lambda(lambda_id, request)
       start.uri('/api/lambda')
           .url_segment(lambda_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .patch()
+          .go()
+    end
+
+    #
+    # Updates, via PATCH, the message template with the given Id.
+    #
+    # @param message_template_id [string] The Id of the message template to update.
+    # @param request [OpenStruct, Hash] The request that contains just the new message template information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def patch_message_template(message_template_id, request)
+      start.uri('/api/message/template')
+          .url_segment(message_template_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .patch()
+          .go()
+    end
+
+    #
+    # Updates, via PATCH, the messenger with the given Id.
+    #
+    # @param messenger_id [string] The Id of the messenger to update.
+    # @param request [OpenStruct, Hash] The request that contains just the new messenger information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def patch_messenger(messenger_id, request)
+      start.uri('/api/messenger')
+          .url_segment(messenger_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .patch()
           .go()
@@ -2222,6 +2316,62 @@ module FusionAuth
     end
 
     #
+    # Retrieves the message template for the given Id. If you don't specify the id, this will return all of the message templates.
+    #
+    # @param message_template_id [string] (Optional) The Id of the message template.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_message_template(message_template_id)
+      start.uri('/api/message/template')
+          .url_segment(message_template_id)
+          .get()
+          .go()
+    end
+
+    #
+    # Creates a preview of the message template provided in the request, normalized to a given locale.
+    #
+    # @param request [OpenStruct, Hash] The request that contains the email template and optionally a locale to render it in.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_message_template_preview(request)
+      start.uri('/api/message/template/preview')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Retrieves all of the message templates.
+    #
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_message_templates()
+      start.uri('/api/message/template')
+          .get()
+          .go()
+    end
+
+    #
+    # Retrieves the messenger with the given Id.
+    #
+    # @param messenger_id [string] The Id of the messenger.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_messenger(messenger_id)
+      start.uri('/api/messenger')
+          .url_segment(messenger_id)
+          .get()
+          .go()
+    end
+
+    #
+    # Retrieves all of the messengers.
+    #
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_messengers()
+      start.uri('/api/messenger')
+          .get()
+          .go()
+    end
+
+    #
     # Retrieves the monthly active user report between the two instants. If you specify an application id, it will only
     # return the monthly active counts for that application.
     #
@@ -2440,6 +2590,18 @@ module FusionAuth
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_total_report()
       start.uri('/api/report/totals')
+          .get()
+          .go()
+    end
+
+    #
+    # Retrieve two-factor recovery codes for a user.
+    #
+    # @param user_id [string] The Id of the user to retrieve Two Factor recovery codes.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_two_factor_recovery_codes(user_id)
+      start.uri('/api/user/two-factor/recovery-code')
+          .url_segment(user_id)
           .get()
           .go()
     end
@@ -2981,7 +3143,20 @@ module FusionAuth
     #
     # @param request [OpenStruct, Hash] The request object that contains all of the information used to send the code.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    # @deprecated This method has been renamed to send_two_factor_code_for_enable_disable, use that method instead.
     def send_two_factor_code(request)
+      start.uri('/api/two-factor/send')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Send a Two Factor authentication code to assist in setting up Two Factor authentication or disabling.
+    #
+    # @param request [OpenStruct, Hash] The request object that contains all of the information used to send the code.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def send_two_factor_code_for_enable_disable(request)
       start.uri('/api/two-factor/send')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
@@ -2993,9 +3168,24 @@ module FusionAuth
     #
     # @param two_factor_id [string] The Id returned by the Login API necessary to complete Two Factor authentication.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    # @deprecated This method has been renamed to send_two_factor_code_for_login_using_method, use that method instead.
     def send_two_factor_code_for_login(two_factor_id)
       startAnonymous.uri('/api/two-factor/send')
           .url_segment(two_factor_id)
+          .post()
+          .go()
+    end
+
+    #
+    # Send a Two Factor authentication code to allow the completion of Two Factor authentication.
+    #
+    # @param two_factor_id [string] The Id returned by the Login API necessary to complete Two Factor authentication.
+    # @param request [OpenStruct, Hash] The Two Factor send request that contains all of the information used to send the Two Factor code to the user.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def send_two_factor_code_for_login_using_method(two_factor_id, request)
+      startAnonymous.uri('/api/two-factor/send')
+          .url_segment(two_factor_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
           .go()
     end
@@ -3021,6 +3211,23 @@ module FusionAuth
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def start_passwordless_login(request)
       start.uri('/api/passwordless/start')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Start a Two-Factor login request by generating a two-factor identifier. This code can then be sent to the Two Factor Send 
+    # API (/api/two-factor/send)in order to send a one-time use code to a user. You can also use one-time use code returned 
+    # to send the code out-of-band. The Two-Factor login is completed by making a request to the Two-Factor Login 
+    # API (/api/two-factor/login). with the two-factor identifier and the one-time use code.
+    # 
+    # This API is intended to allow you to begin a Two-Factor login outside of a normal login that originated from the Login API (/api/login).
+    #
+    # @param request [OpenStruct, Hash] The Two-Factor start request that contains all of the information used to begin the Two-Factor login request.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def start_two_factor_login(request)
+      start.uri('/api/two-factor/start')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
           .go()
@@ -3247,6 +3454,34 @@ module FusionAuth
     def update_lambda(lambda_id, request)
       start.uri('/api/lambda')
           .url_segment(lambda_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .put()
+          .go()
+    end
+
+    #
+    # Updates the message template with the given Id.
+    #
+    # @param message_template_id [string] The Id of the message template to update.
+    # @param request [OpenStruct, Hash] The request that contains all of the new message template information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def update_message_template(message_template_id, request)
+      start.uri('/api/message/template')
+          .url_segment(message_template_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .put()
+          .go()
+    end
+
+    #
+    # Updates the messenger with the given Id.
+    #
+    # @param messenger_id [string] The Id of the messenger to update.
+    # @param request [OpenStruct, Hash] The request object that contains all of the new messenger information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def update_messenger(messenger_id, request)
+      start.uri('/api/messenger')
+          .url_segment(messenger_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .put()
           .go()
