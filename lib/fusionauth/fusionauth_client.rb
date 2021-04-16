@@ -653,6 +653,23 @@ module FusionAuth
     end
 
     #
+    # Deletes an Entity Grant for the given User or Entity.
+    #
+    # @param entity_id [string] The Id of the Entity that the Entity Grant is being deleted for.
+    # @param recipient_entity_id [string] (Optional) The Id of the Entity that the Entity Grant is for.
+    # @param user_id [string] (Optional) The Id of the User that the Entity Grant is for.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_entity_grant(entity_id, recipient_entity_id, user_id)
+      start.uri('/api/entity')
+          .url_segment(entity_id)
+          .url_segment("grant")
+          .url_parameter('recipientEntityId', recipient_entity_id)
+          .url_parameter('userId', user_id)
+          .delete()
+          .go()
+    end
+
+    #
     # Deletes the Entity Type for the given Id.
     #
     # @param entity_type_id [string] The Id of the Entity Type to delete.
@@ -1993,6 +2010,23 @@ module FusionAuth
     end
 
     #
+    # Retrieves an Entity Grant for the given Entity and User/Entity.
+    #
+    # @param entity_id [string] The Id of the Entity.
+    # @param recipient_entity_id [string] (Optional) The Id of the Entity that the Entity Grant is for.
+    # @param user_id [string] (Optional) The Id of the User that the Entity Grant is for.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_entity_grant(entity_id, recipient_entity_id, user_id)
+      start.uri('/api/entity')
+          .url_segment(entity_id)
+          .url_segment("grant")
+          .url_parameter('recipientEntityId', recipient_entity_id)
+          .url_parameter('userId', user_id)
+          .get()
+          .go()
+    end
+
+    #
     # Retrieves the Entity Type for the given Id.
     #
     # @param entity_type_id [string] The Id of the Entity Type.
@@ -3012,6 +3046,18 @@ module FusionAuth
     end
 
     #
+    # Searches Entity Grants with the specified criteria and pagination.
+    #
+    # @param request [OpenStruct, Hash] The search criteria and pagination information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_entity_grants(request)
+      start.uri('/api/entity/grant/search')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
     # Searches the entity types with the specified criteria and pagination.
     #
     # @param request [OpenStruct, Hash] The search criteria and pagination information.
@@ -3608,6 +3654,21 @@ module FusionAuth
           .url_segment(webhook_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .put()
+          .go()
+    end
+
+    #
+    # Creates or updates an Entity Grant. This is when a User/Entity is granted permissions to an Entity.
+    #
+    # @param entity_id [string] The Id of the Entity that the User/Entity is being granted access to.
+    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the Entity Grant.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def upsert_entity_grant(entity_id, request)
+      start.uri('/api/entity')
+          .url_segment(entity_id)
+          .url_segment("grant")
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
           .go()
     end
 
