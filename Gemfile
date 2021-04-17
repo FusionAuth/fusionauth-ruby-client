@@ -15,6 +15,7 @@
 source 'https://rubygems.org'
 ruby '2.5.1'
 
+gem "bundler",  "2.2.5"
 gem "rake",  "12.3.3"
 gem "minitest",  "5.8.3"
 
