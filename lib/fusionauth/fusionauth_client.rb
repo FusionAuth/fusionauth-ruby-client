@@ -139,6 +139,24 @@ module FusionAuth
     end
 
     #
+    # Creates an API key. You can optionally specify a unique Id for the key, if not provided one will be generated.
+    # an API key can only be created with equal or lesser authority. An API key cannot create another API key unless it is granted 
+    # to that API key.
+    # 
+    # If an API key is locked to a tenant, it can only create API Keys for that same tenant.
+    #
+    # @param key_id [string] (Optional) The unique Id of the API key. If not provided a secure random Id will be generated.
+    # @param request [OpenStruct, Hash] The request object that contains all of the information needed to create the APIKey.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def create_api_key(key_id, request)
+      start.uri('/api/api-key')
+          .url_segment(key_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
     # Creates an application. You can optionally specify an Id for the application, if not provided one will be generated.
     #
     # @param application_id [string] (Optional) The Id to use for the application. If not provided a secure random UUID will be generated.
@@ -568,6 +586,18 @@ module FusionAuth
           .url_parameter('userId', user_ids)
           .url_parameter('dryRun', false)
           .url_parameter('hardDelete', false)
+          .delete()
+          .go()
+    end
+
+    #
+    # Deletes the API key for the given Id.
+    #
+    # @param key_id [string] The Id of the authentication API key to delete.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_api_key(key_id)
+      start.uri('/api/api-key')
+          .url_segment(key_id)
           .delete()
           .go()
     end
@@ -1376,6 +1406,20 @@ module FusionAuth
     end
 
     #
+    # Updates an authentication API key by given id
+    #
+    # @param key_id [string] The Id of the authentication key. If not provided a secure random api key will be generated.
+    # @param request [OpenStruct, Hash] The request object that contains all of the information needed to create the APIKey.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def patch_api_key(key_id, request)
+      start.uri('/api/api-key')
+          .url_segment(key_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
     # Updates, via PATCH, the application with the given Id.
     #
     # @param application_id [string] The Id of the application to update.
@@ -1811,6 +1855,18 @@ module FusionAuth
           .url_parameter('email', email)
           .url_parameter('applicationId', application_id)
           .put()
+          .go()
+    end
+
+    #
+    # Retrieves an authentication API key for the given id
+    #
+    # @param key_id [string] The Id of the API key to retrieve.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_api_key(key_id)
+      start.uri('/api/api-key')
+          .url_segment(key_id)
+          .get()
           .go()
     end
 
@@ -3288,6 +3344,20 @@ module FusionAuth
       startAnonymous.uri('/api/two-factor/login')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
+          .go()
+    end
+
+    #
+    # Updates an API key by given id
+    #
+    # @param api_key_id [string] The Id of the API key to update.
+    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the API Key.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def update_api_key(api_key_id, request)
+      start.uri('/api/api-key')
+          .url_segment(api_key_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .put()
           .go()
     end
 
