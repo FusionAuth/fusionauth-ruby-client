@@ -3777,9 +3777,27 @@ module FusionAuth
     #
     # @param verification_id [string] The email verification id sent to the user.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    # @deprecated This method has been renamed to verify_email_address and changed to take a JSON request body, use that method instead.
     def verify_email(verification_id)
       startAnonymous.uri('/api/user/verify-email')
           .url_segment(verification_id)
+          .post()
+          .go()
+    end
+
+    #
+    # Confirms a user's email address. 
+    # 
+    # The request body will contain the verificationId. You may also be required to send a one-time use code based upon your configuration. When 
+    # the tenant is configured to gate a user until their email address is verified, this procedures requires two values instead of one. 
+    # The verificationId is a high entropy value and the one-time use code is a low entropy value that is easily entered in a user interactive form. The 
+    # two values together are able to confirm a user's email address and mark the user's email address as verified.
+    #
+    # @param request [OpenStruct, Hash] The request that contains the verificationId and optional one-time use code paired with the verificationId.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def verify_email_address(request)
+      startAnonymous.uri('/api/user/verify-email')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
           .go()
     end
