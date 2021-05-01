@@ -2931,6 +2931,16 @@ module FusionAuth
     end
 
     #
+    # Retrieves the FusionAuth version string.
+    #
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_version()
+      start.uri('/api/system/version')
+          .get()
+          .go()
+    end
+
+    #
     # Retrieves the webhook for the given Id. If you pass in null for the id, this will return all the webhooks.
     #
     # @param webhook_id [string] (Optional) The Id of the webhook.
