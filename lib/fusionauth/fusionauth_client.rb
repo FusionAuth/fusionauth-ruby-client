@@ -3817,9 +3817,27 @@ module FusionAuth
     #
     # @param verification_id [string] The registration verification Id sent to the user.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    # @deprecated This method has been renamed to verify_user_registration and changed to take a JSON request body, use that method instead.
     def verify_registration(verification_id)
       startAnonymous.uri('/api/user/verify-registration')
           .url_segment(verification_id)
+          .post()
+          .go()
+    end
+
+    #
+    # Confirms a user's registration. 
+    # 
+    # The request body will contain the verificationId. You may also be required to send a one-time use code based upon your configuration. When 
+    # the application is configured to gate a user until their registration is verified, this procedures requires two values instead of one. 
+    # The verificationId is a high entropy value and the one-time use code is a low entropy value that is easily entered in a user interactive form. The 
+    # two values together are able to confirm a user's registration and mark the user's registration as verified.
+    #
+    # @param request [OpenStruct, Hash] The request that contains the verificationId and optional one-time use code paired with the verificationId.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def verify_user_registration(request)
+      startAnonymous.uri('/api/user/verify-registration')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
           .go()
     end
