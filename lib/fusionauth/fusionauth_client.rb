@@ -58,12 +58,10 @@ module FusionAuth
     #
     # Activates the FusionAuth Reactor using a license id and optionally a license text (for air-gapped deployments)
     #
-    # @param license_id [string] The license id
     # @param request [OpenStruct, Hash] An optional request that contains the license text to activate Reactor (useful for air-gap deployments of FusionAuth).
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def activate_reactor(license_id, request)
+    def activate_reactor(request)
       start.uri('/api/reactor')
-          .url_segment(license_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
           .go()
@@ -2931,6 +2929,16 @@ module FusionAuth
     end
 
     #
+    # Retrieves the FusionAuth version string.
+    #
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_version()
+      start.uri('/api/system/version')
+          .get()
+          .go()
+    end
+
+    #
     # Retrieves the webhook for the given Id. If you pass in null for the id, this will return all the webhooks.
     #
     # @param webhook_id [string] (Optional) The Id of the webhook.
@@ -3777,9 +3785,27 @@ module FusionAuth
     #
     # @param verification_id [string] The email verification id sent to the user.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    # @deprecated This method has been renamed to verify_email_address and changed to take a JSON request body, use that method instead.
     def verify_email(verification_id)
       startAnonymous.uri('/api/user/verify-email')
           .url_segment(verification_id)
+          .post()
+          .go()
+    end
+
+    #
+    # Confirms a user's email address. 
+    # 
+    # The request body will contain the verificationId. You may also be required to send a one-time use code based upon your configuration. When 
+    # the tenant is configured to gate a user until their email address is verified, this procedures requires two values instead of one. 
+    # The verificationId is a high entropy value and the one-time use code is a low entropy value that is easily entered in a user interactive form. The 
+    # two values together are able to confirm a user's email address and mark the user's email address as verified.
+    #
+    # @param request [OpenStruct, Hash] The request that contains the verificationId and optional one-time use code paired with the verificationId.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def verify_email_address(request)
+      startAnonymous.uri('/api/user/verify-email')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
           .go()
     end
@@ -3789,9 +3815,27 @@ module FusionAuth
     #
     # @param verification_id [string] The registration verification Id sent to the user.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    # @deprecated This method has been renamed to verify_user_registration and changed to take a JSON request body, use that method instead.
     def verify_registration(verification_id)
       startAnonymous.uri('/api/user/verify-registration')
           .url_segment(verification_id)
+          .post()
+          .go()
+    end
+
+    #
+    # Confirms a user's registration. 
+    # 
+    # The request body will contain the verificationId. You may also be required to send a one-time use code based upon your configuration. When 
+    # the application is configured to gate a user until their registration is verified, this procedures requires two values instead of one. 
+    # The verificationId is a high entropy value and the one-time use code is a low entropy value that is easily entered in a user interactive form. The 
+    # two values together are able to confirm a user's registration and mark the user's registration as verified.
+    #
+    # @param request [OpenStruct, Hash] The request that contains the verificationId and optional one-time use code paired with the verificationId.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def verify_user_registration(request)
+      startAnonymous.uri('/api/user/verify-registration')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
           .go()
     end
