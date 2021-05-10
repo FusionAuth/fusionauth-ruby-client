@@ -103,7 +103,7 @@ module FusionAuth
     # @param request [OpenStruct, Hash] The change password request that contains all of the information used to change the password.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def change_password(change_password_id, request)
-      start.uri('/api/user/change-password')
+      startAnonymous.uri('/api/user/change-password')
           .url_segment(change_password_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
