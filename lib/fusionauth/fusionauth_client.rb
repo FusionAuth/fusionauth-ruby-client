@@ -500,6 +500,18 @@ module FusionAuth
     end
 
     #
+    # Link an external user from a 3rd party identity provider to a FusionAuth user.
+    #
+    # @param request [OpenStruct, Hash] The request object that contains all of the information used to link the FusionAuth user.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def create_user_link(request)
+      start.uri('/api/identity-provider/link')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
     # Creates a webhook. You can optionally specify an Id for the webhook, if not provided one will be generated.
     #
     # @param webhook_id [string] (Optional) The Id for the webhook. If not provided a secure random UUID will be generated.
@@ -921,6 +933,22 @@ module FusionAuth
     def delete_user_action_reason(user_action_reason_id)
       start.uri('/api/user-action-reason')
           .url_segment(user_action_reason_id)
+          .delete()
+          .go()
+    end
+
+    #
+    # Remove an existing link that has been made from a 3rd party identity provider to a FusionAuth user.
+    #
+    # @param identity_provider_id [string] The unique Id of the identity provider.
+    # @param identity_provider_user_id [string] The unique Id of the user in the 3rd party identity provider to unlink.
+    # @param user_id [string] The unique Id of the FusionAuth user to unlink.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_user_link(identity_provider_id, identity_provider_user_id, user_id)
+      start.uri('/api/identity-provider/link')
+          .url_parameter('identityProviderId', identity_provider_id)
+          .url_parameter('identityProviderUserId', identity_provider_user_id)
+          .url_parameter('userId', user_id)
           .delete()
           .go()
     end
@@ -1802,6 +1830,22 @@ module FusionAuth
     end
 
     #
+    # Requests Elasticsearch to delete and rebuild the index for FusionAuth users or entities. Be very careful when running this request as it will 
+    # increase the CPU and I/O load on your database until the operation completes. Generally speaking you do not ever need to run this operation unless 
+    # instructed by FusionAuth support, or if you are migrating a database another system and you are not brining along the Elasticsearch index. 
+    # 
+    # You have been warned.
+    #
+    # @param request [OpenStruct, Hash] The request that contains the index name.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def reindex(request)
+      start.uri('/api/system/reindex')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
     # Removes a user from the family with the given id.
     #
     # @param family_id [string] The id of the family to remove the user from.
@@ -2618,6 +2662,17 @@ module FusionAuth
     end
 
     #
+    # Retrieve the status of a re-index process. A status code of 200 indicates the re-index is in progress, a status code of  
+    # 404 indicates no re-index is in progress.
+    #
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_reindex_status()
+      start.uri('/api/system/reindex')
+          .get()
+          .go()
+    end
+
+    #
     # Retrieves the system configuration.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -2858,6 +2913,36 @@ module FusionAuth
     def retrieve_user_info_from_access_token(encoded_jwt)
       startAnonymous.uri('/oauth2/userinfo')
           .authorization('Bearer ' + encoded_jwt)
+          .get()
+          .go()
+    end
+
+    #
+    # Retrieve a single Identity Provider user (link).
+    #
+    # @param identity_provider_id [string] The unique Id of the identity provider.
+    # @param identity_provider_user_id [string] The unique Id of the user in the 3rd party identity provider.
+    # @param user_id [string] The unique Id of the FusionAuth user.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_user_link(identity_provider_id, identity_provider_user_id, user_id)
+      start.uri('/api/identity-provider/link')
+          .url_parameter('identityProviderId', identity_provider_id)
+          .url_parameter('identityProviderUserId', identity_provider_user_id)
+          .url_parameter('userId', user_id)
+          .get()
+          .go()
+    end
+
+    #
+    # Retrieve all Identity Provider users (links) for the user. Specify the optional identityProviderId to retrieve links for a particular IdP.
+    #
+    # @param identity_provider_id [string] (Optional) The unique Id of the identity provider. Specify this value to reduce the links returned to those for a particular IdP.
+    # @param user_id [string] The unique Id of the user.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_user_links_by_user_id(identity_provider_id, user_id)
+      start.uri('/api/identity-provider/link')
+          .url_parameter('identityProviderId', identity_provider_id)
+          .url_parameter('userId', user_id)
           .get()
           .go()
     end
