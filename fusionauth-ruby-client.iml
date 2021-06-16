@@ -16,16 +16,16 @@
     <option name="myRootTask">
       <RakeTaskImpl id="rake">
         <subtasks>
-          <RakeTaskImpl description="Build fusionauth_client-1.26.0.gem into the pkg directory" fullCommand="build" id="build" />
+          <RakeTaskImpl description="Build fusionauth_client-1.28.1.gem into the pkg directory" fullCommand="build" id="build" />
           <RakeTaskImpl description="Remove any temporary products" fullCommand="clean" id="clean" />
           <RakeTaskImpl description="Remove any generated files" fullCommand="clobber" id="clobber" />
-          <RakeTaskImpl description="Build and install fusionauth_client-1.26.0.gem into system gems" fullCommand="install" id="install" />
+          <RakeTaskImpl description="Build and install fusionauth_client-1.28.1.gem into system gems" fullCommand="install" id="install" />
           <RakeTaskImpl id="install">
             <subtasks>
-              <RakeTaskImpl description="Build and install fusionauth_client-1.26.0.gem into system gems without network access" fullCommand="install:local" id="local" />
+              <RakeTaskImpl description="Build and install fusionauth_client-1.28.1.gem into system gems without network access" fullCommand="install:local" id="local" />
             </subtasks>
           </RakeTaskImpl>
-          <RakeTaskImpl description="Create tag v1.26.0 and build and push fusionauth_client-1.26.0.gem to https://rubygems.org" fullCommand="release[remote]" id="release[remote]" />
+          <RakeTaskImpl description="Create tag v1.28.1 and build and push fusionauth_client-1.28.1.gem to https://rubygems.org" fullCommand="release[remote]" id="release[remote]" />
           <RakeTaskImpl description="Run tests" fullCommand="test" id="test" />
           <RakeTaskImpl description="" fullCommand="default" id="default" />
           <RakeTaskImpl description="" fullCommand="release" id="release" />
