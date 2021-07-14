@@ -3207,6 +3207,18 @@ module FusionAuth
     end
 
     #
+    # Searches the ACLs with the specified criteria and pagination.
+    #
+    # @param request [OpenStruct, Hash] The search criteria and pagination information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_ac_ls(request)
+      start.uri('/api/ip-acl/search')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
     # Searches the audit logs with the specified criteria and pagination.
     #
     # @param request [OpenStruct, Hash] The search criteria and pagination information.
