@@ -137,6 +137,20 @@ module FusionAuth
     end
 
     #
+    # Creates an ACL. You can optionally specify an Id for the ACL. If not provided one will be generated.
+    #
+    # @param access_control_list_id [string] (Optional) The Id for the ACL. If not provided a secure random UUID will be generated.
+    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the IP ACL.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def create_acl(access_control_list_id, request)
+      start.uri('/api/ip-acl')
+          .url_segment(access_control_list_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
     # Creates an API key. You can optionally specify a unique Id for the key, if not provided one will be generated.
     # an API key can only be created with equal or lesser authority. An API key cannot create another API key unless it is granted 
     # to that API key.
@@ -596,6 +610,18 @@ module FusionAuth
           .url_parameter('userId', user_ids)
           .url_parameter('dryRun', false)
           .url_parameter('hardDelete', false)
+          .delete()
+          .go()
+    end
+
+    #
+    # Deletes the ACL for the given Id.
+    #
+    # @param ip_access_control_list_id [string] The Id of the ACL to delete.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_acl(ip_access_control_list_id)
+      start.uri('/api/ip-acl')
+          .url_segment(ip_access_control_list_id)
           .delete()
           .go()
     end
@@ -1901,6 +1927,28 @@ module FusionAuth
     end
 
     #
+    # Retrieves the ACL with the given Id.
+    #
+    # @param form_id [string] The Id of the ACL.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_acl(form_id)
+      start.uri('/api/ip-acl')
+          .url_segment(form_id)
+          .get()
+          .go()
+    end
+
+    #
+    # Retrieves all ACLs.
+    #
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_ac_ls()
+      start.uri('/api/ip-acl')
+          .get()
+          .go()
+    end
+
+    #
     # Retrieves an authentication API key for the given id
     #
     # @param key_id [string] The Id of the API key to retrieve.
@@ -3159,6 +3207,18 @@ module FusionAuth
     end
 
     #
+    # Searches the ACLs with the specified criteria and pagination.
+    #
+    # @param request [OpenStruct, Hash] The search criteria and pagination information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_ac_ls(request)
+      start.uri('/api/ip-acl/search')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
     # Searches the audit logs with the specified criteria and pagination.
     #
     # @param request [OpenStruct, Hash] The search criteria and pagination information.
@@ -3437,6 +3497,20 @@ module FusionAuth
       startAnonymous.uri('/api/two-factor/login')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
+          .go()
+    end
+
+    #
+    # Updates the ACL with the given Id.
+    #
+    # @param access_control_list_id [string] The Id of the ACL to update.
+    # @param request [OpenStruct, Hash] The request that contains all of the new ACL information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def update_acl(access_control_list_id, request)
+      start.uri('/api/ip-acl')
+          .url_segment(access_control_list_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .put()
           .go()
     end
 
