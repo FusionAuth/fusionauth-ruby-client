@@ -2695,6 +2695,16 @@ module FusionAuth
     end
 
     #
+    # Retrieves the FusionAuth Reactor metrics.
+    #
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_reactor_metrics()
+      start.uri('/api/reactor/metrics')
+          .get()
+          .go()
+    end
+
+    #
     # Retrieves the FusionAuth Reactor status.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
