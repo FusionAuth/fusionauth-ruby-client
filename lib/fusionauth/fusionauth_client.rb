@@ -71,7 +71,7 @@ module FusionAuth
     # Adds a user to an existing family. The family id must be specified.
     #
     # @param family_id [string] The id of the family.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to determine which user to add to the family.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to determine which user to add to the family.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def add_user_to_family(family_id, request)
       start.uri('/api/user/family')
@@ -127,7 +127,7 @@ module FusionAuth
     #
     # Adds a comment to the user's account.
     #
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the user comment.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the user comment.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def comment_on_user(request)
       start.uri('/api/user/comment')
@@ -158,7 +158,7 @@ module FusionAuth
     # Creates an application. You can optionally specify an Id for the application, if not provided one will be generated.
     #
     # @param application_id [string] (Optional) The Id to use for the application. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the application.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the application.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_application(application_id, request)
       start.uri('/api/application')
@@ -174,7 +174,7 @@ module FusionAuth
     #
     # @param application_id [string] The Id of the application to create the role on.
     # @param role_id [string] (Optional) The Id of the role. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the application role.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the application role.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_application_role(application_id, role_id, request)
       start.uri('/api/application')
@@ -191,7 +191,7 @@ module FusionAuth
     # make changes to the FusionAuth database. When using the FusionAuth App web interface, any changes are automatically
     # written to the audit log. However, if you are accessing the API, you must write the audit logs yourself.
     #
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the audit log entry.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the audit log entry.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_audit_log(request)
       start.uri('/api/system/audit-log')
@@ -204,7 +204,7 @@ module FusionAuth
     # Creates a connector.  You can optionally specify an Id for the connector, if not provided one will be generated.
     #
     # @param connector_id [string] (Optional) The Id for the connector. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the connector.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the connector.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_connector(connector_id, request)
       start.uri('/api/connector')
@@ -218,7 +218,7 @@ module FusionAuth
     # Creates a user consent type. You can optionally specify an Id for the consent type, if not provided one will be generated.
     #
     # @param consent_id [string] (Optional) The Id for the consent. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the consent.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the consent.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_consent(consent_id, request)
       start.uri('/api/consent')
@@ -232,7 +232,7 @@ module FusionAuth
     # Creates an email template. You can optionally specify an Id for the template, if not provided one will be generated.
     #
     # @param email_template_id [string] (Optional) The Id for the template. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the email template.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the email template.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_email_template(email_template_id, request)
       start.uri('/api/email/template')
@@ -246,7 +246,7 @@ module FusionAuth
     # Creates an Entity. You can optionally specify an Id for the Entity. If not provided one will be generated.
     #
     # @param entity_id [string] (Optional) The Id for the Entity. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the Entity.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the Entity.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_entity(entity_id, request)
       start.uri('/api/entity')
@@ -260,7 +260,7 @@ module FusionAuth
     # Creates a Entity Type. You can optionally specify an Id for the Entity Type, if not provided one will be generated.
     #
     # @param entity_type_id [string] (Optional) The Id for the Entity Type. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the Entity Type.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the Entity Type.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_entity_type(entity_type_id, request)
       start.uri('/api/entity/type')
@@ -276,7 +276,7 @@ module FusionAuth
     #
     # @param entity_type_id [string] The Id of the entity type to create the permission on.
     # @param permission_id [string] (Optional) The Id of the permission. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the permission.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the permission.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_entity_type_permission(entity_type_id, permission_id, request)
       start.uri('/api/entity/type')
@@ -293,7 +293,7 @@ module FusionAuth
     # family, if not provided one will be generated.
     #
     # @param family_id [string] (Optional) The id for the family. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the family.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the family.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_family(family_id, request)
       start.uri('/api/user/family')
@@ -307,7 +307,7 @@ module FusionAuth
     # Creates a form.  You can optionally specify an Id for the form, if not provided one will be generated.
     #
     # @param form_id [string] (Optional) The Id for the form. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the form.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the form.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_form(form_id, request)
       start.uri('/api/form')
@@ -321,7 +321,7 @@ module FusionAuth
     # Creates a form field.  You can optionally specify an Id for the form, if not provided one will be generated.
     #
     # @param field_id [string] (Optional) The Id for the form field. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the form field.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the form field.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_form_field(field_id, request)
       start.uri('/api/form/field')
@@ -335,7 +335,7 @@ module FusionAuth
     # Creates a group. You can optionally specify an Id for the group, if not provided one will be generated.
     #
     # @param group_id [string] (Optional) The Id for the group. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the group.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the group.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_group(group_id, request)
       start.uri('/api/group')
@@ -348,7 +348,7 @@ module FusionAuth
     #
     # Creates a member in a group.
     #
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the group member(s).
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the group member(s).
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_group_members(request)
       start.uri('/api/group/member')
@@ -361,7 +361,7 @@ module FusionAuth
     # Creates an IP Access Control List. You can optionally specify an Id on this create request, if one is not provided one will be generated.
     #
     # @param access_control_list_id [string] (Optional) The Id for the IP Access Control List. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the IP Access Control List.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the IP Access Control List.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_ip_access_control_list(access_control_list_id, request)
       start.uri('/api/ip-acl')
@@ -375,7 +375,7 @@ module FusionAuth
     # Creates an identity provider. You can optionally specify an Id for the identity provider, if not provided one will be generated.
     #
     # @param identity_provider_id [string] (Optional) The Id of the identity provider. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the identity provider.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the identity provider.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_identity_provider(identity_provider_id, request)
       start.uri('/api/identity-provider')
@@ -389,7 +389,7 @@ module FusionAuth
     # Creates a Lambda. You can optionally specify an Id for the lambda, if not provided one will be generated.
     #
     # @param lambda_id [string] (Optional) The Id for the lambda. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the lambda.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the lambda.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_lambda(lambda_id, request)
       start.uri('/api/lambda')
@@ -403,7 +403,7 @@ module FusionAuth
     # Creates an message template. You can optionally specify an Id for the template, if not provided one will be generated.
     #
     # @param message_template_id [string] (Optional) The Id for the template. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the message template.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the message template.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_message_template(message_template_id, request)
       start.uri('/api/message/template')
@@ -417,7 +417,7 @@ module FusionAuth
     # Creates a messenger.  You can optionally specify an Id for the messenger, if not provided one will be generated.
     #
     # @param messenger_id [string] (Optional) The Id for the messenger. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the messenger.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the messenger.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_messenger(messenger_id, request)
       start.uri('/api/messenger')
@@ -431,7 +431,7 @@ module FusionAuth
     # Creates a tenant. You can optionally specify an Id for the tenant, if not provided one will be generated.
     #
     # @param tenant_id [string] (Optional) The Id for the tenant. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the tenant.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the tenant.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_tenant(tenant_id, request)
       start.uri('/api/tenant')
@@ -445,7 +445,7 @@ module FusionAuth
     # Creates a Theme. You can optionally specify an Id for the theme, if not provided one will be generated.
     #
     # @param theme_id [string] (Optional) The Id for the theme. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the theme.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the theme.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_theme(theme_id, request)
       start.uri('/api/theme')
@@ -459,7 +459,7 @@ module FusionAuth
     # Creates a user. You can optionally specify an Id for the user, if not provided one will be generated.
     #
     # @param user_id [string] (Optional) The Id for the user. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the user.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the user.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_user(user_id, request)
       start.uri('/api/user')
@@ -474,7 +474,7 @@ module FusionAuth
     # that the user action can be applied to any user.
     #
     # @param user_action_id [string] (Optional) The Id for the user action. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the user action.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the user action.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_user_action(user_action_id, request)
       start.uri('/api/user-action')
@@ -489,7 +489,7 @@ module FusionAuth
     # successfully. Anytime after that the user action reason can be used.
     #
     # @param user_action_reason_id [string] (Optional) The Id for the user action reason. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the user action reason.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the user action reason.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_user_action_reason(user_action_reason_id, request)
       start.uri('/api/user-action-reason')
@@ -516,7 +516,7 @@ module FusionAuth
     #
     # Link an external user from a 3rd party identity provider to a FusionAuth user.
     #
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to link the FusionAuth user.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to link the FusionAuth user.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_user_link(request)
       start.uri('/api/identity-provider/link')
@@ -529,7 +529,7 @@ module FusionAuth
     # Creates a webhook. You can optionally specify an Id for the webhook, if not provided one will be generated.
     #
     # @param webhook_id [string] (Optional) The Id for the webhook. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the webhook.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the webhook.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_webhook(webhook_id, request)
       start.uri('/api/webhook')
@@ -933,7 +933,7 @@ module FusionAuth
     # with the tenant and everything under the tenant (applications, users, etc).
     #
     # @param tenant_id [string] The Id of the tenant to delete.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to delete the user.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to delete the user.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def delete_tenant_with_request(tenant_id, request)
       start.uri('/api/tenant')
@@ -1016,7 +1016,7 @@ module FusionAuth
     # with the user.
     #
     # @param user_id [string] The Id of the user to delete (required).
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to delete the user.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to delete the user.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def delete_user_with_request(user_id, request)
       start.uri('/api/user')
@@ -1257,7 +1257,7 @@ module FusionAuth
     # Generate a new RSA or EC key pair or an HMAC secret.
     #
     # @param key_id [string] (Optional) The Id for the key. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the key.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the key.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def generate_key(key_id, request)
       start.uri('/api/key/generate')
@@ -1339,7 +1339,7 @@ module FusionAuth
     # Import an existing RSA or EC key pair or an HMAC secret.
     #
     # @param key_id [string] (Optional) The Id for the key. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the key.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the key.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def import_key(key_id, request)
       start.uri('/api/key/import')
@@ -1482,7 +1482,7 @@ module FusionAuth
     # The Logout API is intended to be used to remove the refresh token and access token cookies if they exist on the
     # client and revoke the refresh token stored. This API takes the refresh token in the JSON body.
     #
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to logout the user.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to logout the user.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def logout_with_request(request)
       startAnonymous.uri('/api/logout')
@@ -3483,7 +3483,7 @@ module FusionAuth
     #
     # Send a Two Factor authentication code to assist in setting up Two Factor authentication or disabling.
     #
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to send the code.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to send the code.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     # @deprecated This method has been renamed to send_two_factor_code_for_enable_disable, use that method instead.
     def send_two_factor_code(request)
@@ -3496,7 +3496,7 @@ module FusionAuth
     #
     # Send a Two Factor authentication code to assist in setting up Two Factor authentication or disabling.
     #
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to send the code.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to send the code.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def send_two_factor_code_for_enable_disable(request)
       start.uri('/api/two-factor/send')
@@ -3591,7 +3591,7 @@ module FusionAuth
     # Updates an API key by given id
     #
     # @param api_key_id [string] The Id of the API key to update.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the API Key.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the API Key.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def update_api_key(api_key_id, request)
       start.uri('/api/api-key')
@@ -3985,7 +3985,7 @@ module FusionAuth
     # Creates or updates an Entity Grant. This is when a User/Entity is granted permissions to an Entity.
     #
     # @param entity_id [string] The Id of the Entity that the User/Entity is being granted access to.
-    # @param request [OpenStruct, Hash] The request object that contains all of the information used to create the Entity Grant.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the Entity Grant.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def upsert_entity_grant(entity_id, request)
       start.uri('/api/entity')
