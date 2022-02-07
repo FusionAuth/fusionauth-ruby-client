@@ -40,7 +40,7 @@ project(group: "io.fusionauth", name: "fusionauth-ruby-client", version: "1.33.0
 }
 
 // Plugins
-file = loadPlugin(id: "org.savantbuild.plugin:file:${savantVersion}")
+file = loadPlugin(id: "org.savantbuild.plugin:file:1.0.2")
 release = loadPlugin(id: "org.savantbuild.plugin:release-git:${savantVersion}")
 
 target(name: "clean", description: "Cleans build directory") {
