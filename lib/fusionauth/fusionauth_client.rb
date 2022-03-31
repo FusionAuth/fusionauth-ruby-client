@@ -2076,7 +2076,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the actions for the user with the given Id. This will return all time based actions that are active,
+    # Retrieves all the actions for the user with the given Id. This will return all time based actions that are active,
     # and inactive as well as non-time based actions.
     #
     # @param user_id [string] The Id of the user to fetch the actions for.
@@ -2089,7 +2089,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the actions for the user with the given Id that are currently preventing the User from logging in.
+    # Retrieves all the actions for the user with the given Id that are currently preventing the User from logging in.
     #
     # @param user_id [string] The Id of the user to fetch the actions for.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -2102,7 +2102,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the actions for the user with the given Id that are currently active.
+    # Retrieves all the actions for the user with the given Id that are currently active.
     # An active action means one that is time based and has not been canceled, and has not ended.
     #
     # @param user_id [string] The Id of the user to fetch the actions for.
@@ -2128,7 +2128,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the applications.
+    # Retrieves all the applications.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_applications()
@@ -2162,7 +2162,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the connectors.
+    # Retrieves all the connectors.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_connectors()
@@ -2184,7 +2184,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the consent.
+    # Retrieves all the consent.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_consents()
@@ -2237,7 +2237,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the email templates.
+    # Retrieves all the email templates.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_email_templates()
@@ -2288,7 +2288,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the Entity Types.
+    # Retrieves all the Entity Types.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_entity_types()
@@ -2310,7 +2310,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the families that a user belongs to.
+    # Retrieves all the families that a user belongs to.
     #
     # @param user_id [string] The User's id
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -2322,7 +2322,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the members of a family by the unique Family Id.
+    # Retrieves all the members of a family by the unique Family Id.
     #
     # @param family_id [string] The unique Id of the Family.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -2358,7 +2358,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the forms fields
+    # Retrieves all the forms fields
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_form_fields()
@@ -2368,7 +2368,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the forms.
+    # Retrieves all the forms.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_forms()
@@ -2390,7 +2390,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the groups.
+    # Retrieves all the groups.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_groups()
@@ -2438,7 +2438,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the identity providers.
+    # Retrieves all the identity providers.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_identity_providers()
@@ -2448,7 +2448,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the actions for the user with the given Id that are currently inactive.
+    # Retrieves all the actions for the user with the given Id that are currently inactive.
     # An inactive action means one that is time based and has been canceled or has expired, or is not time based.
     #
     # @param user_id [string] The Id of the user to fetch the actions for.
@@ -2462,7 +2462,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the applications that are currently inactive.
+    # Retrieves all the applications that are currently inactive.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_inactive_applications()
@@ -2473,7 +2473,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the user actions that are currently inactive.
+    # Retrieves all the user actions that are currently inactive.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_inactive_user_actions()
@@ -2550,7 +2550,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the keys.
+    # Retrieves all the keys.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_keys()
@@ -2572,7 +2572,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the lambdas.
+    # Retrieves all the lambdas.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_lambdas()
@@ -2582,7 +2582,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the lambdas for the provided type.
+    # Retrieves all the lambdas for the provided type.
     #
     # @param type [OpenStruct, Hash] The type of the lambda to return.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -2635,7 +2635,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the message templates.
+    # Retrieves all the message templates.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_message_templates()
@@ -2657,7 +2657,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the messengers.
+    # Retrieves all the messengers.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_messengers()
@@ -2734,7 +2734,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the children for the given parent email address.
+    # Retrieves all the children for the given parent email address.
     #
     # @param parent_email [string] The email of the parent.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -2868,7 +2868,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the tenants.
+    # Retrieves all the tenants.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_tenants()
@@ -2890,7 +2890,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the themes.
+    # Retrieves all the themes.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_themes()
@@ -2971,7 +2971,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the user actions.
+    # Retrieves all the user actions.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_user_actions()
@@ -3043,7 +3043,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the comments for the user with the given Id.
+    # Retrieves all the comments for the user with the given Id.
     #
     # @param user_id [string] The Id of the user.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -3067,7 +3067,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves all of the consents for a User.
+    # Retrieves all the consents for a User.
     #
     # @param user_id [string] The User's Id
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -3411,6 +3411,18 @@ module FusionAuth
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def search_event_logs(request)
       start.uri('/api/system/event-log/search')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Searches group members with the specified criteria and pagination.
+    #
+    # @param request [OpenStruct, Hash] The search criteria and pagination information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_group_members(request)
+      start.uri('/api/group/member/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
           .go()
@@ -3807,6 +3819,18 @@ module FusionAuth
     def update_group(group_id, request)
       start.uri('/api/group')
           .url_segment(group_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .put()
+          .go()
+    end
+
+    #
+    # Creates a member in a group.
+    #
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the group member(s).
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def update_group_members(request)
+      start.uri('/api/group/member')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .put()
           .go()
