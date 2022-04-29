@@ -4152,6 +4152,20 @@ module FusionAuth
     end
 
     #
+    # Administratively verify a user's email address. Use this method to bypass email verification for the user.
+    # 
+    # The request body will contain the userId to be verified. An API key is required when sending the userId in the request body.
+    #
+    # @param request [OpenStruct, Hash] The request that contains the userId to verify.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def verify_email_address_by_user_id(request)
+      start.uri('/api/user/verify-email')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
     # Confirms an application registration. The Id given is usually from an email sent to the user.
     #
     # @param verification_id [string] The registration verification Id sent to the user.
