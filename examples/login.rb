@@ -9,31 +9,7 @@ client = FusionAuth::FusionAuthClient.new(
 
 application_id = '20ce6dac-b985-4c77-bb59-6369249f884b'
 
-# Create a user + registration
-id = SecureRandom.uuid
-response = client.register(id, {
-    :user => {
-        :firstName => 'Ruby',
-        :lastName => 'Client',
-        :email => 'ruby.client.test@fusionauth.io',
-        :password => 'password'
-    },
-    :registration => {
-        :applicationId => application_id,
-        :data => {
-            :foo => 'bar'
-        },
-        :preferredLanguages => %w(en fr),
-        :roles => %w(user)
-    }
-})
-
-unless response.success_response
-  print response.error_response
-  exit
-end
-
-# Authenticate the user
+# Authenticate a user
 response = client.login({
     :loginId => 'ruby.client.test@fusionauth.io',
     :password => 'password',
