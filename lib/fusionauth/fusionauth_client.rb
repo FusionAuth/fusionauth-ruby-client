@@ -188,6 +188,30 @@ module FusionAuth
     end
 
     #
+    # Complete a WebAuthn authentication ceremony by validating the signature against the previously generated challenge
+    #
+    # @param request [OpenStruct, Hash] An object containing data necessary for completing the authentication ceremony
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def complete_web_authn_login(request)
+      startAnonymous.uri('/api/webauthn/login')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Complete a WebAuthn registration ceremony by validating the client request and saving the new credential
+    #
+    # @param request [OpenStruct, Hash] An object containing data necessary for completing the registration ceremony
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def complete_web_authn_registration(request)
+      start.uri('/api/webauthn/complete')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
     # Creates an API key. You can optionally specify a unique Id for the key, if not provided one will be generated.
     # an API key can only be created with equal or lesser authority. An API key cannot create another API key unless it is granted 
     # to that API key.
@@ -3633,6 +3657,30 @@ module FusionAuth
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def start_two_factor_login(request)
       start.uri('/api/two-factor/start')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Start a WebAuthn authentication ceremony by generating a new challenge for the user
+    #
+    # @param request [OpenStruct, Hash] An object containing data necessary for starting the authentication ceremony
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def start_web_authn_login(request)
+      start.uri('/api/webauthn/start')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Start a WebAuthn registration ceremony by generating a new challenge for the user
+    #
+    # @param request [OpenStruct, Hash] An object containing data necessary for starting the registration ceremony
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def start_web_authn_registration(request)
+      start.uri('/api/webauthn/register')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
           .go()
