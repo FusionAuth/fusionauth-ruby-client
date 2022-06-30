@@ -1135,6 +1135,18 @@ module FusionAuth
     end
 
     #
+    # Deletes the WebAuthn credential for the given Id.
+    #
+    # @param id [string] The Id of the WebAuthn credential to delete.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_web_authn_credential(id)
+      start.uri('/api/webauthn')
+          .url_segment(id)
+          .delete()
+          .go()
+    end
+
+    #
     # Deletes the webhook for the given Id.
     #
     # @param webhook_id [string] The Id of the webhook to delete.
