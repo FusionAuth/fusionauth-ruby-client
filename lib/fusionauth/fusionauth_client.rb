@@ -3221,6 +3221,18 @@ module FusionAuth
     end
 
     #
+    # Retrieves the WebAuthn credential for the given Id.
+    #
+    # @param id [string] The Id of the WebAuthn credential.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_web_authn_credential(id)
+      start.uri('/api/webauthn')
+          .url_segment(id)
+          .get()
+          .go()
+    end
+
+    #
     # Retrieves the webhook for the given Id. If you pass in null for the id, this will return all the webhooks.
     #
     # @param webhook_id [string] (Optional) The Id of the webhook.
