@@ -9,7 +9,6 @@
     <orderEntry type="jdk" jdkName="rbenv: 2.5.9" jdkType="RUBY_SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="bundler (v2.2.5, rbenv: 2.5.9) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="minitest (v5.8.3, rbenv: 2.5.9) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rake (v12.3.3, rbenv: 2.5.9) [gem]" level="application" />
   </component>
   <component name="RakeTasksCache">
