@@ -1475,6 +1475,18 @@ module FusionAuth
     end
 
     #
+    # Import a WebAuthn credential
+    #
+    # @param request [OpenStruct, Hash] An object containing data necessary for importing the credential
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def import_web_authn_credential(request)
+      start.uri('/api/webauthn/import')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
     # Inspect an access token issued by FusionAuth.
     #
     # @param client_id [string] The unique client identifier. The client Id is the Id of the FusionAuth Application for which this token was generated.
