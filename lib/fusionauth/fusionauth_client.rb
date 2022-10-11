@@ -188,7 +188,19 @@ module FusionAuth
     end
 
     #
-    # Complete a WebAuthn authentication ceremony by validating the signature against the previously generated challenge
+    # Complete a WebAuthn authentication ceremony by validating the signature against the previously generated challenge without logging the user in
+    #
+    # @param request [OpenStruct, Hash] An object containing data necessary for completing the authentication ceremony
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def complete_web_authn_assertion(request)
+      startAnonymous.uri('/api/webauthn/assertion')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Complete a WebAuthn authentication ceremony by validating the signature against the previously generated challenge and then login the user in
     #
     # @param request [OpenStruct, Hash] An object containing data necessary for completing the authentication ceremony
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
