@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fusionauth_client (1.41.0)
+    fusionauth_client (1.41.0-EAP.20221020)
 
 GEM
   remote: https://rubygems.org/
