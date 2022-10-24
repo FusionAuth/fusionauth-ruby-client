@@ -213,7 +213,7 @@ module FusionAuth
     # @param request [OpenStruct, Hash] An object containing data necessary for completing the authentication ceremony
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def complete_web_authn_assertion(request)
-      startAnonymous.uri('/api/webauthn/assertion')
+      startAnonymous.uri('/api/webauthn/assert')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
           .go()
@@ -237,7 +237,7 @@ module FusionAuth
     # @param request [OpenStruct, Hash] An object containing data necessary for completing the registration ceremony
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def complete_web_authn_registration(request)
-      start.uri('/api/webauthn/complete')
+      start.uri('/api/webauthn/register/complete')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
           .go()
@@ -3806,7 +3806,7 @@ module FusionAuth
     # @param request [OpenStruct, Hash] An object containing data necessary for starting the registration ceremony
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def start_web_authn_registration(request)
-      start.uri('/api/webauthn/register')
+      start.uri('/api/webauthn/register/start')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
           .go()
