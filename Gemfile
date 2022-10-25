@@ -1,4 +1,4 @@
-# Copyright (c) 2019, FusionAuth, All Rights Reserved
+# Copyright (c) 2019-2022, FusionAuth, All Rights Reserved
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
 source 'https://rubygems.org'
 ruby '2.5.9'
 
-gem "rake",  "12.3.3"
-gem "minitest",  "5.8.3"
+gem "rake", "12.3.3"
+gem "minitest", "5.8.3"
 
 # Specify your gem's dependencies in fusionauth_client.gemspec
 gemspec
