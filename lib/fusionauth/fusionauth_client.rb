@@ -176,12 +176,68 @@ module FusionAuth
     end
 
     #
+    # Make a Client Credentials grant request to obtain an access token.
+    #
+    # @param client_id [string] The client identifier. The client Id is the Id of the FusionAuth Entity in which you are attempting to authenticate.
+    # @param client_secret [string] The client secret used to authenticate this request.
+    # @param scope [string] (Optional) This parameter is used to indicate which target entity you are requesting access. To request access to an entity, use the format target-entity:&lt;target-entity-id&gt;:&lt;roles&gt;. Roles are an optional comma separated list.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def client_credentials_grant(client_id, client_secret, scope)
+      body = {
+        "client_id" => client_id,
+        "client_secret" => client_secret,
+        "grant_type" => "client_credentials",
+        "scope" => scope
+      }
+      startAnonymous.uri('/oauth2/token')
+          .body_handler(FusionAuth::FormDataBodyHandler.new(body))
+          .post()
+          .go()
+    end
+
+    #
     # Adds a comment to the user's account.
     #
     # @param request [OpenStruct, Hash] The request object that contains all the information used to create the user comment.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def comment_on_user(request)
       start.uri('/api/user/comment')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Complete a WebAuthn authentication ceremony by validating the signature against the previously generated challenge without logging the user in
+    #
+    # @param request [OpenStruct, Hash] An object containing data necessary for completing the authentication ceremony
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def complete_web_authn_assertion(request)
+      startAnonymous.uri('/api/webauthn/assert')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Complete a WebAuthn authentication ceremony by validating the signature against the previously generated challenge and then login the user in
+    #
+    # @param request [OpenStruct, Hash] An object containing data necessary for completing the authentication ceremony
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def complete_web_authn_login(request)
+      startAnonymous.uri('/api/webauthn/login')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Complete a WebAuthn registration ceremony by validating the client request and saving the new credential
+    #
+    # @param request [OpenStruct, Hash] An object containing data necessary for completing the registration ceremony
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def complete_web_authn_registration(request)
+      start.uri('/api/webauthn/register/complete')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
           .go()
@@ -1111,6 +1167,18 @@ module FusionAuth
     end
 
     #
+    # Deletes the WebAuthn credential for the given Id.
+    #
+    # @param id [string] The Id of the WebAuthn credential to delete.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_web_authn_credential(id)
+      start.uri('/api/webauthn')
+          .url_segment(id)
+          .delete()
+          .go()
+    end
+
+    #
     # Deletes the webhook for the given Id.
     #
     # @param webhook_id [string] The Id of the webhook to delete.
@@ -1433,6 +1501,18 @@ module FusionAuth
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def import_users(request)
       start.uri('/api/user/import')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Import a WebAuthn credential
+    #
+    # @param request [OpenStruct, Hash] An object containing data necessary for importing the credential
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def import_web_authn_credential(request)
+      start.uri('/api/webauthn/import')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
           .go()
@@ -3231,6 +3311,30 @@ module FusionAuth
     end
 
     #
+    # Retrieves the WebAuthn credential for the given Id.
+    #
+    # @param id [string] The Id of the WebAuthn credential.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_web_authn_credential(id)
+      start.uri('/api/webauthn')
+          .url_segment(id)
+          .get()
+          .go()
+    end
+
+    #
+    # Retrieves all WebAuthn credentials for the given user.
+    #
+    # @param user_id [string] The user's ID.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_web_authn_credentials_for_user(user_id)
+      start.uri('/api/webauthn')
+          .url_parameter('userId', user_id)
+          .get()
+          .go()
+    end
+
+    #
     # Retrieves the webhook for the given Id. If you pass in null for the id, this will return all the webhooks.
     #
     # @param webhook_id [string] (Optional) The Id of the webhook.
@@ -3679,6 +3783,30 @@ module FusionAuth
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def start_two_factor_login(request)
       start.uri('/api/two-factor/start')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Start a WebAuthn authentication ceremony by generating a new challenge for the user
+    #
+    # @param request [OpenStruct, Hash] An object containing data necessary for starting the authentication ceremony
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def start_web_authn_login(request)
+      start.uri('/api/webauthn/start')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Start a WebAuthn registration ceremony by generating a new challenge for the user
+    #
+    # @param request [OpenStruct, Hash] An object containing data necessary for starting the registration ceremony
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def start_web_authn_registration(request)
+      start.uri('/api/webauthn/register/start')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
           .go()
