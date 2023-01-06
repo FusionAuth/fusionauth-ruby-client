@@ -13,10 +13,12 @@
 # language governing permissions and limitations under the License.
 
 source 'https://rubygems.org'
-ruby '2.5.9'
+ruby '2.7.0'
 
 gem "rake", "12.3.3"
 gem "minitest", "5.8.3"
 
 # Specify your gem's dependencies in fusionauth_client.gemspec
 gemspec
+
+gem "rdoc-markdown", "~> 0.4"
