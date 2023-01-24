@@ -1992,6 +1992,7 @@ module FusionAuth
       start.uri('/api/user')
           .url_segment(user_id)
           .url_parameter('reactivate', true)
+          .body_handler(FusionAuth::JSONBodyHandler.new(nil))
           .put()
           .go()
     end
