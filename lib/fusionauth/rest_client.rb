@@ -1,4 +1,4 @@
-# Copyright (c) 2019, FusionAuth, All Rights Reserved
+# Copyright (c) 2019-2023, FusionAuth, All Rights Reserved
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -129,6 +129,21 @@ module FusionAuth
         end
         if @body_handler != nil && @body_handler.type != "FormData"
           @body_handler.set_headers(@headers)
+        end
+
+        # Temporary hack. In version 1.43.0 of FusionAuth, we will no longer validate the Content-Type when there does not appear to be a payload.
+        if @body_handler == nil && (@method == 'POST' || @method == "PUT")
+          hasContentType = false
+          @headers.each_key do |k|
+            if k.casecmp("Content-Type") == 0
+              hasContentType = true
+              break
+            end
+          end
+
+          unless hasContentType
+            @headers['Content-Type'] = 'application/json'
+          end
         end
 
         http_response = nil
