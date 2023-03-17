@@ -3483,12 +3483,48 @@ module FusionAuth
     end
 
     #
+    # Searches applications with the specified criteria and pagination.
+    #
+    # @param request [OpenStruct, Hash] The search criteria and pagination information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_applications(request)
+      start.uri('/api/application/search')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
     # Searches the audit logs with the specified criteria and pagination.
     #
     # @param request [OpenStruct, Hash] The search criteria and pagination information.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def search_audit_logs(request)
       start.uri('/api/system/audit-log/search')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Searches consents with the specified criteria and pagination.
+    #
+    # @param request [OpenStruct, Hash] The search criteria and pagination information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_consents(request)
+      start.uri('/api/consent/search')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Searches email templates with the specified criteria and pagination.
+    #
+    # @param request [OpenStruct, Hash] The search criteria and pagination information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_email_templates(request)
+      start.uri('/api/email/template/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
           .go()
@@ -3591,12 +3627,84 @@ module FusionAuth
     end
 
     #
+    # Searches identity providers with the specified criteria and pagination.
+    #
+    # @param request [OpenStruct, Hash] The search criteria and pagination information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_identity_providers(request)
+      start.uri('/api/identity-provider/search')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Searches keys with the specified criteria and pagination.
+    #
+    # @param request [OpenStruct, Hash] The search criteria and pagination information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_keys(request)
+      start.uri('/api/key/search')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Searches lambdas with the specified criteria and pagination.
+    #
+    # @param request [OpenStruct, Hash] The search criteria and pagination information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_lambdas(request)
+      start.uri('/api/lambda/search')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
     # Searches the login records with the specified criteria and pagination.
     #
     # @param request [OpenStruct, Hash] The search criteria and pagination information.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def search_login_records(request)
       start.uri('/api/system/login-record/search')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Searches tenants with the specified criteria and pagination.
+    #
+    # @param request [OpenStruct, Hash] The search criteria and pagination information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_tenants(request)
+      start.uri('/api/tenant/search')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Searches themes with the specified criteria and pagination.
+    #
+    # @param request [OpenStruct, Hash] The search criteria and pagination information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_themes(request)
+      start.uri('/api/theme/search')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Searches user comments with the specified criteria and pagination.
+    #
+    # @param request [OpenStruct, Hash] The search criteria and pagination information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_user_comments(request)
+      start.uri('/api/user/comment/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
           .go()
@@ -3649,6 +3757,18 @@ module FusionAuth
     # @deprecated This method has been renamed to search_users_by_query, use that method instead.
     def search_users_by_query_string(request)
       start.uri('/api/user/search')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Searches webhooks with the specified criteria and pagination.
+    #
+    # @param request [OpenStruct, Hash] The search criteria and pagination information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_webhooks(request)
+      start.uri('/api/webhook/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
           .go()
