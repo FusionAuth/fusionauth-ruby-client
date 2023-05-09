@@ -15,7 +15,7 @@
  */
 
 pubVersion = ""
-project(group: "io.fusionauth", name: "fusionauth-ruby-client", version: "1.45.1", licenses: ["ApacheV2_0"]) {
+project(group: "io.fusionauth", name: "fusionauth-ruby-client", version: "1.46.0", licenses: ["ApacheV2_0"]) {
   workflow {
     fetch {
       cache()
