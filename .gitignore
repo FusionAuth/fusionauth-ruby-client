@@ -8,3 +8,4 @@
 .rakeTasks
 /build
 **/.DS_Store
+.savant/cache
