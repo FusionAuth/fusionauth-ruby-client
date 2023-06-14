@@ -3242,7 +3242,7 @@ module FusionAuth
     #
     # @param user_code [string] The end-user verification code.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_user_code(user_code)
+    def retrieve_user_code_using_api_key(user_code)
       body = {
         "user_code" => user_code
       }
