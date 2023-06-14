@@ -1567,7 +1567,7 @@ module FusionAuth
     #
     # @param token [string] The access token returned by this OAuth provider as the result of a successful client credentials grant.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def introspect_access_token(token)
+    def introspect_client_credentials_access_token(token)
       body = {
         "token" => token
       }
