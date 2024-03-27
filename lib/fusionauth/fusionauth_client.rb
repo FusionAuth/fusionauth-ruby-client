@@ -46,7 +46,7 @@ module FusionAuth
     # "actioner". Both user ids are required in the request object.
     #
     # @param request [OpenStruct, Hash] The action request that includes all the information about the action being taken including
-    #     the id of the action, any options and the duration (if applicable).
+    #     the Id of the action, any options and the duration (if applicable).
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def action_user(request)
       start.uri('/api/user/action')
@@ -56,7 +56,7 @@ module FusionAuth
     end
 
     #
-    # Activates the FusionAuth Reactor using a license id and optionally a license text (for air-gapped deployments)
+    # Activates the FusionAuth Reactor using a license Id and optionally a license text (for air-gapped deployments)
     #
     # @param request [OpenStruct, Hash] An optional request that contains the license text to activate Reactor (useful for air-gap deployments of FusionAuth).
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -68,9 +68,9 @@ module FusionAuth
     end
 
     #
-    # Adds a user to an existing family. The family id must be specified.
+    # Adds a user to an existing family. The family Id must be specified.
     #
-    # @param family_id [string] The id of the family.
+    # @param family_id [string] The Id of the family.
     # @param request [OpenStruct, Hash] The request object that contains all the information used to determine which user to add to the family.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def add_user_to_family(family_id, request)
@@ -105,7 +105,7 @@ module FusionAuth
     #
     # Cancels the user action.
     #
-    # @param action_id [string] The action id of the action to cancel.
+    # @param action_id [string] The action Id of the action to cancel.
     # @param request [OpenStruct, Hash] The action request that contains the information about the cancellation.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def cancel_action(action_id, request)
@@ -135,7 +135,7 @@ module FusionAuth
     end
 
     #
-    # Changes a user's password using their identity (login id and password). Using a loginId instead of the changePasswordId
+    # Changes a user's password using their identity (loginId and password). Using a loginId instead of the changePasswordId
     # bypasses the email verification and allows a password to be changed directly without first calling the #forgotPassword
     # method.
     #
@@ -299,7 +299,7 @@ module FusionAuth
     end
 
     #
-    # Creates a new role for an application. You must specify the id of the application you are creating the role for.
+    # Creates a new role for an application. You must specify the Id of the application you are creating the role for.
     # You can optionally specify an Id for the role inside the ApplicationRole object itself, if not provided one will be generated.
     #
     # @param application_id [string] The Id of the application to create the role on.
@@ -401,7 +401,7 @@ module FusionAuth
     end
 
     #
-    # Creates a new permission for an entity type. You must specify the id of the entity type you are creating the permission for.
+    # Creates a new permission for an entity type. You must specify the Id of the entity type you are creating the permission for.
     # You can optionally specify an Id for the permission inside the EntityTypePermission object itself, if not provided one will be generated.
     #
     # @param entity_type_id [string] The Id of the entity type to create the permission on.
@@ -419,10 +419,10 @@ module FusionAuth
     end
 
     #
-    # Creates a family with the user id in the request as the owner and sole member of the family. You can optionally specify an id for the
+    # Creates a family with the user Id in the request as the owner and sole member of the family. You can optionally specify an Id for the
     # family, if not provided one will be generated.
     #
-    # @param family_id [string] (Optional) The id for the family. If not provided a secure random UUID will be generated.
+    # @param family_id [string] (Optional) The Id for the family. If not provided a secure random UUID will be generated.
     # @param request [OpenStruct, Hash] The request object that contains all the information used to create the family.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_family(family_id, request)
@@ -552,6 +552,24 @@ module FusionAuth
     def create_messenger(messenger_id, request)
       start.uri('/api/messenger')
           .url_segment(messenger_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
+    # Creates a new custom OAuth scope for an application. You must specify the Id of the application you are creating the scope for.
+    # You can optionally specify an Id for the OAuth scope on the URL, if not provided one will be generated.
+    #
+    # @param application_id [string] The Id of the application to create the OAuth scope on.
+    # @param scope_id [string] (Optional) The Id of the OAuth scope. If not provided a secure random UUID will be generated.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the OAuth OAuth scope.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def create_o_auth_scope(application_id, scope_id, request)
+      start.uri('/api/application')
+          .url_segment(application_id)
+          .url_segment("scope")
+          .url_segment(scope_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post()
           .go()
@@ -776,7 +794,7 @@ module FusionAuth
     # Hard deletes an application role. This is a dangerous operation and should not be used in most circumstances. This
     # permanently removes the given role from all users that had it.
     #
-    # @param application_id [string] The Id of the application to deactivate.
+    # @param application_id [string] The Id of the application that the role belongs to.
     # @param role_id [string] The Id of the role to delete.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def delete_application_role(application_id, role_id)
@@ -997,6 +1015,22 @@ module FusionAuth
     def delete_messenger(messenger_id)
       start.uri('/api/messenger')
           .url_segment(messenger_id)
+          .delete()
+          .go()
+    end
+
+    #
+    # Hard deletes a custom OAuth scope. This action will cause tokens that contain the deleted scope to be rejected.
+    # OAuth workflows that are still requesting the deleted OAuth scope may fail depending on the application's unknown scope policy.
+    #
+    # @param application_id [string] The Id of the application that the OAuth scope belongs to.
+    # @param scope_id [string] The Id of the OAuth scope to delete.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_o_auth_scope(application_id, scope_id)
+      start.uri('/api/application')
+          .url_segment(application_id)
+          .url_segment("scope")
+          .url_segment(scope_id)
           .delete()
           .go()
     end
@@ -1748,7 +1782,7 @@ module FusionAuth
     end
 
     #
-    # Updates, via PATCH, the application role with the given id for the application.
+    # Updates, via PATCH, the application role with the given Id for the application.
     #
     # @param application_id [string] The Id of the application that the role belongs to.
     # @param role_id [string] The Id of the role to update.
@@ -1903,7 +1937,24 @@ module FusionAuth
     end
 
     #
-    # Updates, via PATCH, the registration for the user with the given id and the application defined in the request.
+    # Updates, via PATCH, the custom OAuth scope with the given Id for the application.
+    #
+    # @param application_id [string] The Id of the application that the OAuth scope belongs to.
+    # @param scope_id [string] The Id of the OAuth scope to update.
+    # @param request [OpenStruct, Hash] The request that contains just the new OAuth scope information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def patch_o_auth_scope(application_id, scope_id, request)
+      start.uri('/api/application')
+          .url_segment(application_id)
+          .url_segment("scope")
+          .url_segment(scope_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .patch()
+          .go()
+    end
+
+    #
+    # Updates, via PATCH, the registration for the user with the given Id and the application defined in the request.
     #
     # @param user_id [string] The Id of the user whose registration is going to be updated.
     # @param request [OpenStruct, Hash] The request that contains just the new registration information.
@@ -2103,7 +2154,7 @@ module FusionAuth
     # Registers a user for an application. If you provide the User and the UserRegistration object on this request, it
     # will create the user as well as register them for the application. This is called a Full Registration. However, if
     # you only provide the UserRegistration object, then the user must already exist and they will be registered for the
-    # application. The user id can also be provided and it will either be used to look up an existing user or it will be
+    # application. The user Id can also be provided and it will either be used to look up an existing user or it will be
     # used for the newly created User.
     #
     # @param user_id [string] (Optional) The Id of the user being registered for the application and optionally created.
@@ -2136,8 +2187,8 @@ module FusionAuth
     #
     # Removes a user from the family with the given id.
     #
-    # @param family_id [string] The id of the family to remove the user from.
-    # @param user_id [string] The id of the user to remove from the family.
+    # @param family_id [string] The Id of the family to remove the user from.
+    # @param user_id [string] The Id of the user to remove from the family.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def remove_user_from_family(family_id, user_id)
       start.uri('/api/user/family')
@@ -2253,7 +2304,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves the application for the given id or all the applications if the id is null.
+    # Retrieves the application for the given Id or all the applications if the Id is null.
     #
     # @param application_id [string] (Optional) The application id.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -2549,7 +2600,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves the identity provider for the given id or all the identity providers if the id is null.
+    # Retrieves the identity provider for the given Id or all the identity providers if the Id is null.
     #
     # @param identity_provider_id [string] The identity provider Id.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -2821,6 +2872,21 @@ module FusionAuth
     end
 
     #
+    # Retrieves a custom OAuth scope.
+    #
+    # @param application_id [string] The Id of the application that the OAuth scope belongs to.
+    # @param scope_id [string] The Id of the OAuth scope to retrieve.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_o_auth_scope(application_id, scope_id)
+      start.uri('/api/application')
+          .url_segment(application_id)
+          .url_segment("scope")
+          .url_segment(scope_id)
+          .get()
+          .go()
+    end
+
+    #
     # Retrieves the Oauth2 configuration for the application for the given Application Id.
     #
     # @param application_id [string] The Id of the Application to retrieve OAuth configuration.
@@ -2955,7 +3021,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves the user registration for the user with the given id and the given application id.
+    # Retrieves the user registration for the user with the given Id and the given application id.
     #
     # @param user_id [string] The Id of the user.
     # @param application_id [string] The Id of the application.
@@ -3479,8 +3545,8 @@ module FusionAuth
     #  - revokeRefreshTokensByUserIdForApplication
     #
     # @param token [string] (Optional) The refresh token to delete.
-    # @param user_id [string] (Optional) The user id whose tokens to delete.
-    # @param application_id [string] (Optional) The application id of the tokens to delete.
+    # @param user_id [string] (Optional) The user Id whose tokens to delete.
+    # @param application_id [string] (Optional) The application Id of the tokens to delete.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def revoke_refresh_token(token, user_id, application_id)
       start.uri('/api/jwt/refresh')
@@ -3639,7 +3705,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves the entities for the given ids. If any id is invalid, it is ignored.
+    # Retrieves the entities for the given ids. If any Id is invalid, it is ignored.
     #
     # @param ids [Array] The entity ids to search for.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -3807,7 +3873,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves the users for the given ids. If any id is invalid, it is ignored.
+    # Retrieves the users for the given ids. If any Id is invalid, it is ignored.
     #
     # @param ids [Array] The user ids to search for.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -3820,7 +3886,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves the users for the given ids. If any id is invalid, it is ignored.
+    # Retrieves the users for the given ids. If any Id is invalid, it is ignored.
     #
     # @param ids [Array] The user ids to search for.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -3874,7 +3940,7 @@ module FusionAuth
     # Send an email using an email template id. You can optionally provide <code>requestData</code> to access key value
     # pairs in the email template.
     #
-    # @param email_template_id [string] The id for the template.
+    # @param email_template_id [string] The Id for the template.
     # @param request [OpenStruct, Hash] The send email request that contains all the information used to send the email.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def send_email(email_template_id, request)
@@ -4069,7 +4135,7 @@ module FusionAuth
     end
 
     #
-    # Updates the application role with the given id for the application.
+    # Updates the application role with the given Id for the application.
     #
     # @param application_id [string] The Id of the application that the role belongs to.
     # @param role_id [string] The Id of the role to update.
@@ -4156,7 +4222,7 @@ module FusionAuth
     end
 
     #
-    # Updates the permission with the given id for the entity type.
+    # Updates the permission with the given Id for the entity type.
     #
     # @param entity_type_id [string] The Id of the entityType that the permission belongs to.
     # @param permission_id [string] The Id of the permission to update.
@@ -4323,7 +4389,24 @@ module FusionAuth
     end
 
     #
-    # Updates the registration for the user with the given id and the application defined in the request.
+    # Updates the OAuth scope with the given Id for the application.
+    #
+    # @param application_id [string] The Id of the application that the OAuth scope belongs to.
+    # @param scope_id [string] The Id of the OAuth scope to update.
+    # @param request [OpenStruct, Hash] The request that contains all the new OAuth scope information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def update_o_auth_scope(application_id, scope_id, request)
+      start.uri('/api/application')
+          .url_segment(application_id)
+          .url_segment("scope")
+          .url_segment(scope_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .put()
+          .go()
+    end
+
+    #
+    # Updates the registration for the user with the given Id and the application defined in the request.
     #
     # @param user_id [string] The Id of the user whose registration is going to be updated.
     # @param request [OpenStruct, Hash] The request that contains all the new registration information.
@@ -4514,7 +4597,7 @@ module FusionAuth
     #
     # Confirms a email verification. The Id given is usually from an email sent to the user.
     #
-    # @param verification_id [string] The email verification id sent to the user.
+    # @param verification_id [string] The email verification Id sent to the user.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     # @deprecated This method has been renamed to verify_email_address and changed to take a JSON request body, use that method instead.
     def verify_email(verification_id)
