@@ -236,18 +236,12 @@ module FusionAuth
       id = SecureRandom.uuid
       client = FusionAuth::FusionAuthClient.new(@fusionauthApiKey, @fusionauthUrl)
 
-      # Delete the user first if exists
-      response = client.retrieve_user_by_email('ruby.client.test@fusionauth.io')
-      if response.was_successful
-        client.delete_user(response.success_response.user.id)
-      end
-
       # Create a user
       response = client.create_user(id, {
         :user => {
           :firstName => 'Ruby',
           :lastName => 'Client',
-          :email => 'ruby.client.test@fusionauth.io',
+          :email => 'ruby.client.activation@fusionauth.io',
           :password => 'password'
         }
       })
@@ -262,6 +256,8 @@ module FusionAuth
       # Re-activate
       response = client.reactivate_user(user_id)
       handle_response(response)
+
+      client.delete_user(user_id)
     end
 
     def test_user_registration_crud_and_login
@@ -295,7 +291,7 @@ module FusionAuth
           :user => {
               :firstName => 'Ruby',
               :lastName => 'Client',
-              :email => 'ruby.client.test@fusionauth.io',
+              :email => 'ruby.client.register@fusionauth.io',
               :password => 'password'
           },
           :registration => {
@@ -311,12 +307,12 @@ module FusionAuth
 
       # Authenticate the user
       response = client.login({
-          :loginId => 'ruby.client.test@fusionauth.io',
+          :loginId => 'ruby.client.register@fusionauth.io',
           :password => 'password',
           :applicationId => application_id
       })
       handle_response(response)
-      assert_equal 'ruby.client.test@fusionauth.io', response.success_response.user.email
+      assert_equal 'ruby.client.register@fusionauth.io', response.success_response.user.email
 
       # Retrieve the registration
       response = client.retrieve_registration(id, application_id)
