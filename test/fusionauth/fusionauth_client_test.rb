@@ -1,4 +1,4 @@
-# Copyright (c) 2023, FusionAuth, All Rights Reserved
+# Copyright (c) 2024, FusionAuth, All Rights Reserved
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,17 +12,17 @@
 # either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-require 'test_helper'
+require 'minitest'
 require 'securerandom'
 
 module FusionAuth
   class FusionAuthClientTest < Minitest::Test
     def setup
       @fusionauthUrl = ENV['FUSIONAUTH_URL'] || 'http://localhost:9011'
-      @fusionauthApiKey = ENV['FUSIONAUTH_API_KEY'] || 'API-KEY'
+      @fusionauthApiKey = ENV['FUSIONAUTH_API_KEY'] || '72a8c464b86c3c9098c33da73f471b8a0352f6e14087ddc3'
     end
 
-    def handle_response (response)
+    def handle_response(response)
       unless response.was_successful
         raise "Status = #{response.status} error body = #{response.error_response}"
       end
@@ -236,18 +236,12 @@ module FusionAuth
       id = SecureRandom.uuid
       client = FusionAuth::FusionAuthClient.new(@fusionauthApiKey, @fusionauthUrl)
 
-      # Delete the user first if exists
-      response = client.retrieve_user_by_email('ruby.client.test@fusionauth.io')
-      if response.was_successful
-        client.delete_user(response.success_response.user.id)
-      end
-
       # Create a user
       response = client.create_user(id, {
         :user => {
           :firstName => 'Ruby',
           :lastName => 'Client',
-          :email => 'ruby.client.test@fusionauth.io',
+          :email => 'ruby.client.activation@fusionauth.io',
           :password => 'password'
         }
       })
@@ -262,6 +256,8 @@ module FusionAuth
       # Re-activate
       response = client.reactivate_user(user_id)
       handle_response(response)
+
+      client.delete_user(user_id)
     end
 
     def test_user_registration_crud_and_login
@@ -295,7 +291,7 @@ module FusionAuth
           :user => {
               :firstName => 'Ruby',
               :lastName => 'Client',
-              :email => 'ruby.client.test@fusionauth.io',
+              :email => 'ruby.client.register@fusionauth.io',
               :password => 'password'
           },
           :registration => {
@@ -311,12 +307,12 @@ module FusionAuth
 
       # Authenticate the user
       response = client.login({
-          :loginId => 'ruby.client.test@fusionauth.io',
+          :loginId => 'ruby.client.register@fusionauth.io',
           :password => 'password',
           :applicationId => application_id
       })
       handle_response(response)
-      assert_equal 'ruby.client.test@fusionauth.io', response.success_response.user.email
+      assert_equal 'ruby.client.register@fusionauth.io', response.success_response.user.email
 
       # Retrieve the registration
       response = client.retrieve_registration(id, application_id)

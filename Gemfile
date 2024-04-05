@@ -1,4 +1,4 @@
-# Copyright (c) 2019-2022, FusionAuth, All Rights Reserved
+# Copyright (c) 2019-2024, FusionAuth, All Rights Reserved
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,12 +13,12 @@
 # language governing permissions and limitations under the License.
 
 source 'https://rubygems.org'
-ruby '2.5.9'
+ruby '3.3.0'
 
-gem "rake", "12.3.3"
-gem "minitest", "5.8.3"
+gem 'rake', '~> 13.2', '>= 13.2.1'
+gem 'minitest', '~> 5.22', '>= 5.22.3'
 
 # Specify your gem's dependencies in fusionauth_client.gemspec
 gemspec
 
-gem "rdoc-markdown", "~> 0.4"
+gem 'rdoc-markdown', '~> 0.4.2'
