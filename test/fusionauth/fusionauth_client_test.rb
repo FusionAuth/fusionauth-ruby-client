@@ -1,4 +1,4 @@
-# Copyright (c) 2023, FusionAuth, All Rights Reserved
+# Copyright (c) 2024, FusionAuth, All Rights Reserved
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,17 +12,17 @@
 # either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-require 'test_helper'
+require 'minitest'
 require 'securerandom'
 
 module FusionAuth
   class FusionAuthClientTest < Minitest::Test
     def setup
       @fusionauthUrl = ENV['FUSIONAUTH_URL'] || 'http://localhost:9011'
-      @fusionauthApiKey = ENV['FUSIONAUTH_API_KEY'] || 'API-KEY'
+      @fusionauthApiKey = ENV['FUSIONAUTH_API_KEY'] || '72a8c464b86c3c9098c33da73f471b8a0352f6e14087ddc3'
     end
 
-    def handle_response (response)
+    def handle_response(response)
       unless response.was_successful
         raise "Status = #{response.status} error body = #{response.error_response}"
       end

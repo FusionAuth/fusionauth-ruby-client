@@ -6,26 +6,22 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    cgi (0.3.6)
+    cgi (0.4.1)
     erb (2.2.3)
       cgi
-    extralite-bundle (1.19)
-    mini_portile2 (2.8.1)
-    minitest (5.8.3)
-    nokogiri (1.13.10)
-      mini_portile2 (~> 2.8.0)
+    extralite-bundle (1.27)
+    mini_portile2 (2.8.5)
+    minitest (5.22.3)
+    nokogiri (1.15.6)
+      mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    nokogiri (1.13.10-x86_64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.13.10-x86_64-linux)
-      racc (~> 1.4)
-    psych (5.0.1)
+    psych (5.1.2)
       stringio
-    racc (1.6.2)
-    rake (12.3.3)
-    rdoc (6.5.0)
+    racc (1.7.3)
+    rake (13.2.1)
+    rdoc (6.6.3.1)
       psych (>= 4.0.0)
-    rdoc-markdown (0.4)
+    rdoc-markdown (0.4.2)
       erb (~> 2.0)
       extralite-bundle (~> 1.0)
       rdoc (~> 6.0)
@@ -33,7 +29,7 @@ GEM
       unindent (~> 1.0)
     reverse_markdown (2.1.1)
       nokogiri
-    stringio (3.0.4)
+    stringio (3.1.0)
     unindent (1.0)
 
 PLATFORMS
@@ -44,12 +40,12 @@ PLATFORMS
 
 DEPENDENCIES
   fusionauth_client!
-  minitest (= 5.8.3)
-  rake (= 12.3.3)
-  rdoc-markdown (~> 0.4)
+  minitest (~> 5.22, >= 5.22.3)
+  rake (~> 13.2, >= 13.2.1)
+  rdoc-markdown (~> 0.4.2)
 
 RUBY VERSION
-   ruby 2.7.0p0
+   ruby 3.3.0p0
 
 BUNDLED WITH
-   2.2.5
+   2.5.7
