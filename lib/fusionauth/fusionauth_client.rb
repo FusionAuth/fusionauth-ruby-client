@@ -2,7 +2,7 @@ require 'ostruct'
 require 'fusionauth/rest_client'
 
 #
-# Copyright (c) 2018-2024, FusionAuth, All Rights Reserved
+# Copyright (c) 2018-2023, FusionAuth, All Rights Reserved
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -558,6 +558,24 @@ module FusionAuth
     end
 
     #
+    # Creates a new custom OAuth scope for an application. You must specify the Id of the application you are creating the scope for.
+    # You can optionally specify an Id for the OAuth scope on the URL, if not provided one will be generated.
+    #
+    # @param application_id [string] The Id of the application to create the OAuth scope on.
+    # @param scope_id [string] (Optional) The Id of the OAuth scope. If not provided a secure random UUID will be generated.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the OAuth OAuth scope.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def create_o_auth_scope(application_id, scope_id, request)
+      start.uri('/api/application')
+          .url_segment(application_id)
+          .url_segment("scope")
+          .url_segment(scope_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post()
+          .go()
+    end
+
+    #
     # Creates a tenant. You can optionally specify an Id for the tenant, if not provided one will be generated.
     #
     # @param tenant_id [string] (Optional) The Id for the tenant. If not provided a secure random UUID will be generated.
@@ -776,7 +794,7 @@ module FusionAuth
     # Hard deletes an application role. This is a dangerous operation and should not be used in most circumstances. This
     # permanently removes the given role from all users that had it.
     #
-    # @param application_id [string] The Id of the application to deactivate.
+    # @param application_id [string] The Id of the application that the role belongs to.
     # @param role_id [string] The Id of the role to delete.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def delete_application_role(application_id, role_id)
@@ -997,6 +1015,22 @@ module FusionAuth
     def delete_messenger(messenger_id)
       start.uri('/api/messenger')
           .url_segment(messenger_id)
+          .delete()
+          .go()
+    end
+
+    #
+    # Hard deletes a custom OAuth scope.
+    # OAuth workflows that are still requesting the deleted OAuth scope may fail depending on the application's unknown scope policy.
+    #
+    # @param application_id [string] The Id of the application that the OAuth scope belongs to.
+    # @param scope_id [string] The Id of the OAuth scope to delete.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_o_auth_scope(application_id, scope_id)
+      start.uri('/api/application')
+          .url_segment(application_id)
+          .url_segment("scope")
+          .url_segment(scope_id)
           .delete()
           .go()
     end
@@ -1897,6 +1931,23 @@ module FusionAuth
     def patch_messenger(messenger_id, request)
       start.uri('/api/messenger')
           .url_segment(messenger_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .patch()
+          .go()
+    end
+
+    #
+    # Updates, via PATCH, the custom OAuth scope with the given Id for the application.
+    #
+    # @param application_id [string] The Id of the application that the OAuth scope belongs to.
+    # @param scope_id [string] The Id of the OAuth scope to update.
+    # @param request [OpenStruct, Hash] The request that contains just the new OAuth scope information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def patch_o_auth_scope(application_id, scope_id, request)
+      start.uri('/api/application')
+          .url_segment(application_id)
+          .url_segment("scope")
+          .url_segment(scope_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .patch()
           .go()
@@ -2816,6 +2867,21 @@ module FusionAuth
           .url_parameter('applicationId', application_id)
           .url_parameter('start', start)
           .url_parameter('end', _end)
+          .get()
+          .go()
+    end
+
+    #
+    # Retrieves a custom OAuth scope.
+    #
+    # @param application_id [string] The Id of the application that the OAuth scope belongs to.
+    # @param scope_id [string] The Id of the OAuth scope to retrieve.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_o_auth_scope(application_id, scope_id)
+      start.uri('/api/application')
+          .url_segment(application_id)
+          .url_segment("scope")
+          .url_segment(scope_id)
           .get()
           .go()
     end
@@ -4317,6 +4383,23 @@ module FusionAuth
     def update_messenger(messenger_id, request)
       start.uri('/api/messenger')
           .url_segment(messenger_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .put()
+          .go()
+    end
+
+    #
+    # Updates the OAuth scope with the given Id for the application.
+    #
+    # @param application_id [string] The Id of the application that the OAuth scope belongs to.
+    # @param scope_id [string] The Id of the OAuth scope to update.
+    # @param request [OpenStruct, Hash] The request that contains all the new OAuth scope information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def update_o_auth_scope(application_id, scope_id, request)
+      start.uri('/api/application')
+          .url_segment(application_id)
+          .url_segment("scope")
+          .url_segment(scope_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .put()
           .go()
