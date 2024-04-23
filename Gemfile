@@ -17,8 +17,7 @@ ruby '2.7.5'
 
 gem 'minitest',      '~> 5.22', '>= 5.22.3'
 gem 'rake',          '~> 13.2', '>= 13.2.1'
+gem 'rdoc-markdown', '~> 0.4.2'
 
 # Specify your gem's dependencies in fusionauth_client.gemspec
 gemspec
-
-gem 'rdoc-markdown', '~> 0.4.2'
