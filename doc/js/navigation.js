@@ -23,24 +23,24 @@ Navigation = new function() {
 
   this.onkeydown = function(e) {
     if (!this.navigationActive) return;
-    switch(e.key) {
-      case 'ArrowLeft':
+    switch(e.keyCode) {
+      case 37: //Event.KEY_LEFT:
         if (this.moveLeft()) e.preventDefault();
         break;
-      case 'ArrowUp':
-        if (e.key == 'ArrowUp' || e.ctrlKey) {
+      case 38: //Event.KEY_UP:
+        if (e.keyCode == 38 || e.ctrlKey) {
           if (this.moveUp()) e.preventDefault();
         }
         break;
-      case 'ArrowRight':
+      case 39: //Event.KEY_RIGHT:
         if (this.moveRight()) e.preventDefault();
         break;
-      case 'ArrowDown':
-        if (e.key == 'ArrowDown' || e.ctrlKey) {
+      case 40: //Event.KEY_DOWN:
+        if (e.keyCode == 40 || e.ctrlKey) {
           if (this.moveDown()) e.preventDefault();
         }
         break;
-      case 'Enter':
+      case 13: //Event.KEY_RETURN:
         if (this.current) e.preventDefault();
         this.select(this.current);
         break;
