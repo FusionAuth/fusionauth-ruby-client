@@ -1,0 +1,60 @@
+# Run locally with act:
+#
+# act pull_request \
+#  --platform fusionauth-builder=[ecr-repo-name]/fusionauth-builder:latest] \
+#  --workflows ./.github/workflows/release.yaml \
+#  --env-file <(aws configure export-credentials --profile [aws-profile] --format env)
+
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: fusionauth-builder
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: set aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::752443094709:role/github-actions
+          role-session-name: aws-auth-action
+          aws-region: us-west-2
+
+      - name: get secret
+        run: |
+          while IFS=$'\t' read -r key value; do
+            echo "::add-mask::${value}"
+            echo "${key}=${value}" >> $GITHUB_ENV
+          done < <(aws secretsmanager get-secret-value \
+            --region us-west-2 \
+            --secret-id platform/rubygems \
+            --query SecretString \
+            --output text | \
+            jq -r 'to_entries[] | [.key, .value] | @tsv')
+
+      - name: set gem credentials
+        run: |
+          mkdir -p ~/.gem
+          echo "${{ env.API_KEY }}" > ~/.gem/credentials
+
+      - name: compile
+        if: github.event_name == 'pull_request'
+        shell: bash -l {0}
+        run: sb compile
+
+      - name: publish
+        if: github.event_name == 'push'
+        shell: bash -l {0}
+        run: sb publish

@@ -2,7 +2,8 @@ name: Generate Docs
 
 on:
   push:
-    branches: [ "master" ]
+    branches:
+      - main
 
 permissions:
   contents: write
@@ -11,21 +12,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        bundler-cache: true
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
 
-    - name: Generate docs
-      run: |
-        rm -f doc/index.db
-        rdoc --format=markdown lib/fusionauth/fusionauth_client.rb
+      - name: Generate docs
+        run: |
+          rm -f doc/index.db
+          rdoc --format=markdown lib/fusionauth/fusionauth_client.rb
 
-    - name: Commit
-      uses: EndBug/add-and-commit@v9 
-      with:
-        add: 'doc/'
-        message: ':memo: Updating docs'
-
+      - name: Commit
+        uses: EndBug/add-and-commit@v9 
+        with:
+          add: 'doc/'
+          message: ':memo: Updating docs'
