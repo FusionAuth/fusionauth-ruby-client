@@ -1,11 +1,11 @@
 # Run locally with act:
 #
-# act pull_request \
+# act pull_request [--input command=[command]] \
 #  --platform fusionauth-builder=[ecr-repo-name]/fusionauth-builder:latest] \
 #  --workflows ./.github/workflows/release.yaml \
 #  --env-file <(aws configure export-credentials --profile [aws-profile] --format env)
 
-name: Release
+name: release
 
 on:
   push:
@@ -14,12 +14,38 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      command:
+        type: choice
+        options:
+          - build    # build only
+          - publish  # build & publish to rubygems
+          - release  # build & release to svn
+        default: build
 
 permissions:
   contents: read
 
 jobs:
-  release:
+  build:
+    if: |
+      github.event_name == 'pull_request' ||
+      github.event_name == 'push' ||
+      github.event_name == 'workflow_dispatch' && inputs.command == 'build'
+    runs-on: fusionauth-builder
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: compile
+        shell: bash -l {0}
+        run: sb compile
+
+  deploy:
+    if: |
+      github.event_name == 'workflow_dispatch' &&
+      (inputs.command == 'release' || inputs.command == 'publish')
     runs-on: fusionauth-builder
     steps:
       - name: checkout
@@ -49,12 +75,12 @@ jobs:
           mkdir -p ~/.gem
           echo "${{ env.API_KEY }}" > ~/.gem/credentials
 
-      - name: compile
-        if: github.event_name == 'pull_request'
+      - name: release to svn
+        if: inputs.command == 'release'
         shell: bash -l {0}
-        run: sb compile
+        run: sb release
 
-      - name: publish
-        if: github.event_name == 'push'
+      - name: publish to rubygems
+        if: inputs.command == 'publish'
         shell: bash -l {0}
         run: sb publish
