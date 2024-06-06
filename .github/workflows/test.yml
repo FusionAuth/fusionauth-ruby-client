@@ -2,9 +2,11 @@ name: Test Library
 
 on:
   push:
-    branches: [ "master" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "master" ]
+    branches:
+      - main
 
 permissions:
   contents: read
@@ -13,19 +15,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Set up FusionAuth
-      working-directory: .github/fusionauth
-      run: docker compose up -d
+      - name: Set up FusionAuth
+        working-directory: .github/fusionauth
+        run: docker compose up -d
 
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        bundler-cache: true
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
 
-    - name: Waiting for FusionAuth App
-      run: timeout 30 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:9011)" != "200" ]]; do sleep 5; done' || false
+      - name: Waiting for FusionAuth App
+        run: timeout 30 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:9011)" != "200" ]]; do sleep 5; done' || false
 
-    - name: Run test suite
-      run: rake test
+      - name: Run test suite
+        run: rake test
