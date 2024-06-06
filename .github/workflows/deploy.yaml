@@ -5,7 +5,7 @@
 #  --workflows ./.github/workflows/release.yaml \
 #  --env-file <(aws configure export-credentials --profile [aws-profile] --format env)
 
-name: release
+name: Deploy
 
 on:
   push:
