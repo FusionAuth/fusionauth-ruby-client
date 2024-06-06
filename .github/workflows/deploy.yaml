@@ -74,6 +74,7 @@ jobs:
         run: |
           mkdir -p ~/.gem
           echo "${{ env.API_KEY }}" > ~/.gem/credentials
+          chmod 600 ~/.gem/credentials
 
       - name: release to svn
         if: inputs.command == 'release'
