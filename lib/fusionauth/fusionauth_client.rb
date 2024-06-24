@@ -51,8 +51,8 @@ module FusionAuth
     def action_user(request)
       start.uri('/api/user/action')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -63,8 +63,8 @@ module FusionAuth
     def activate_reactor(request)
       start.uri('/api/reactor')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -77,8 +77,8 @@ module FusionAuth
       start.uri('/api/user/family')
           .url_segment(family_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -98,8 +98,8 @@ module FusionAuth
       }
       start.uri('/oauth2/device/approve')
           .body_handler(FusionAuth::FormDataBodyHandler.new(body))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -112,8 +112,8 @@ module FusionAuth
       start.uri('/api/user/action')
           .url_segment(action_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -130,8 +130,8 @@ module FusionAuth
       startAnonymous.uri('/api/user/change-password')
           .url_segment(change_password_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -144,8 +144,8 @@ module FusionAuth
     def change_password_by_identity(request)
       start.uri('/api/user/change-password')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -160,8 +160,8 @@ module FusionAuth
     def check_change_password_using_id(change_password_id)
       startAnonymous.uri('/api/user/change-password')
           .url_segment(change_password_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -176,8 +176,8 @@ module FusionAuth
     def check_change_password_using_jwt(encoded_jwt)
       startAnonymous.uri('/api/user/change-password')
           .authorization('Bearer ' + encoded_jwt)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -192,8 +192,8 @@ module FusionAuth
     def check_change_password_using_login_id(login_id)
       start.uri('/api/user/change-password')
           .url_parameter('username', login_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -214,8 +214,8 @@ module FusionAuth
       }
       startAnonymous.uri('/oauth2/token')
           .body_handler(FusionAuth::FormDataBodyHandler.new(body))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -226,8 +226,8 @@ module FusionAuth
     def comment_on_user(request)
       start.uri('/api/user/comment')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -238,8 +238,8 @@ module FusionAuth
     def complete_web_authn_assertion(request)
       startAnonymous.uri('/api/webauthn/assert')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -250,8 +250,8 @@ module FusionAuth
     def complete_web_authn_login(request)
       startAnonymous.uri('/api/webauthn/login')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -262,8 +262,8 @@ module FusionAuth
     def complete_web_authn_registration(request)
       start.uri('/api/webauthn/register/complete')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -280,8 +280,8 @@ module FusionAuth
       start.uri('/api/api-key')
           .url_segment(key_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -294,8 +294,8 @@ module FusionAuth
       start.uri('/api/application')
           .url_segment(application_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -312,8 +312,8 @@ module FusionAuth
           .url_segment("role")
           .url_segment(role_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -326,8 +326,8 @@ module FusionAuth
     def create_audit_log(request)
       start.uri('/api/system/audit-log')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -340,8 +340,8 @@ module FusionAuth
       start.uri('/api/connector')
           .url_segment(connector_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -354,8 +354,8 @@ module FusionAuth
       start.uri('/api/consent')
           .url_segment(consent_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -368,8 +368,8 @@ module FusionAuth
       start.uri('/api/email/template')
           .url_segment(email_template_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -382,8 +382,8 @@ module FusionAuth
       start.uri('/api/entity')
           .url_segment(entity_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -396,8 +396,8 @@ module FusionAuth
       start.uri('/api/entity/type')
           .url_segment(entity_type_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -414,8 +414,8 @@ module FusionAuth
           .url_segment("permission")
           .url_segment(permission_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -429,8 +429,8 @@ module FusionAuth
       start.uri('/api/user/family')
           .url_segment(family_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -443,8 +443,8 @@ module FusionAuth
       start.uri('/api/form')
           .url_segment(form_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -457,8 +457,8 @@ module FusionAuth
       start.uri('/api/form/field')
           .url_segment(field_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -471,8 +471,8 @@ module FusionAuth
       start.uri('/api/group')
           .url_segment(group_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -483,8 +483,8 @@ module FusionAuth
     def create_group_members(request)
       start.uri('/api/group/member')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -497,8 +497,8 @@ module FusionAuth
       start.uri('/api/ip-acl')
           .url_segment(access_control_list_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -511,8 +511,8 @@ module FusionAuth
       start.uri('/api/identity-provider')
           .url_segment(identity_provider_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -525,8 +525,8 @@ module FusionAuth
       start.uri('/api/lambda')
           .url_segment(lambda_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -539,8 +539,8 @@ module FusionAuth
       start.uri('/api/message/template')
           .url_segment(message_template_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -553,8 +553,8 @@ module FusionAuth
       start.uri('/api/messenger')
           .url_segment(messenger_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -571,8 +571,8 @@ module FusionAuth
           .url_segment("scope")
           .url_segment(scope_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -585,8 +585,8 @@ module FusionAuth
       start.uri('/api/tenant')
           .url_segment(tenant_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -599,8 +599,8 @@ module FusionAuth
       start.uri('/api/theme')
           .url_segment(theme_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -613,8 +613,8 @@ module FusionAuth
       start.uri('/api/user')
           .url_segment(user_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -628,8 +628,8 @@ module FusionAuth
       start.uri('/api/user-action')
           .url_segment(user_action_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -643,8 +643,8 @@ module FusionAuth
       start.uri('/api/user-action-reason')
           .url_segment(user_action_reason_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -657,8 +657,8 @@ module FusionAuth
       start.uri('/api/user/consent')
           .url_segment(user_consent_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -669,8 +669,8 @@ module FusionAuth
     def create_user_link(request)
       start.uri('/api/identity-provider/link')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -683,8 +683,8 @@ module FusionAuth
       start.uri('/api/webhook')
           .url_segment(webhook_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -695,18 +695,18 @@ module FusionAuth
     def deactivate_application(application_id)
       start.uri('/api/application')
           .url_segment(application_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
     # Deactivates the FusionAuth Reactor.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def deactivate_reactor()
+    def deactivate_reactor
       start.uri('/api/reactor')
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -717,8 +717,8 @@ module FusionAuth
     def deactivate_user(user_id)
       start.uri('/api/user')
           .url_segment(user_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -729,8 +729,8 @@ module FusionAuth
     def deactivate_user_action(user_action_id)
       start.uri('/api/user-action')
           .url_segment(user_action_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -744,8 +744,8 @@ module FusionAuth
           .url_parameter('userId', user_ids)
           .url_parameter('dryRun', false)
           .url_parameter('hardDelete', false)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -758,8 +758,8 @@ module FusionAuth
           .url_parameter('userId', user_ids)
           .url_parameter('dryRun', false)
           .url_parameter('hardDelete', false)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -770,8 +770,8 @@ module FusionAuth
     def delete_api_key(key_id)
       start.uri('/api/api-key')
           .url_segment(key_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -786,8 +786,8 @@ module FusionAuth
       start.uri('/api/application')
           .url_segment(application_id)
           .url_parameter('hardDelete', true)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -802,8 +802,8 @@ module FusionAuth
           .url_segment(application_id)
           .url_segment("role")
           .url_segment(role_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -814,8 +814,8 @@ module FusionAuth
     def delete_connector(connector_id)
       start.uri('/api/connector')
           .url_segment(connector_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -826,8 +826,8 @@ module FusionAuth
     def delete_consent(consent_id)
       start.uri('/api/consent')
           .url_segment(consent_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -838,8 +838,8 @@ module FusionAuth
     def delete_email_template(email_template_id)
       start.uri('/api/email/template')
           .url_segment(email_template_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -850,8 +850,8 @@ module FusionAuth
     def delete_entity(entity_id)
       start.uri('/api/entity')
           .url_segment(entity_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -867,8 +867,8 @@ module FusionAuth
           .url_segment("grant")
           .url_parameter('recipientEntityId', recipient_entity_id)
           .url_parameter('userId', user_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -879,8 +879,8 @@ module FusionAuth
     def delete_entity_type(entity_type_id)
       start.uri('/api/entity/type')
           .url_segment(entity_type_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -895,8 +895,8 @@ module FusionAuth
           .url_segment(entity_type_id)
           .url_segment("permission")
           .url_segment(permission_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -907,8 +907,8 @@ module FusionAuth
     def delete_form(form_id)
       start.uri('/api/form')
           .url_segment(form_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -919,8 +919,8 @@ module FusionAuth
     def delete_form_field(field_id)
       start.uri('/api/form/field')
           .url_segment(field_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -931,8 +931,8 @@ module FusionAuth
     def delete_group(group_id)
       start.uri('/api/group')
           .url_segment(group_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -943,8 +943,8 @@ module FusionAuth
     def delete_group_members(request)
       start.uri('/api/group/member')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -955,8 +955,8 @@ module FusionAuth
     def delete_ip_access_control_list(ip_access_control_list_id)
       start.uri('/api/ip-acl')
           .url_segment(ip_access_control_list_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -967,8 +967,8 @@ module FusionAuth
     def delete_identity_provider(identity_provider_id)
       start.uri('/api/identity-provider')
           .url_segment(identity_provider_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -979,8 +979,8 @@ module FusionAuth
     def delete_key(key_id)
       start.uri('/api/key')
           .url_segment(key_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -991,8 +991,8 @@ module FusionAuth
     def delete_lambda(lambda_id)
       start.uri('/api/lambda')
           .url_segment(lambda_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -1003,8 +1003,8 @@ module FusionAuth
     def delete_message_template(message_template_id)
       start.uri('/api/message/template')
           .url_segment(message_template_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -1015,8 +1015,8 @@ module FusionAuth
     def delete_messenger(messenger_id)
       start.uri('/api/messenger')
           .url_segment(messenger_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -1031,8 +1031,8 @@ module FusionAuth
           .url_segment(application_id)
           .url_segment("scope")
           .url_segment(scope_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -1045,8 +1045,8 @@ module FusionAuth
       start.uri('/api/user/registration')
           .url_segment(user_id)
           .url_segment(application_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -1061,8 +1061,8 @@ module FusionAuth
           .url_segment(user_id)
           .url_segment(application_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -1074,8 +1074,8 @@ module FusionAuth
     def delete_tenant(tenant_id)
       start.uri('/api/tenant')
           .url_segment(tenant_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -1088,8 +1088,8 @@ module FusionAuth
       start.uri('/api/tenant')
           .url_segment(tenant_id)
           .url_parameter('async', true)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -1103,8 +1103,8 @@ module FusionAuth
       start.uri('/api/tenant')
           .url_segment(tenant_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -1115,8 +1115,8 @@ module FusionAuth
     def delete_theme(theme_id)
       start.uri('/api/theme')
           .url_segment(theme_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -1129,8 +1129,8 @@ module FusionAuth
       start.uri('/api/user')
           .url_segment(user_id)
           .url_parameter('hardDelete', true)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -1143,8 +1143,8 @@ module FusionAuth
       start.uri('/api/user-action')
           .url_segment(user_action_id)
           .url_parameter('hardDelete', true)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -1155,8 +1155,8 @@ module FusionAuth
     def delete_user_action_reason(user_action_reason_id)
       start.uri('/api/user-action-reason')
           .url_segment(user_action_reason_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -1171,8 +1171,8 @@ module FusionAuth
           .url_parameter('identityProviderId', identity_provider_id)
           .url_parameter('identityProviderUserId', identity_provider_user_id)
           .url_parameter('userId', user_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -1186,8 +1186,8 @@ module FusionAuth
       start.uri('/api/user')
           .url_segment(user_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -1203,8 +1203,8 @@ module FusionAuth
     def delete_users(request)
       start.uri('/api/user/bulk')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -1219,8 +1219,8 @@ module FusionAuth
     def delete_users_by_query(request)
       start.uri('/api/user/bulk')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -1231,8 +1231,8 @@ module FusionAuth
     def delete_web_authn_credential(id)
       start.uri('/api/webauthn')
           .url_segment(id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -1243,8 +1243,8 @@ module FusionAuth
     def delete_webhook(webhook_id)
       start.uri('/api/webhook')
           .url_segment(webhook_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -1259,8 +1259,8 @@ module FusionAuth
           .url_segment(user_id)
           .url_parameter('methodId', method_id)
           .url_parameter('code', code)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -1273,8 +1273,8 @@ module FusionAuth
       start.uri('/api/user/two-factor')
           .url_segment(user_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -1287,8 +1287,8 @@ module FusionAuth
       start.uri('/api/user/two-factor')
           .url_segment(user_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -1311,8 +1311,8 @@ module FusionAuth
       }
       startAnonymous.uri('/oauth2/token')
           .body_handler(FusionAuth::FormDataBodyHandler.new(body))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -1337,8 +1337,8 @@ module FusionAuth
       }
       startAnonymous.uri('/oauth2/token')
           .body_handler(FusionAuth::FormDataBodyHandler.new(body))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -1363,8 +1363,8 @@ module FusionAuth
       }
       startAnonymous.uri('/oauth2/token')
           .body_handler(FusionAuth::FormDataBodyHandler.new(body))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -1375,8 +1375,8 @@ module FusionAuth
     def exchange_refresh_token_for_jwt(request)
       startAnonymous.uri('/api/jwt/refresh')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -1403,8 +1403,8 @@ module FusionAuth
       }
       startAnonymous.uri('/oauth2/token')
           .body_handler(FusionAuth::FormDataBodyHandler.new(body))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -1415,8 +1415,8 @@ module FusionAuth
     def forgot_password(request)
       start.uri('/api/user/forgot-password')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -1429,8 +1429,8 @@ module FusionAuth
       start.uri('/api/user/verify-email')
           .url_parameter('email', email)
           .url_parameter('sendVerifyEmail', false)
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -1443,8 +1443,8 @@ module FusionAuth
       start.uri('/api/key/generate')
           .url_segment(key_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -1459,8 +1459,8 @@ module FusionAuth
           .url_parameter('email', email)
           .url_parameter('sendVerifyPasswordEmail', false)
           .url_parameter('applicationId', application_id)
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -1471,8 +1471,8 @@ module FusionAuth
     def generate_two_factor_recovery_codes(user_id)
       start.uri('/api/user/two-factor/recovery-code')
           .url_segment(user_id)
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -1481,10 +1481,10 @@ module FusionAuth
     # application such as Google Authenticator.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def generate_two_factor_secret()
+    def generate_two_factor_secret
       start.uri('/api/two-factor/secret')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -1497,8 +1497,8 @@ module FusionAuth
     def generate_two_factor_secret_using_jwt(encoded_jwt)
       startAnonymous.uri('/api/two-factor/secret')
           .authorization('Bearer ' + encoded_jwt)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -1511,8 +1511,8 @@ module FusionAuth
     def identity_provider_login(request)
       startAnonymous.uri('/api/identity-provider/login')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -1525,8 +1525,8 @@ module FusionAuth
       start.uri('/api/key/import')
           .url_segment(key_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -1544,8 +1544,8 @@ module FusionAuth
     def import_refresh_tokens(request)
       start.uri('/api/user/refresh-token/import')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -1563,8 +1563,8 @@ module FusionAuth
     def import_users(request)
       start.uri('/api/user/import')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -1575,8 +1575,8 @@ module FusionAuth
     def import_web_authn_credential(request)
       start.uri('/api/webauthn/import')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -1592,8 +1592,8 @@ module FusionAuth
       }
       startAnonymous.uri('/oauth2/introspect')
           .body_handler(FusionAuth::FormDataBodyHandler.new(body))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -1607,8 +1607,8 @@ module FusionAuth
       }
       startAnonymous.uri('/oauth2/introspect')
           .body_handler(FusionAuth::FormDataBodyHandler.new(body))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -1629,8 +1629,8 @@ module FusionAuth
           .authorization('Bearer ' + encoded_jwt)
           .url_parameter('applicationId', application_id)
           .url_parameter('refreshToken', refresh_token)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -1643,8 +1643,8 @@ module FusionAuth
     def login(request)
       start.uri('/api/login')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -1663,8 +1663,8 @@ module FusionAuth
           .url_segment(user_id)
           .url_segment(application_id)
           .url_parameter('ipAddress', caller_ip_address)
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -1678,8 +1678,8 @@ module FusionAuth
     def login_ping_with_request(request)
       start.uri('/api/login')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -1696,8 +1696,8 @@ module FusionAuth
       startAnonymous.uri('/api/logout')
           .url_parameter('global', global)
           .url_parameter('refreshToken', refresh_token)
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -1709,8 +1709,8 @@ module FusionAuth
     def logout_with_request(request)
       startAnonymous.uri('/api/logout')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -1722,8 +1722,8 @@ module FusionAuth
     def lookup_identity_provider(domain)
       start.uri('/api/identity-provider/lookup')
           .url_parameter('domain', domain)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -1737,8 +1737,8 @@ module FusionAuth
       start.uri('/api/user/action')
           .url_segment(action_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -1749,8 +1749,8 @@ module FusionAuth
     def passwordless_login(request)
       startAnonymous.uri('/api/passwordless/login')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -1763,8 +1763,8 @@ module FusionAuth
       start.uri('/api/api-key')
           .url_segment(key_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -1777,8 +1777,8 @@ module FusionAuth
       start.uri('/api/application')
           .url_segment(application_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .patch()
-          .go()
+          .patch
+          .go
     end
 
     #
@@ -1794,8 +1794,8 @@ module FusionAuth
           .url_segment("role")
           .url_segment(role_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .patch()
-          .go()
+          .patch
+          .go
     end
 
     #
@@ -1808,8 +1808,8 @@ module FusionAuth
       start.uri('/api/connector')
           .url_segment(connector_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .patch()
-          .go()
+          .patch
+          .go
     end
 
     #
@@ -1822,8 +1822,8 @@ module FusionAuth
       start.uri('/api/consent')
           .url_segment(consent_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .patch()
-          .go()
+          .patch
+          .go
     end
 
     #
@@ -1836,8 +1836,8 @@ module FusionAuth
       start.uri('/api/email/template')
           .url_segment(email_template_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .patch()
-          .go()
+          .patch
+          .go
     end
 
     #
@@ -1850,8 +1850,8 @@ module FusionAuth
       start.uri('/api/entity/type')
           .url_segment(entity_type_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .patch()
-          .go()
+          .patch
+          .go
     end
 
     #
@@ -1864,8 +1864,8 @@ module FusionAuth
       start.uri('/api/group')
           .url_segment(group_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .patch()
-          .go()
+          .patch
+          .go
     end
 
     #
@@ -1878,8 +1878,8 @@ module FusionAuth
       start.uri('/api/identity-provider')
           .url_segment(identity_provider_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .patch()
-          .go()
+          .patch
+          .go
     end
 
     #
@@ -1890,8 +1890,8 @@ module FusionAuth
     def patch_integrations(request)
       start.uri('/api/integration')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .patch()
-          .go()
+          .patch
+          .go
     end
 
     #
@@ -1904,8 +1904,8 @@ module FusionAuth
       start.uri('/api/lambda')
           .url_segment(lambda_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .patch()
-          .go()
+          .patch
+          .go
     end
 
     #
@@ -1918,8 +1918,8 @@ module FusionAuth
       start.uri('/api/message/template')
           .url_segment(message_template_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .patch()
-          .go()
+          .patch
+          .go
     end
 
     #
@@ -1932,8 +1932,8 @@ module FusionAuth
       start.uri('/api/messenger')
           .url_segment(messenger_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .patch()
-          .go()
+          .patch
+          .go
     end
 
     #
@@ -1949,8 +1949,8 @@ module FusionAuth
           .url_segment("scope")
           .url_segment(scope_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .patch()
-          .go()
+          .patch
+          .go
     end
 
     #
@@ -1963,8 +1963,8 @@ module FusionAuth
       start.uri('/api/user/registration')
           .url_segment(user_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .patch()
-          .go()
+          .patch
+          .go
     end
 
     #
@@ -1975,8 +1975,8 @@ module FusionAuth
     def patch_system_configuration(request)
       start.uri('/api/system-configuration')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .patch()
-          .go()
+          .patch
+          .go
     end
 
     #
@@ -1989,8 +1989,8 @@ module FusionAuth
       start.uri('/api/tenant')
           .url_segment(tenant_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .patch()
-          .go()
+          .patch
+          .go
     end
 
     #
@@ -2003,8 +2003,8 @@ module FusionAuth
       start.uri('/api/theme')
           .url_segment(theme_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .patch()
-          .go()
+          .patch
+          .go
     end
 
     #
@@ -2017,8 +2017,8 @@ module FusionAuth
       start.uri('/api/user')
           .url_segment(user_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .patch()
-          .go()
+          .patch
+          .go
     end
 
     #
@@ -2031,8 +2031,8 @@ module FusionAuth
       start.uri('/api/user-action')
           .url_segment(user_action_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .patch()
-          .go()
+          .patch
+          .go
     end
 
     #
@@ -2045,8 +2045,8 @@ module FusionAuth
       start.uri('/api/user-action-reason')
           .url_segment(user_action_reason_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .patch()
-          .go()
+          .patch
+          .go
     end
 
     #
@@ -2059,8 +2059,8 @@ module FusionAuth
       start.uri('/api/user/consent')
           .url_segment(user_consent_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .patch()
-          .go()
+          .patch
+          .go
     end
 
     #
@@ -2072,8 +2072,8 @@ module FusionAuth
       start.uri('/api/application')
           .url_segment(application_id)
           .url_parameter('reactivate', true)
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -2085,8 +2085,8 @@ module FusionAuth
       start.uri('/api/user')
           .url_segment(user_id)
           .url_parameter('reactivate', true)
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -2098,8 +2098,8 @@ module FusionAuth
       start.uri('/api/user-action')
           .url_segment(user_action_id)
           .url_parameter('reactivate', true)
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -2110,8 +2110,8 @@ module FusionAuth
     def reconcile_jwt(request)
       startAnonymous.uri('/api/jwt/reconcile')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -2121,10 +2121,10 @@ module FusionAuth
     #  ensure the index immediately current before making a query request to the search index.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def refresh_entity_search_index()
+    def refresh_entity_search_index
       start.uri('/api/entity/search')
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -2134,20 +2134,20 @@ module FusionAuth
     #  ensure the index immediately current before making a query request to the search index.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def refresh_user_search_index()
+    def refresh_user_search_index
       start.uri('/api/user/search')
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
     # Regenerates any keys that are used by the FusionAuth Reactor.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def regenerate_reactor_keys()
+    def regenerate_reactor_keys
       start.uri('/api/reactor')
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -2164,8 +2164,8 @@ module FusionAuth
       start.uri('/api/user/registration')
           .url_segment(user_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -2180,8 +2180,8 @@ module FusionAuth
     def reindex(request)
       start.uri('/api/system/reindex')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -2194,8 +2194,8 @@ module FusionAuth
       start.uri('/api/user/family')
           .url_segment(family_id)
           .url_segment(user_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -2206,8 +2206,8 @@ module FusionAuth
     def resend_email_verification(email)
       start.uri('/api/user/verify-email')
           .url_parameter('email', email)
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -2221,8 +2221,8 @@ module FusionAuth
       start.uri('/api/user/verify-email')
           .url_parameter('applicationId', application_id)
           .url_parameter('email', email)
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -2235,8 +2235,8 @@ module FusionAuth
       start.uri('/api/user/verify-registration')
           .url_parameter('email', email)
           .url_parameter('applicationId', application_id)
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -2247,8 +2247,8 @@ module FusionAuth
     def retrieve_api_key(key_id)
       start.uri('/api/api-key')
           .url_segment(key_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2259,8 +2259,8 @@ module FusionAuth
     def retrieve_action(action_id)
       start.uri('/api/user/action')
           .url_segment(action_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2272,8 +2272,8 @@ module FusionAuth
     def retrieve_actions(user_id)
       start.uri('/api/user/action')
           .url_parameter('userId', user_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2285,8 +2285,8 @@ module FusionAuth
       start.uri('/api/user/action')
           .url_parameter('userId', user_id)
           .url_parameter('preventingLogin', true)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2299,8 +2299,8 @@ module FusionAuth
       start.uri('/api/user/action')
           .url_parameter('userId', user_id)
           .url_parameter('active', true)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2311,18 +2311,18 @@ module FusionAuth
     def retrieve_application(application_id)
       start.uri('/api/application')
           .url_segment(application_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Retrieves all the applications.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_applications()
+    def retrieve_applications
       start.uri('/api/application')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2333,8 +2333,8 @@ module FusionAuth
     def retrieve_audit_log(audit_log_id)
       start.uri('/api/system/audit-log')
           .url_segment(audit_log_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2345,18 +2345,18 @@ module FusionAuth
     def retrieve_connector(connector_id)
       start.uri('/api/connector')
           .url_segment(connector_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Retrieves all the connectors.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_connectors()
+    def retrieve_connectors
       start.uri('/api/connector')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2367,18 +2367,18 @@ module FusionAuth
     def retrieve_consent(consent_id)
       start.uri('/api/consent')
           .url_segment(consent_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Retrieves all the consent.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_consents()
+    def retrieve_consents
       start.uri('/api/consent')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2394,8 +2394,8 @@ module FusionAuth
           .url_parameter('applicationId', application_id)
           .url_parameter('start', start)
           .url_parameter('end', _end)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2406,8 +2406,8 @@ module FusionAuth
     def retrieve_email_template(email_template_id)
       start.uri('/api/email/template')
           .url_segment(email_template_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2420,18 +2420,18 @@ module FusionAuth
     def retrieve_email_template_preview(request)
       start.uri('/api/email/template/preview')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
     # Retrieves all the email templates.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_email_templates()
+    def retrieve_email_templates
       start.uri('/api/email/template')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2442,8 +2442,8 @@ module FusionAuth
     def retrieve_entity(entity_id)
       start.uri('/api/entity')
           .url_segment(entity_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2459,8 +2459,8 @@ module FusionAuth
           .url_segment("grant")
           .url_parameter('recipientEntityId', recipient_entity_id)
           .url_parameter('userId', user_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2471,18 +2471,18 @@ module FusionAuth
     def retrieve_entity_type(entity_type_id)
       start.uri('/api/entity/type')
           .url_segment(entity_type_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Retrieves all the Entity Types.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_entity_types()
+    def retrieve_entity_types
       start.uri('/api/entity/type')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2493,8 +2493,8 @@ module FusionAuth
     def retrieve_event_log(event_log_id)
       start.uri('/api/system/event-log')
           .url_segment(event_log_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2505,8 +2505,8 @@ module FusionAuth
     def retrieve_families(user_id)
       start.uri('/api/user/family')
           .url_parameter('userId', user_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2517,8 +2517,8 @@ module FusionAuth
     def retrieve_family_members_by_family_id(family_id)
       start.uri('/api/user/family')
           .url_segment(family_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2529,8 +2529,8 @@ module FusionAuth
     def retrieve_form(form_id)
       start.uri('/api/form')
           .url_segment(form_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2541,28 +2541,28 @@ module FusionAuth
     def retrieve_form_field(field_id)
       start.uri('/api/form/field')
           .url_segment(field_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Retrieves all the forms fields
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_form_fields()
+    def retrieve_form_fields
       start.uri('/api/form/field')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Retrieves all the forms.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_forms()
+    def retrieve_forms
       start.uri('/api/form')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2573,18 +2573,18 @@ module FusionAuth
     def retrieve_group(group_id)
       start.uri('/api/group')
           .url_segment(group_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Retrieves all the groups.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_groups()
+    def retrieve_groups
       start.uri('/api/group')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2595,8 +2595,8 @@ module FusionAuth
     def retrieve_ip_access_control_list(ip_access_control_list_id)
       start.uri('/api/ip-acl')
           .url_segment(ip_access_control_list_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2607,8 +2607,8 @@ module FusionAuth
     def retrieve_identity_provider(identity_provider_id)
       start.uri('/api/identity-provider')
           .url_segment(identity_provider_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2616,23 +2616,23 @@ module FusionAuth
     # identity provider can exist. For types such as OpenID Connect and SAMLv2 more than one identity provider can be configured so this request 
     # may return multiple identity providers.
     #
-    # @param type [OpenStruct, Hash] The type of the identity provider.
+    # @param type [string] The type of the identity provider.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_identity_provider_by_type(type)
       start.uri('/api/identity-provider')
           .url_parameter('type', type)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Retrieves all the identity providers.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_identity_providers()
+    def retrieve_identity_providers
       start.uri('/api/identity-provider')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2645,40 +2645,40 @@ module FusionAuth
       start.uri('/api/user/action')
           .url_parameter('userId', user_id)
           .url_parameter('active', false)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Retrieves all the applications that are currently inactive.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_inactive_applications()
+    def retrieve_inactive_applications
       start.uri('/api/application')
           .url_parameter('inactive', true)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Retrieves all the user actions that are currently inactive.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_inactive_user_actions()
+    def retrieve_inactive_user_actions
       start.uri('/api/user-action')
           .url_parameter('inactive', true)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Retrieves the available integrations.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_integration()
+    def retrieve_integration
       start.uri('/api/integration')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2689,8 +2689,8 @@ module FusionAuth
     def retrieve_jwt_public_key(key_id)
       startAnonymous.uri('/api/jwt/public-key')
           .url_parameter('kid', key_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2701,28 +2701,28 @@ module FusionAuth
     def retrieve_jwt_public_key_by_application_id(application_id)
       startAnonymous.uri('/api/jwt/public-key')
           .url_parameter('applicationId', application_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Retrieves all Public Keys configured for verifying JSON Web Tokens (JWT).
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_jwt_public_keys()
+    def retrieve_jwt_public_keys
       startAnonymous.uri('/api/jwt/public-key')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Returns public keys used by FusionAuth to cryptographically verify JWTs using the JSON Web Key format.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_json_web_key_set()
+    def retrieve_json_web_key_set
       startAnonymous.uri('/.well-known/jwks.json')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2733,18 +2733,18 @@ module FusionAuth
     def retrieve_key(key_id)
       start.uri('/api/key')
           .url_segment(key_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Retrieves all the keys.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_keys()
+    def retrieve_keys
       start.uri('/api/key')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2755,30 +2755,30 @@ module FusionAuth
     def retrieve_lambda(lambda_id)
       start.uri('/api/lambda')
           .url_segment(lambda_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Retrieves all the lambdas.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_lambdas()
+    def retrieve_lambdas
       start.uri('/api/lambda')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Retrieves all the lambdas for the provided type.
     #
-    # @param type [OpenStruct, Hash] The type of the lambda to return.
+    # @param type [string] The type of the lambda to return.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_lambdas_by_type(type)
       start.uri('/api/lambda')
           .url_parameter('type', type)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2794,8 +2794,8 @@ module FusionAuth
           .url_parameter('applicationId', application_id)
           .url_parameter('start', start)
           .url_parameter('end', _end)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2806,8 +2806,8 @@ module FusionAuth
     def retrieve_message_template(message_template_id)
       start.uri('/api/message/template')
           .url_segment(message_template_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2818,18 +2818,18 @@ module FusionAuth
     def retrieve_message_template_preview(request)
       start.uri('/api/message/template/preview')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
     # Retrieves all the message templates.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_message_templates()
+    def retrieve_message_templates
       start.uri('/api/message/template')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2840,18 +2840,18 @@ module FusionAuth
     def retrieve_messenger(messenger_id)
       start.uri('/api/messenger')
           .url_segment(messenger_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Retrieves all the messengers.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_messengers()
+    def retrieve_messengers
       start.uri('/api/messenger')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2867,8 +2867,8 @@ module FusionAuth
           .url_parameter('applicationId', application_id)
           .url_parameter('start', start)
           .url_parameter('end', _end)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2882,8 +2882,8 @@ module FusionAuth
           .url_segment(application_id)
           .url_segment("scope")
           .url_segment(scope_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2895,18 +2895,18 @@ module FusionAuth
       start.uri('/api/application')
           .url_segment(application_id)
           .url_segment("oauth-configuration")
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Returns the well known OpenID Configuration JSON document
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_open_id_configuration()
+    def retrieve_open_id_configuration
       startAnonymous.uri('/.well-known/openid-configuration')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2916,10 +2916,10 @@ module FusionAuth
     # This API does not require an API key.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_password_validation_rules()
+    def retrieve_password_validation_rules
       startAnonymous.uri('/api/tenant/password-validation-rules')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2932,8 +2932,8 @@ module FusionAuth
     def retrieve_password_validation_rules_with_tenant_id(tenant_id)
       startAnonymous.uri('/api/tenant/password-validation-rules')
           .url_segment(tenant_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2944,8 +2944,8 @@ module FusionAuth
     def retrieve_pending_children(parent_email)
       start.uri('/api/user/family/pending')
           .url_parameter('parentEmail', parent_email)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2958,28 +2958,28 @@ module FusionAuth
       start.uri('/api/identity-provider/link/pending')
           .url_segment(pending_link_id)
           .url_parameter('userId', user_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Retrieves the FusionAuth Reactor metrics.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_reactor_metrics()
+    def retrieve_reactor_metrics
       start.uri('/api/reactor/metrics')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Retrieves the FusionAuth Reactor status.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_reactor_status()
+    def retrieve_reactor_status
       start.uri('/api/reactor')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -2992,8 +2992,8 @@ module FusionAuth
       start.uri('/api/user/recent-login')
           .url_parameter('offset', offset)
           .url_parameter('limit', limit)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3004,8 +3004,8 @@ module FusionAuth
     def retrieve_refresh_token_by_id(token_id)
       start.uri('/api/jwt/refresh')
           .url_segment(token_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3016,8 +3016,8 @@ module FusionAuth
     def retrieve_refresh_tokens(user_id)
       start.uri('/api/jwt/refresh')
           .url_parameter('userId', user_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3030,8 +3030,8 @@ module FusionAuth
       start.uri('/api/user/registration')
           .url_segment(user_id)
           .url_segment(application_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3047,8 +3047,8 @@ module FusionAuth
           .url_parameter('applicationId', application_id)
           .url_parameter('start', start)
           .url_parameter('end', _end)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3056,20 +3056,50 @@ module FusionAuth
     # 404 indicates no re-index is in progress.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_reindex_status()
+    def retrieve_reindex_status
       start.uri('/api/system/reindex')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Retrieves the system configuration.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_system_configuration()
+    def retrieve_system_configuration
       start.uri('/api/system-configuration')
-          .get()
-          .go()
+          .get
+          .go
+    end
+
+    #
+    # Retrieves the FusionAuth system health. This API will return 200 if the system is healthy, and 500 if the system is un-healthy.
+    #
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_system_health
+      startAnonymous.uri('/api/health')
+          .get
+          .go
+    end
+
+    #
+    # Retrieves the FusionAuth system status. This request is anonymous and does not require an API key. When an API key is not provided the response will contain a single value in the JSON response indicating the current health check.
+    #
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_system_status
+      startAnonymous.uri('/api/status')
+          .get
+          .go
+    end
+
+    #
+    # Retrieves the FusionAuth system status using an API key. Using an API key will cause the response to include the product version, health checks and various runtime metrics.
+    #
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_system_status_using_api_key
+      start.uri('/api/status')
+          .get
+          .go
     end
 
     #
@@ -3080,18 +3110,18 @@ module FusionAuth
     def retrieve_tenant(tenant_id)
       start.uri('/api/tenant')
           .url_segment(tenant_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Retrieves all the tenants.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_tenants()
+    def retrieve_tenants
       start.uri('/api/tenant')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3102,18 +3132,18 @@ module FusionAuth
     def retrieve_theme(theme_id)
       start.uri('/api/theme')
           .url_segment(theme_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Retrieves all the themes.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_themes()
+    def retrieve_themes
       start.uri('/api/theme')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3121,10 +3151,10 @@ module FusionAuth
     # count.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_total_report()
+    def retrieve_total_report
       start.uri('/api/report/totals')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3135,8 +3165,8 @@ module FusionAuth
     def retrieve_two_factor_recovery_codes(user_id)
       start.uri('/api/user/two-factor/recovery-code')
           .url_segment(user_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3154,8 +3184,8 @@ module FusionAuth
           .url_parameter('userId', user_id)
           .url_parameter('applicationId', application_id)
           .url_segment(two_factor_trust_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3166,8 +3196,8 @@ module FusionAuth
     def retrieve_user(user_id)
       start.uri('/api/user')
           .url_segment(user_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3179,8 +3209,8 @@ module FusionAuth
     def retrieve_user_action(user_action_id)
       start.uri('/api/user-action')
           .url_segment(user_action_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3192,28 +3222,28 @@ module FusionAuth
     def retrieve_user_action_reason(user_action_reason_id)
       start.uri('/api/user-action-reason')
           .url_segment(user_action_reason_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Retrieves all the user action reasons.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_user_action_reasons()
+    def retrieve_user_action_reasons
       start.uri('/api/user-action-reason')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Retrieves all the user actions.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_user_actions()
+    def retrieve_user_actions
       start.uri('/api/user-action')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3225,8 +3255,8 @@ module FusionAuth
     def retrieve_user_by_change_password_id(change_password_id)
       start.uri('/api/user')
           .url_parameter('changePasswordId', change_password_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3237,8 +3267,8 @@ module FusionAuth
     def retrieve_user_by_email(email)
       start.uri('/api/user')
           .url_parameter('email', email)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3249,8 +3279,8 @@ module FusionAuth
     def retrieve_user_by_login_id(login_id)
       start.uri('/api/user')
           .url_parameter('loginId', login_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3261,8 +3291,8 @@ module FusionAuth
     def retrieve_user_by_username(username)
       start.uri('/api/user')
           .url_parameter('username', username)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3274,8 +3304,8 @@ module FusionAuth
     def retrieve_user_by_verification_id(verification_id)
       start.uri('/api/user')
           .url_parameter('verificationId', verification_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3295,8 +3325,8 @@ module FusionAuth
       }
       startAnonymous.uri('/oauth2/device/user-code')
           .body_handler(FusionAuth::FormDataBodyHandler.new(body))
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3314,8 +3344,8 @@ module FusionAuth
       }
       startAnonymous.uri('/oauth2/device/user-code')
           .body_handler(FusionAuth::FormDataBodyHandler.new(body))
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3326,8 +3356,8 @@ module FusionAuth
     def retrieve_user_comments(user_id)
       start.uri('/api/user/comment')
           .url_segment(user_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3338,8 +3368,8 @@ module FusionAuth
     def retrieve_user_consent(user_consent_id)
       start.uri('/api/user/consent')
           .url_segment(user_consent_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3350,8 +3380,8 @@ module FusionAuth
     def retrieve_user_consents(user_id)
       start.uri('/api/user/consent')
           .url_parameter('userId', user_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3362,8 +3392,8 @@ module FusionAuth
     def retrieve_user_info_from_access_token(encoded_jwt)
       startAnonymous.uri('/oauth2/userinfo')
           .authorization('Bearer ' + encoded_jwt)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3378,8 +3408,8 @@ module FusionAuth
           .url_parameter('identityProviderId', identity_provider_id)
           .url_parameter('identityProviderUserId', identity_provider_user_id)
           .url_parameter('userId', user_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3392,8 +3422,8 @@ module FusionAuth
       start.uri('/api/identity-provider/link')
           .url_parameter('identityProviderId', identity_provider_id)
           .url_parameter('userId', user_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3411,8 +3441,8 @@ module FusionAuth
           .url_parameter('userId', user_id)
           .url_parameter('start', start)
           .url_parameter('end', _end)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3430,8 +3460,8 @@ module FusionAuth
           .url_parameter('loginId', login_id)
           .url_parameter('start', start)
           .url_parameter('end', _end)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3446,8 +3476,8 @@ module FusionAuth
           .url_parameter('userId', user_id)
           .url_parameter('offset', offset)
           .url_parameter('limit', limit)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3458,18 +3488,18 @@ module FusionAuth
     def retrieve_user_using_jwt(encoded_jwt)
       startAnonymous.uri('/api/user')
           .authorization('Bearer ' + encoded_jwt)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Retrieves the FusionAuth version string.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_version()
+    def retrieve_version
       start.uri('/api/system/version')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3480,8 +3510,8 @@ module FusionAuth
     def retrieve_web_authn_credential(id)
       start.uri('/api/webauthn')
           .url_segment(id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3492,8 +3522,8 @@ module FusionAuth
     def retrieve_web_authn_credentials_for_user(user_id)
       start.uri('/api/webauthn')
           .url_parameter('userId', user_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3504,18 +3534,18 @@ module FusionAuth
     def retrieve_webhook(webhook_id)
       start.uri('/api/webhook')
           .url_segment(webhook_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
     # Retrieves all the webhooks.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_webhooks()
+    def retrieve_webhooks
       start.uri('/api/webhook')
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3553,8 +3583,8 @@ module FusionAuth
           .url_parameter('token', token)
           .url_parameter('userId', user_id)
           .url_parameter('applicationId', application_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -3565,8 +3595,8 @@ module FusionAuth
     def revoke_refresh_token_by_id(token_id)
       start.uri('/api/jwt/refresh')
           .url_segment(token_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -3577,8 +3607,8 @@ module FusionAuth
     def revoke_refresh_token_by_token(token)
       start.uri('/api/jwt/refresh')
           .url_parameter('token', token)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -3589,8 +3619,8 @@ module FusionAuth
     def revoke_refresh_tokens_by_application_id(application_id)
       start.uri('/api/jwt/refresh')
           .url_parameter('applicationId', application_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -3601,8 +3631,8 @@ module FusionAuth
     def revoke_refresh_tokens_by_user_id(user_id)
       start.uri('/api/jwt/refresh')
           .url_parameter('userId', user_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -3615,8 +3645,8 @@ module FusionAuth
       start.uri('/api/jwt/refresh')
           .url_parameter('userId', user_id)
           .url_parameter('applicationId', application_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -3628,8 +3658,8 @@ module FusionAuth
     def revoke_refresh_tokens_with_request(request)
       start.uri('/api/jwt/refresh')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -3640,8 +3670,8 @@ module FusionAuth
     def revoke_user_consent(user_consent_id)
       start.uri('/api/user/consent')
           .url_segment(user_consent_id)
-          .delete()
-          .go()
+          .delete
+          .go
     end
 
     #
@@ -3652,8 +3682,8 @@ module FusionAuth
     def search_applications(request)
       start.uri('/api/application/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -3664,8 +3694,8 @@ module FusionAuth
     def search_audit_logs(request)
       start.uri('/api/system/audit-log/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -3676,8 +3706,8 @@ module FusionAuth
     def search_consents(request)
       start.uri('/api/consent/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -3688,8 +3718,8 @@ module FusionAuth
     def search_email_templates(request)
       start.uri('/api/email/template/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -3700,8 +3730,8 @@ module FusionAuth
     def search_entities(request)
       start.uri('/api/entity/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -3712,8 +3742,8 @@ module FusionAuth
     def search_entities_by_ids(ids)
       start.uri('/api/entity/search')
           .url_parameter('ids', ids)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3724,8 +3754,8 @@ module FusionAuth
     def search_entity_grants(request)
       start.uri('/api/entity/grant/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -3736,8 +3766,8 @@ module FusionAuth
     def search_entity_types(request)
       start.uri('/api/entity/type/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -3748,8 +3778,8 @@ module FusionAuth
     def search_event_logs(request)
       start.uri('/api/system/event-log/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -3760,8 +3790,8 @@ module FusionAuth
     def search_group_members(request)
       start.uri('/api/group/member/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -3772,8 +3802,8 @@ module FusionAuth
     def search_groups(request)
       start.uri('/api/group/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -3784,8 +3814,8 @@ module FusionAuth
     def search_ip_access_control_lists(request)
       start.uri('/api/ip-acl/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -3796,8 +3826,8 @@ module FusionAuth
     def search_identity_providers(request)
       start.uri('/api/identity-provider/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -3808,8 +3838,8 @@ module FusionAuth
     def search_keys(request)
       start.uri('/api/key/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -3820,8 +3850,8 @@ module FusionAuth
     def search_lambdas(request)
       start.uri('/api/lambda/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -3832,8 +3862,8 @@ module FusionAuth
     def search_login_records(request)
       start.uri('/api/system/login-record/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -3844,8 +3874,8 @@ module FusionAuth
     def search_tenants(request)
       start.uri('/api/tenant/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -3856,8 +3886,8 @@ module FusionAuth
     def search_themes(request)
       start.uri('/api/theme/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -3868,8 +3898,8 @@ module FusionAuth
     def search_user_comments(request)
       start.uri('/api/user/comment/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -3881,8 +3911,8 @@ module FusionAuth
     def search_users(ids)
       start.uri('/api/user/search')
           .url_parameter('ids', ids)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3893,8 +3923,8 @@ module FusionAuth
     def search_users_by_ids(ids)
       start.uri('/api/user/search')
           .url_parameter('ids', ids)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -3906,8 +3936,8 @@ module FusionAuth
     def search_users_by_query(request)
       start.uri('/api/user/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -3920,8 +3950,8 @@ module FusionAuth
     def search_users_by_query_string(request)
       start.uri('/api/user/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -3932,8 +3962,8 @@ module FusionAuth
     def search_webhooks(request)
       start.uri('/api/webhook/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -3947,8 +3977,8 @@ module FusionAuth
       start.uri('/api/email/send')
           .url_segment(email_template_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -3959,8 +3989,8 @@ module FusionAuth
     def send_family_request_email(request)
       start.uri('/api/user/family/request')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -3971,8 +4001,8 @@ module FusionAuth
     def send_passwordless_code(request)
       startAnonymous.uri('/api/passwordless/send')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -3984,8 +4014,8 @@ module FusionAuth
     def send_two_factor_code(request)
       start.uri('/api/two-factor/send')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -3996,8 +4026,8 @@ module FusionAuth
     def send_two_factor_code_for_enable_disable(request)
       start.uri('/api/two-factor/send')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -4009,8 +4039,8 @@ module FusionAuth
     def send_two_factor_code_for_login(two_factor_id)
       startAnonymous.uri('/api/two-factor/send')
           .url_segment(two_factor_id)
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -4023,8 +4053,8 @@ module FusionAuth
       startAnonymous.uri('/api/two-factor/send')
           .url_segment(two_factor_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -4036,8 +4066,8 @@ module FusionAuth
     def start_identity_provider_login(request)
       start.uri('/api/identity-provider/start')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -4049,8 +4079,8 @@ module FusionAuth
     def start_passwordless_login(request)
       start.uri('/api/passwordless/start')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -4066,8 +4096,8 @@ module FusionAuth
     def start_two_factor_login(request)
       start.uri('/api/two-factor/start')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -4078,8 +4108,8 @@ module FusionAuth
     def start_web_authn_login(request)
       start.uri('/api/webauthn/start')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -4090,8 +4120,8 @@ module FusionAuth
     def start_web_authn_registration(request)
       start.uri('/api/webauthn/register/start')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -4102,8 +4132,8 @@ module FusionAuth
     def two_factor_login(request)
       startAnonymous.uri('/api/two-factor/login')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -4116,8 +4146,8 @@ module FusionAuth
       start.uri('/api/api-key')
           .url_segment(api_key_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4130,8 +4160,8 @@ module FusionAuth
       start.uri('/api/application')
           .url_segment(application_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4147,8 +4177,8 @@ module FusionAuth
           .url_segment("role")
           .url_segment(role_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4161,8 +4191,8 @@ module FusionAuth
       start.uri('/api/connector')
           .url_segment(connector_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4175,8 +4205,8 @@ module FusionAuth
       start.uri('/api/consent')
           .url_segment(consent_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4189,8 +4219,8 @@ module FusionAuth
       start.uri('/api/email/template')
           .url_segment(email_template_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4203,8 +4233,8 @@ module FusionAuth
       start.uri('/api/entity')
           .url_segment(entity_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4217,8 +4247,8 @@ module FusionAuth
       start.uri('/api/entity/type')
           .url_segment(entity_type_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4234,8 +4264,8 @@ module FusionAuth
           .url_segment("permission")
           .url_segment(permission_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4248,8 +4278,8 @@ module FusionAuth
       start.uri('/api/form')
           .url_segment(form_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4262,8 +4292,8 @@ module FusionAuth
       start.uri('/api/form/field')
           .url_segment(field_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4276,8 +4306,8 @@ module FusionAuth
       start.uri('/api/group')
           .url_segment(group_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4288,8 +4318,8 @@ module FusionAuth
     def update_group_members(request)
       start.uri('/api/group/member')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4302,8 +4332,8 @@ module FusionAuth
       start.uri('/api/ip-acl')
           .url_segment(access_control_list_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4316,8 +4346,8 @@ module FusionAuth
       start.uri('/api/identity-provider')
           .url_segment(identity_provider_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4328,8 +4358,8 @@ module FusionAuth
     def update_integrations(request)
       start.uri('/api/integration')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4342,8 +4372,8 @@ module FusionAuth
       start.uri('/api/key')
           .url_segment(key_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4356,8 +4386,8 @@ module FusionAuth
       start.uri('/api/lambda')
           .url_segment(lambda_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4370,8 +4400,8 @@ module FusionAuth
       start.uri('/api/message/template')
           .url_segment(message_template_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4384,8 +4414,8 @@ module FusionAuth
       start.uri('/api/messenger')
           .url_segment(messenger_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4401,8 +4431,8 @@ module FusionAuth
           .url_segment("scope")
           .url_segment(scope_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4415,8 +4445,8 @@ module FusionAuth
       start.uri('/api/user/registration')
           .url_segment(user_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4427,8 +4457,8 @@ module FusionAuth
     def update_system_configuration(request)
       start.uri('/api/system-configuration')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4441,8 +4471,8 @@ module FusionAuth
       start.uri('/api/tenant')
           .url_segment(tenant_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4455,8 +4485,8 @@ module FusionAuth
       start.uri('/api/theme')
           .url_segment(theme_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4469,8 +4499,8 @@ module FusionAuth
       start.uri('/api/user')
           .url_segment(user_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4483,8 +4513,8 @@ module FusionAuth
       start.uri('/api/user-action')
           .url_segment(user_action_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4497,8 +4527,8 @@ module FusionAuth
       start.uri('/api/user-action-reason')
           .url_segment(user_action_reason_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4511,8 +4541,8 @@ module FusionAuth
       start.uri('/api/user/consent')
           .url_segment(user_consent_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4525,8 +4555,8 @@ module FusionAuth
       start.uri('/api/webhook')
           .url_segment(webhook_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .put()
-          .go()
+          .put
+          .go
     end
 
     #
@@ -4540,8 +4570,8 @@ module FusionAuth
           .url_segment(entity_id)
           .url_segment("grant")
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -4555,8 +4585,8 @@ module FusionAuth
       startAnonymous.uri('/oauth2/device/validate')
           .url_parameter('user_code', user_code)
           .url_parameter('client_id', client_id)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -4570,8 +4600,8 @@ module FusionAuth
     def validate_jwt(encoded_jwt)
       startAnonymous.uri('/api/jwt/validate')
           .authorization('Bearer ' + encoded_jwt)
-          .get()
-          .go()
+          .get
+          .go
     end
 
     #
@@ -4590,8 +4620,8 @@ module FusionAuth
     def vend_jwt(request)
       start.uri('/api/jwt/vend')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -4603,8 +4633,8 @@ module FusionAuth
     def verify_email(verification_id)
       startAnonymous.uri('/api/user/verify-email')
           .url_segment(verification_id)
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -4620,8 +4650,8 @@ module FusionAuth
     def verify_email_address(request)
       startAnonymous.uri('/api/user/verify-email')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -4634,8 +4664,8 @@ module FusionAuth
     def verify_email_address_by_user_id(request)
       start.uri('/api/user/verify-email')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -4647,8 +4677,8 @@ module FusionAuth
     def verify_registration(verification_id)
       startAnonymous.uri('/api/user/verify-registration')
           .url_segment(verification_id)
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -4664,8 +4694,8 @@ module FusionAuth
     def verify_user_registration(request)
       startAnonymous.uri('/api/user/verify-registration')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post()
-          .go()
+          .post
+          .go
     end
 
     #
@@ -4675,8 +4705,7 @@ module FusionAuth
     #
     private
     def start
-      client = startAnonymous.authorization(@api_key)
-      client
+      startAnonymous.authorization(@api_key)
     end
 
     private
