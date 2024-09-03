@@ -3539,6 +3539,30 @@ module FusionAuth
     end
 
     #
+    # Retrieves a single webhook attempt log for the given Id.
+    #
+    # @param webhook_attempt_log_id [string] The Id of the webhook attempt log to retrieve.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_webhook_attempt_log(webhook_attempt_log_id)
+      start.uri('/api/system/webhook-attempt-log')
+          .url_segment(webhook_attempt_log_id)
+          .get
+          .go
+    end
+
+    #
+    # Retrieves a single webhook event log for the given Id.
+    #
+    # @param webhook_event_log_id [string] The Id of the webhook event log to retrieve.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_webhook_event_log(webhook_event_log_id)
+      start.uri('/api/system/webhook-event-log')
+          .url_segment(webhook_event_log_id)
+          .get
+          .go
+    end
+
+    #
     # Retrieves all the webhooks.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -3949,6 +3973,18 @@ module FusionAuth
     # @deprecated This method has been renamed to search_users_by_query, use that method instead.
     def search_users_by_query_string(request)
       start.uri('/api/user/search')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post
+          .go
+    end
+
+    #
+    # Searches the webhook event logs with the specified criteria and pagination.
+    #
+    # @param request [OpenStruct, Hash] The search criteria and pagination information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_webhook_event_logs(request)
+      start.uri('/api/system/webhook-event-log/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post
           .go
