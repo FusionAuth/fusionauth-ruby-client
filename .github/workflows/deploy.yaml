@@ -86,10 +86,8 @@ jobs:
 
       - name: release to svn
         if: inputs.command == 'release'
-        shell: bash -l {0}
         run: sb release
 
       - name: publish to rubygems
         if: inputs.command == 'publish'
-        shell: bash -l {0}
         run: sb publish
