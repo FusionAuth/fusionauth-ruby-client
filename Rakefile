@@ -1,10 +1,10 @@
 require "bundler/gem_tasks"
-require "rake/testtask"
+require "minitest/test_task"
 
-Rake::TestTask.new(:test) do |t|
+Minitest::TestTask.create(:test) do |t|
   t.libs << "test"
   t.libs << "lib"
-  t.test_files = FileList['test/**/*test.rb']
+  t.test_globs = FileList['test/**/*test.rb']
 end
 
 task :default => :test
