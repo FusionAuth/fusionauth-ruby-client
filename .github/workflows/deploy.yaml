@@ -50,6 +50,11 @@ jobs:
           21=${JAVA_HOME}
           EOF
 
+      - name: install ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.5
+
       - name: compile
         shell: bash -l {0}
         run: sb compile
