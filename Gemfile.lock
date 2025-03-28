@@ -6,34 +6,22 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    cgi (0.4.2)
-    date (3.4.1)
+    cgi (0.4.1)
     erb (2.2.3)
       cgi
     extralite-bundle (1.27)
-    minitest (5.25.5)
-    nokogiri (1.18.6-aarch64-linux-gnu)
+    minitest (5.22.3)
+    nokogiri (1.15.6-aarch64-linux)
       racc (~> 1.4)
-    nokogiri (1.18.6-aarch64-linux-musl)
+    nokogiri (1.15.6-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.18.6-arm-linux-gnu)
+    nokogiri (1.15.6-x86_64-linux)
       racc (~> 1.4)
-    nokogiri (1.18.6-arm-linux-musl)
-      racc (~> 1.4)
-    nokogiri (1.18.6-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.18.6-x86_64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.18.6-x86_64-linux-gnu)
-      racc (~> 1.4)
-    nokogiri (1.18.6-x86_64-linux-musl)
-      racc (~> 1.4)
-    psych (5.2.3)
-      date
+    psych (5.1.2)
       stringio
-    racc (1.8.1)
+    racc (1.7.3)
     rake (13.2.1)
-    rdoc (6.13.0)
+    rdoc (6.6.3.1)
       psych (>= 4.0.0)
     rdoc-markdown (0.4.2)
       erb (~> 2.0)
@@ -43,27 +31,22 @@ GEM
       unindent (~> 1.0)
     reverse_markdown (2.1.1)
       nokogiri
-    stringio (3.1.6)
+    stringio (3.1.0)
     unindent (1.0)
 
 PLATFORMS
-  aarch64-linux-gnu
-  aarch64-linux-musl
-  arm-linux-gnu
-  arm-linux-musl
-  arm64-darwin
-  x86_64-darwin
-  x86_64-linux-gnu
-  x86_64-linux-musl
+  aarch64-linux
+  arm64-darwin-23
+  x86_64-linux
 
 DEPENDENCIES
   fusionauth_client!
-  minitest (~> 5.25)
-  rake (~> 13.2)
+  minitest (~> 5.22, >= 5.22.3)
+  rake (~> 13.2, >= 13.2.1)
   rdoc-markdown (~> 0.4.2)
 
 RUBY VERSION
-   ruby 3.4.2p28
+   ruby 2.7.5p203
 
 BUNDLED WITH
-   2.6.2
+   2.4.22
