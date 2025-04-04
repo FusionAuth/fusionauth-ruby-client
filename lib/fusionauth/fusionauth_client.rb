@@ -1841,6 +1841,20 @@ module FusionAuth
     end
 
     #
+    # Updates, via PATCH, the Entity with the given Id.
+    #
+    # @param entity_id [string] The Id of the Entity Type to update.
+    # @param request [OpenStruct, Hash] The request that contains just the new Entity information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def patch_entity(entity_id, request)
+      start.uri('/api/entity')
+          .url_segment(entity_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .patch
+          .go
+    end
+
+    #
     # Updates, via PATCH, the Entity Type with the given Id.
     #
     # @param entity_type_id [string] The Id of the Entity Type to update.
@@ -1855,6 +1869,51 @@ module FusionAuth
     end
 
     #
+    # Patches the permission with the given Id for the entity type.
+    #
+    # @param entity_type_id [string] The Id of the entityType that the permission belongs to.
+    # @param permission_id [string] The Id of the permission to patch.
+    # @param request [OpenStruct, Hash] The request that contains the new permission information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def patch_entity_type_permission(entity_type_id, permission_id, request)
+      start.uri('/api/entity/type')
+          .url_segment(entity_type_id)
+          .url_segment("permission")
+          .url_segment(permission_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .patch
+          .go
+    end
+
+    #
+    # Patches the form with the given Id.
+    #
+    # @param form_id [string] The Id of the form to patch.
+    # @param request [OpenStruct, Hash] The request object that contains the new form information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def patch_form(form_id, request)
+      start.uri('/api/form')
+          .url_segment(form_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .patch
+          .go
+    end
+
+    #
+    # Patches the form field with the given Id.
+    #
+    # @param field_id [string] The Id of the form field to patch.
+    # @param request [OpenStruct, Hash] The request object that contains the new form field information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def patch_form_field(field_id, request)
+      start.uri('/api/form/field')
+          .url_segment(field_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .patch
+          .go
+    end
+
+    #
     # Updates, via PATCH, the group with the given Id.
     #
     # @param group_id [string] The Id of the group to update.
@@ -1863,6 +1922,20 @@ module FusionAuth
     def patch_group(group_id, request)
       start.uri('/api/group')
           .url_segment(group_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .patch
+          .go
+    end
+
+    #
+    # Update the IP Access Control List with the given Id.
+    #
+    # @param access_control_list_id [string] The Id of the IP Access Control List to patch.
+    # @param request [OpenStruct, Hash] The request that contains the new IP Access Control List information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def patch_ip_access_control_list(access_control_list_id, request)
+      start.uri('/api/ip-acl')
+          .url_segment(access_control_list_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .patch
           .go
@@ -2058,6 +2131,20 @@ module FusionAuth
     def patch_user_consent(user_consent_id, request)
       start.uri('/api/user/consent')
           .url_segment(user_consent_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .patch
+          .go
+    end
+
+    #
+    # Patches the webhook with the given Id.
+    #
+    # @param webhook_id [string] The Id of the webhook to update.
+    # @param request [OpenStruct, Hash] The request that contains the new webhook information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def patch_webhook(webhook_id, request)
+      start.uri('/api/webhook')
+          .url_segment(webhook_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .patch
           .go
@@ -4299,6 +4386,20 @@ module FusionAuth
           .url_segment(entity_type_id)
           .url_segment("permission")
           .url_segment(permission_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .put
+          .go
+    end
+
+    #
+    # Updates a family with a given Id.
+    #
+    # @param family_id [string] The Id of the family to update.
+    # @param request [OpenStruct, Hash] The request object that contains all the new family information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def update_family(family_id, request)
+      start.uri('/api/user/family')
+          .url_segment(family_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .put
           .go
