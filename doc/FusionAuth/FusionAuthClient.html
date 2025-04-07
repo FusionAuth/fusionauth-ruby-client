@@ -591,6 +591,10 @@
     
     <li ><a href="#method-i-retrieve_webhook">#retrieve_webhook</a>
     
+    <li ><a href="#method-i-retrieve_webhook_attempt_log">#retrieve_webhook_attempt_log</a>
+    
+    <li ><a href="#method-i-retrieve_webhook_event_log">#retrieve_webhook_event_log</a>
+    
     <li ><a href="#method-i-retrieve_webhooks">#retrieve_webhooks</a>
     
     <li ><a href="#method-i-revoke_refresh_token">#revoke_refresh_token</a>
@@ -654,6 +658,8 @@
     <li ><a href="#method-i-search_users_by_query">#search_users_by_query</a>
     
     <li ><a href="#method-i-search_users_by_query_string">#search_users_by_query_string</a>
+    
+    <li ><a href="#method-i-search_webhook_event_logs">#search_webhook_event_logs</a>
     
     <li ><a href="#method-i-search_webhooks">#search_webhooks</a>
     
@@ -10935,6 +10941,82 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
       </div>
 
     
+      <div id="method-i-retrieve_webhook_attempt_log" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">retrieve_webhook_attempt_log</span><span
+            class="method-args">(webhook_attempt_log_id)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Retrieves a single webhook attempt log for the given Id.</p>
+
+<p>@param webhook_attempt_log_id [string] The Id of the webhook attempt log to retrieve. @return [FusionAuth::ClientResponse] The ClientResponse object.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="retrieve_webhook_attempt_log-source">
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3546</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">retrieve_webhook_attempt_log</span>(<span class="ruby-identifier">webhook_attempt_log_id</span>)
+  <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/system/webhook-attempt-log&#39;</span>)
+      .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">webhook_attempt_log_id</span>)
+      .<span class="ruby-identifier">get</span>
+      .<span class="ruby-identifier">go</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-retrieve_webhook_event_log" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">retrieve_webhook_event_log</span><span
+            class="method-args">(webhook_event_log_id)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Retrieves a single webhook event log for the given Id.</p>
+
+<p>@param webhook_event_log_id [string] The Id of the webhook event log to retrieve. @return [FusionAuth::ClientResponse] The ClientResponse object.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="retrieve_webhook_event_log-source">
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3558</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">retrieve_webhook_event_log</span>(<span class="ruby-identifier">webhook_event_log_id</span>)
+  <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/system/webhook-event-log&#39;</span>)
+      .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">webhook_event_log_id</span>)
+      .<span class="ruby-identifier">get</span>
+      .<span class="ruby-identifier">go</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
       <div id="method-i-retrieve_webhooks" class="method-detail ">
         
         <div class="method-heading">
@@ -10956,7 +11038,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="retrieve_webhooks-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3545</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3569</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">retrieve_webhooks</span>
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/webhook&#39;</span>)
       .<span class="ruby-identifier">get</span>
@@ -11018,7 +11100,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="revoke_refresh_token-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3581</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3605</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">revoke_refresh_token</span>(<span class="ruby-identifier">token</span>, <span class="ruby-identifier">user_id</span>, <span class="ruby-identifier">application_id</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/jwt/refresh&#39;</span>)
       .<span class="ruby-identifier">url_parameter</span>(<span class="ruby-string">&#39;token&#39;</span>, <span class="ruby-identifier">token</span>)
@@ -11058,7 +11140,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="revoke_refresh_token_by_id-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3595</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3619</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">revoke_refresh_token_by_id</span>(<span class="ruby-identifier">token_id</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/jwt/refresh&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">token_id</span>)
@@ -11096,7 +11178,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="revoke_refresh_token_by_token-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3607</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3631</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">revoke_refresh_token_by_token</span>(<span class="ruby-identifier">token</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/jwt/refresh&#39;</span>)
       .<span class="ruby-identifier">url_parameter</span>(<span class="ruby-string">&#39;token&#39;</span>, <span class="ruby-identifier">token</span>)
@@ -11134,7 +11216,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="revoke_refresh_tokens_by_application_id-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3619</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3643</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">revoke_refresh_tokens_by_application_id</span>(<span class="ruby-identifier">application_id</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/jwt/refresh&#39;</span>)
       .<span class="ruby-identifier">url_parameter</span>(<span class="ruby-string">&#39;applicationId&#39;</span>, <span class="ruby-identifier">application_id</span>)
@@ -11172,7 +11254,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="revoke_refresh_tokens_by_user_id-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3631</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3655</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">revoke_refresh_tokens_by_user_id</span>(<span class="ruby-identifier">user_id</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/jwt/refresh&#39;</span>)
       .<span class="ruby-identifier">url_parameter</span>(<span class="ruby-string">&#39;userId&#39;</span>, <span class="ruby-identifier">user_id</span>)
@@ -11210,7 +11292,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="revoke_refresh_tokens_by_user_id_for_application-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3644</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3668</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">revoke_refresh_tokens_by_user_id_for_application</span>(<span class="ruby-identifier">user_id</span>, <span class="ruby-identifier">application_id</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/jwt/refresh&#39;</span>)
       .<span class="ruby-identifier">url_parameter</span>(<span class="ruby-string">&#39;userId&#39;</span>, <span class="ruby-identifier">user_id</span>)
@@ -11249,7 +11331,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="revoke_refresh_tokens_with_request-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3658</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3682</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">revoke_refresh_tokens_with_request</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/jwt/refresh&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -11287,7 +11369,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="revoke_user_consent-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3670</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3694</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">revoke_user_consent</span>(<span class="ruby-identifier">user_consent_id</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/user/consent&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">user_consent_id</span>)
@@ -11325,7 +11407,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="search_applications-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3682</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3706</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">search_applications</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/application/search&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -11363,7 +11445,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="search_audit_logs-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3694</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3718</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">search_audit_logs</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/system/audit-log/search&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -11401,7 +11483,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="search_consents-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3706</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3730</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">search_consents</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/consent/search&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -11439,7 +11521,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="search_email_templates-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3718</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3742</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">search_email_templates</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/email/template/search&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -11477,7 +11559,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="search_entities-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3730</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3754</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">search_entities</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/entity/search&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -11515,7 +11597,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="search_entities_by_ids-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3742</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3766</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">search_entities_by_ids</span>(<span class="ruby-identifier">ids</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/entity/search&#39;</span>)
       .<span class="ruby-identifier">url_parameter</span>(<span class="ruby-string">&#39;ids&#39;</span>, <span class="ruby-identifier">ids</span>)
@@ -11553,7 +11635,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="search_entity_grants-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3754</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3778</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">search_entity_grants</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/entity/grant/search&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -11591,7 +11673,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="search_entity_types-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3766</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3790</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">search_entity_types</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/entity/type/search&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -11629,7 +11711,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="search_event_logs-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3778</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3802</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">search_event_logs</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/system/event-log/search&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -11667,7 +11749,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="search_group_members-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3790</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3814</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">search_group_members</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/group/member/search&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -11705,7 +11787,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="search_groups-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3802</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3826</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">search_groups</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/group/search&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -11743,7 +11825,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="search_identity_providers-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3826</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3850</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">search_identity_providers</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/identity-provider/search&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -11781,7 +11863,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="search_ip_access_control_lists-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3814</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3838</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">search_ip_access_control_lists</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/ip-acl/search&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -11819,7 +11901,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="search_keys-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3838</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3862</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">search_keys</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/key/search&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -11857,7 +11939,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="search_lambdas-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3850</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3874</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">search_lambdas</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/lambda/search&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -11895,7 +11977,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="search_login_records-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3862</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3886</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">search_login_records</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/system/login-record/search&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -11933,7 +12015,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="search_tenants-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3874</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3898</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">search_tenants</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/tenant/search&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -11971,7 +12053,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="search_themes-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3886</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3910</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">search_themes</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/theme/search&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -12009,7 +12091,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="search_user_comments-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3898</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3922</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">search_user_comments</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/user/comment/search&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -12047,7 +12129,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="search_users-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3911</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3935</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">search_users</span>(<span class="ruby-identifier">ids</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/user/search&#39;</span>)
       .<span class="ruby-identifier">url_parameter</span>(<span class="ruby-string">&#39;ids&#39;</span>, <span class="ruby-identifier">ids</span>)
@@ -12085,7 +12167,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="search_users_by_ids-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3923</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3947</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">search_users_by_ids</span>(<span class="ruby-identifier">ids</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/user/search&#39;</span>)
       .<span class="ruby-identifier">url_parameter</span>(<span class="ruby-string">&#39;ids&#39;</span>, <span class="ruby-identifier">ids</span>)
@@ -12127,7 +12209,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="search_users_by_query-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3936</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3960</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">search_users_by_query</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/user/search&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -12169,9 +12251,47 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="search_users_by_query_string-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3950</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3974</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">search_users_by_query_string</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/user/search&#39;</span>)
+      .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
+      .<span class="ruby-identifier">post</span>
+      .<span class="ruby-identifier">go</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-search_webhook_event_logs" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">search_webhook_event_logs</span><span
+            class="method-args">(request)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Searches the webhook event logs with the specified criteria and pagination.</p>
+
+<p>@param request [OpenStruct, Hash] The search criteria and pagination information. @return [FusionAuth::ClientResponse] The ClientResponse object.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="search_webhook_event_logs-source">
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3986</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">search_webhook_event_logs</span>(<span class="ruby-identifier">request</span>)
+  <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/system/webhook-event-log/search&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
       .<span class="ruby-identifier">post</span>
       .<span class="ruby-identifier">go</span>
@@ -12207,7 +12327,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="search_webhooks-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3962</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3998</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">search_webhooks</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/webhook/search&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -12245,7 +12365,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="send_email-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3976</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4012</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">send_email</span>(<span class="ruby-identifier">email_template_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/email/send&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">email_template_id</span>)
@@ -12284,7 +12404,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="send_family_request_email-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 3989</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4025</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">send_family_request_email</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/user/family/request&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -12322,7 +12442,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="send_passwordless_code-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4001</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4037</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">send_passwordless_code</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">startAnonymous</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/passwordless/send&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -12360,7 +12480,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="send_two_factor_code-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4014</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4050</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">send_two_factor_code</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/two-factor/send&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -12398,7 +12518,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="send_two_factor_code_for_enable_disable-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4026</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4062</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">send_two_factor_code_for_enable_disable</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/two-factor/send&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -12436,7 +12556,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="send_two_factor_code_for_login-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4039</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4075</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">send_two_factor_code_for_login</span>(<span class="ruby-identifier">two_factor_id</span>)
   <span class="ruby-identifier">startAnonymous</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/two-factor/send&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">two_factor_id</span>)
@@ -12474,7 +12594,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="send_two_factor_code_for_login_using_method-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4052</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4088</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">send_two_factor_code_for_login_using_method</span>(<span class="ruby-identifier">two_factor_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">startAnonymous</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/two-factor/send&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">two_factor_id</span>)
@@ -12550,7 +12670,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="start_identity_provider_login-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4066</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4102</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">start_identity_provider_login</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/identity-provider/start&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -12588,7 +12708,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="start_passwordless_login-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4079</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4115</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">start_passwordless_login</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/passwordless/start&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -12628,7 +12748,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="start_two_factor_login-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4096</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4132</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">start_two_factor_login</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/two-factor/start&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -12666,7 +12786,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="start_web_authn_login-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4108</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4144</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">start_web_authn_login</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/webauthn/start&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -12704,7 +12824,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="start_web_authn_registration-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4120</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4156</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">start_web_authn_registration</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/webauthn/register/start&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -12742,7 +12862,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="two_factor_login-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4132</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4168</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">two_factor_login</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">startAnonymous</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/two-factor/login&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -12780,7 +12900,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_api_key-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4145</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4181</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_api_key</span>(<span class="ruby-identifier">api_key_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/api-key&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">api_key_id</span>)
@@ -12819,7 +12939,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_application-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4159</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4195</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_application</span>(<span class="ruby-identifier">application_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/application&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">application_id</span>)
@@ -12858,7 +12978,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_application_role-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4174</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4210</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_application_role</span>(<span class="ruby-identifier">application_id</span>, <span class="ruby-identifier">role_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/application&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">application_id</span>)
@@ -12899,7 +13019,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_connector-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4190</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4226</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_connector</span>(<span class="ruby-identifier">connector_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/connector&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">connector_id</span>)
@@ -12938,7 +13058,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_consent-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4204</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4240</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_consent</span>(<span class="ruby-identifier">consent_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/consent&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">consent_id</span>)
@@ -12977,7 +13097,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_email_template-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4218</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4254</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_email_template</span>(<span class="ruby-identifier">email_template_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/email/template&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">email_template_id</span>)
@@ -13016,7 +13136,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_entity-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4232</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4268</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_entity</span>(<span class="ruby-identifier">entity_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/entity&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">entity_id</span>)
@@ -13055,7 +13175,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_entity_type-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4246</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4282</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_entity_type</span>(<span class="ruby-identifier">entity_type_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/entity/type&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">entity_type_id</span>)
@@ -13094,7 +13214,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_entity_type_permission-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4261</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4297</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_entity_type_permission</span>(<span class="ruby-identifier">entity_type_id</span>, <span class="ruby-identifier">permission_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/entity/type&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">entity_type_id</span>)
@@ -13135,7 +13255,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_form-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4277</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4313</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_form</span>(<span class="ruby-identifier">form_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/form&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">form_id</span>)
@@ -13174,7 +13294,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_form_field-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4291</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4327</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_form_field</span>(<span class="ruby-identifier">field_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/form/field&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">field_id</span>)
@@ -13213,7 +13333,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_group-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4305</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4341</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_group</span>(<span class="ruby-identifier">group_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/group&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">group_id</span>)
@@ -13252,7 +13372,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_group_members-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4318</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4354</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_group_members</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/group/member&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -13290,7 +13410,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_identity_provider-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4345</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4381</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_identity_provider</span>(<span class="ruby-identifier">identity_provider_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/identity-provider&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">identity_provider_id</span>)
@@ -13329,7 +13449,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_integrations-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4358</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4394</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_integrations</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/integration&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -13367,7 +13487,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_ip_access_control_list-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4331</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4367</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_ip_access_control_list</span>(<span class="ruby-identifier">access_control_list_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/ip-acl&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">access_control_list_id</span>)
@@ -13406,7 +13526,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_key-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4371</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4407</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_key</span>(<span class="ruby-identifier">key_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/key&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">key_id</span>)
@@ -13445,7 +13565,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_lambda-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4385</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4421</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_lambda</span>(<span class="ruby-identifier">lambda_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/lambda&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">lambda_id</span>)
@@ -13484,7 +13604,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_message_template-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4399</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4435</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_message_template</span>(<span class="ruby-identifier">message_template_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/message/template&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">message_template_id</span>)
@@ -13523,7 +13643,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_messenger-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4413</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4449</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_messenger</span>(<span class="ruby-identifier">messenger_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/messenger&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">messenger_id</span>)
@@ -13562,7 +13682,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_o_auth_scope-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4428</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4464</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_o_auth_scope</span>(<span class="ruby-identifier">application_id</span>, <span class="ruby-identifier">scope_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/application&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">application_id</span>)
@@ -13603,7 +13723,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_registration-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4444</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4480</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_registration</span>(<span class="ruby-identifier">user_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/user/registration&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">user_id</span>)
@@ -13642,7 +13762,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_system_configuration-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4457</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4493</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_system_configuration</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/system-configuration&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -13680,7 +13800,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_tenant-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4470</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4506</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_tenant</span>(<span class="ruby-identifier">tenant_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/tenant&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">tenant_id</span>)
@@ -13719,7 +13839,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_theme-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4484</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4520</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_theme</span>(<span class="ruby-identifier">theme_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/theme&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">theme_id</span>)
@@ -13758,7 +13878,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_user-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4498</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4534</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_user</span>(<span class="ruby-identifier">user_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/user&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">user_id</span>)
@@ -13797,7 +13917,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_user_action-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4512</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4548</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_user_action</span>(<span class="ruby-identifier">user_action_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/user-action&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">user_action_id</span>)
@@ -13836,7 +13956,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_user_action_reason-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4526</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4562</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_user_action_reason</span>(<span class="ruby-identifier">user_action_reason_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/user-action-reason&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">user_action_reason_id</span>)
@@ -13875,7 +13995,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_user_consent-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4540</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4576</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_user_consent</span>(<span class="ruby-identifier">user_consent_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/user/consent&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">user_consent_id</span>)
@@ -13914,7 +14034,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="update_webhook-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4554</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4590</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_webhook</span>(<span class="ruby-identifier">webhook_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/webhook&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">webhook_id</span>)
@@ -13953,7 +14073,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="upsert_entity_grant-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4568</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4604</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">upsert_entity_grant</span>(<span class="ruby-identifier">entity_id</span>, <span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/entity&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">entity_id</span>)
@@ -13993,7 +14113,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="validate_device-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4584</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4620</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">validate_device</span>(<span class="ruby-identifier">user_code</span>, <span class="ruby-identifier">client_id</span>)
   <span class="ruby-identifier">startAnonymous</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/oauth2/device/validate&#39;</span>)
       .<span class="ruby-identifier">url_parameter</span>(<span class="ruby-string">&#39;user_code&#39;</span>, <span class="ruby-identifier">user_code</span>)
@@ -14032,7 +14152,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="validate_jwt-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4600</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4636</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">validate_jwt</span>(<span class="ruby-identifier">encoded_jwt</span>)
   <span class="ruby-identifier">startAnonymous</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/jwt/validate&#39;</span>)
       .<span class="ruby-identifier">authorization</span>(<span class="ruby-string">&#39;Bearer &#39;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">encoded_jwt</span>)
@@ -14074,7 +14194,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="vend_jwt-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4620</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4656</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">vend_jwt</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/jwt/vend&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -14112,7 +14232,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="verify_email-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4633</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4669</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">verify_email</span>(<span class="ruby-identifier">verification_id</span>)
   <span class="ruby-identifier">startAnonymous</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/user/verify-email&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">verification_id</span>)
@@ -14152,7 +14272,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="verify_email_address-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4650</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4686</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">verify_email_address</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">startAnonymous</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/user/verify-email&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -14192,7 +14312,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="verify_email_address_by_user_id-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4664</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4700</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">verify_email_address_by_user_id</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">start</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/user/verify-email&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
@@ -14230,7 +14350,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="verify_registration-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4677</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4713</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">verify_registration</span>(<span class="ruby-identifier">verification_id</span>)
   <span class="ruby-identifier">startAnonymous</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/user/verify-registration&#39;</span>)
       .<span class="ruby-identifier">url_segment</span>(<span class="ruby-identifier">verification_id</span>)
@@ -14270,7 +14390,7 @@ tokens enabled in order to receive a refresh token in the response.&lt;/p&gt;</p
 
           
           <div class="method-source-code" id="verify_user_registration-source">
-            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4694</span>
+            <pre><span class="ruby-comment"># File lib/fusionauth/fusionauth_client.rb, line 4730</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">verify_user_registration</span>(<span class="ruby-identifier">request</span>)
   <span class="ruby-identifier">startAnonymous</span>.<span class="ruby-identifier">uri</span>(<span class="ruby-string">&#39;/api/user/verify-registration&#39;</span>)
       .<span class="ruby-identifier">body_handler</span>(<span class="ruby-constant">FusionAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">JSONBodyHandler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">request</span>))
