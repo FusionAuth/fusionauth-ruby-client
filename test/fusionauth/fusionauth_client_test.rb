@@ -14,6 +14,7 @@
 
 require 'minitest'
 require 'securerandom'
+require 'fusionauth/fusionauth_client'
 
 module FusionAuth
   class FusionAuthClientTest < Minitest::Test

@@ -3,10 +3,13 @@ name: Test Library
 on:
   push:
     branches:
+      - develop
       - main
   pull_request:
     branches:
+      - develop
       - main
+  workflow_dispatch:
 
 permissions:
   contents: read
