@@ -3371,13 +3371,15 @@ module FusionAuth
     end
 
     #
-    # Retrieves the user for the loginId. The loginId can be either the username or the email.
+    # Retrieves the user for the loginId, using specific loginIdTypes.
     #
     # @param login_id [string] The email or username of the user.
+    # @param login_id_types [Array] (Optional) the identity types that FusionAuth will compare the loginId to.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_user_by_login_id(login_id)
+    def retrieve_user_by_login_id(login_id, login_id_types=nil)
       start.uri('/api/user')
           .url_parameter('loginId', login_id)
+          .url_parameter('loginIdTypes', login_id_types)
           .get
           .go
     end
