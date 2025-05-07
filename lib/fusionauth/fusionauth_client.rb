@@ -3383,6 +3383,20 @@ module FusionAuth
     end
 
     #
+    # Retrieves the user for the loginId, using specific loginIdTypes.
+    #
+    # @param login_id [string] The email or username of the user.
+    # @param login_id_types [Array] the identity types that FusionAuth will compare the loginId to.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_user_by_login_id_with_login_id_types(login_id, login_id_types)
+      start.uri('/api/user')
+          .url_parameter('loginId', login_id)
+          .url_parameter('loginIdTypes', login_id_types)
+          .get
+          .go
+    end
+
+    #
     # Retrieves the user for the given username.
     #
     # @param username [string] The username of the user.
@@ -3559,6 +3573,27 @@ module FusionAuth
           .url_parameter('loginId', login_id)
           .url_parameter('start', start)
           .url_parameter('end', _end)
+          .get
+          .go
+    end
+
+    #
+    # Retrieves the login report between the two instants for a particular user by login Id, using specific loginIdTypes. If you specify an application id, it will only return the
+    # login counts for that application.
+    #
+    # @param application_id [string] (Optional) The application id.
+    # @param login_id [string] The userId id.
+    # @param start [OpenStruct, Hash] The start instant as UTC milliseconds since Epoch.
+    # @param _end [OpenStruct, Hash] The end instant as UTC milliseconds since Epoch.
+    # @param login_id_types [Array] the identity types that FusionAuth will compare the loginId to.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_user_login_report_by_login_id_and_login_id_types(application_id, login_id, start, _end, login_id_types)
+      start.uri('/api/report/login')
+          .url_parameter('applicationId', application_id)
+          .url_parameter('loginId', login_id)
+          .url_parameter('start', start)
+          .url_parameter('end', _end)
+          .url_parameter('loginIdTypes', login_id_types)
           .get
           .go
     end
