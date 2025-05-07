@@ -3386,7 +3386,7 @@ module FusionAuth
     # Retrieves the user for the loginId, using specific loginIdTypes.
     #
     # @param login_id [string] The email or username of the user.
-    # @param login_id_types [Array] the identity types that FusionAuth will compare the loginId to. Defaults to [email, username]
+    # @param login_id_types [Array] the identity types that FusionAuth will compare the loginId to.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_user_by_login_id_with_login_id_types(login_id, login_id_types)
       start.uri('/api/user')
@@ -3585,7 +3585,7 @@ module FusionAuth
     # @param login_id [string] The userId id.
     # @param start [OpenStruct, Hash] The start instant as UTC milliseconds since Epoch.
     # @param _end [OpenStruct, Hash] The end instant as UTC milliseconds since Epoch.
-    # @param login_id_types [Array] the identity types that FusionAuth will compare the loginId to. Defaults to [email, username]
+    # @param login_id_types [Array] the identity types that FusionAuth will compare the loginId to.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_user_login_report_by_login_id_and_login_id_types(application_id, login_id, start, _end, login_id_types)
       start.uri('/api/report/login')
