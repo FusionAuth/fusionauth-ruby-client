@@ -222,7 +222,7 @@ module FusionAuth
       assert_equal 'ruby.client.test@fusionauth.io', response.success_response.user.email
 
       # Retrieve the user by loginId with explicit login_id_types
-      response = client.retrieve_user_by_login_id('ruby.client.test@fusionauth.io', ['email'])
+      response = client.retrieve_user_by_login_id_with_login_id_types('ruby.client.test@fusionauth.io', ['email'])
       handle_response(response)
       puts response.was_successful
       puts response.status
@@ -230,7 +230,7 @@ module FusionAuth
 
       # Retrieve the user by loginId with explicit login_id_types (does not match)
       # TODO: Once issue 1 is released, this should work
-      # response = client.retrieve_user_by_login_id('ruby.client.test@fusionauth.io', ['phoneNumber'])
+      # response = client.retrieve_user_by_login_id_with_login_id_types('ruby.client.test@fusionauth.io', ['phoneNumber'])
       # assert_equal 404, response.status
 
       # Update the user
