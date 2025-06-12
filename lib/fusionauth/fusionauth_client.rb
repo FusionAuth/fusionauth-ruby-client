@@ -135,6 +135,23 @@ module FusionAuth
     end
 
     #
+    # Changes a user's password using their access token (JWT) instead of the changePasswordId
+    # A common use case for this method will be if you want to allow the user to change their own password.
+    # 
+    # Remember to send refreshToken in the request body if you want to get a new refresh token when login using the returned oneTimePassword.
+    #
+    # @param encoded_jwt [string] The encoded JWT (access token).
+    # @param request [OpenStruct, Hash] The change password request that contains all the information used to change the password.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def change_password_by_jwt(encoded_jwt, request)
+      startAnonymous.uri('/api/user/change-password')
+          .authorization('Bearer ' + encoded_jwt)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post
+          .go
+    end
+
+    #
     # Changes a user's password using their identity (loginId and password). Using a loginId instead of the changePasswordId
     # bypasses the email verification and allows a password to be changed directly without first calling the #forgotPassword
     # method.
