@@ -4895,6 +4895,18 @@ module FusionAuth
     end
 
     #
+    # Administratively verify a user identity.
+    #
+    # @param request [OpenStruct, Hash] The identity verify request that contains information to verify the identity.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def verify_identity(request)
+      start.uri('/api/identity/verify')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post
+          .go
+    end
+
+    #
     # Confirms an application registration. The Id given is usually from an email sent to the user.
     #
     # @param verification_id [string] The registration verification Id sent to the user.
