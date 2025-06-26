@@ -621,6 +621,21 @@ module FusionAuth
     end
 
     #
+    # Adds the application tenants for universal applications.
+    #
+    # @param application_id [string] The Id of the application that the role belongs to.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the Entity.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def create_universal_application_tenants(application_id, request)
+      start.uri('/api/application')
+          .url_segment(application_id)
+          .url_segment("application-tenant")
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post
+          .go
+    end
+
+    #
     # Creates a user. You can optionally specify an Id for the user, if not provided one will be generated.
     #
     # @param user_id [string] (Optional) The Id for the user. If not provided a secure random UUID will be generated.
@@ -1132,6 +1147,36 @@ module FusionAuth
     def delete_theme(theme_id)
       start.uri('/api/theme')
           .url_segment(theme_id)
+          .delete
+          .go
+    end
+
+    #
+    # Removes the specified tenant from the universal application tenants list.
+    #
+    # @param application_id [string] The Id of the application that the role belongs to.
+    # @param tenant_id [string] The Id of the tenant to delete from the universal application tenants list.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_universal_application_tenant(application_id, tenant_id)
+      start.uri('/api/application')
+          .url_segment(application_id)
+          .url_segment("application-tenant")
+          .url_segment(tenant_id)
+          .delete
+          .go
+    end
+
+    #
+    # Removes the specified tenants from the universal application tenants list.
+    #
+    # @param application_id [string] The Id of the universal application that the tenants are linked to.
+    # @param tenant_ids [Array] The Ids of the tenants to delete from the universal application tenants list.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_universal_application_tenants(application_id, tenant_ids)
+      start.uri('/api/application')
+          .url_segment(application_id)
+          .url_segment("application-tenant")
+          .url_parameter('tenantIds', tenant_ids)
           .delete
           .go
     end
@@ -3288,6 +3333,19 @@ module FusionAuth
           .url_parameter('userId', user_id)
           .url_parameter('applicationId', application_id)
           .url_segment(two_factor_trust_id)
+          .get
+          .go
+    end
+
+    #
+    # Retrieves the application tenants for universal applications.
+    #
+    # @param application_id [string] The Id of the application that the role belongs to.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_universal_application_tenants(application_id)
+      start.uri('/api/application')
+          .url_segment(application_id)
+          .url_segment("application-tenant")
           .get
           .go
     end
