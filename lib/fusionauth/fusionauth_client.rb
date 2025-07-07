@@ -623,13 +623,15 @@ module FusionAuth
     #
     # Adds the application tenants for universal applications.
     #
-    # @param application_id [string] The Id of the application that the role belongs to.
-    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the Entity.
+    # @param application_id [string] The Id of the application that the universal application tenant belongs to.
+    # @param universal_application_tenant_id [string] (Optional) The Id of the universal application tenant.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the UniversalApplicationTenants.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def create_universal_application_tenants(application_id, request)
+    def create_universal_application_tenant(application_id, universal_application_tenant_id, request)
       start.uri('/api/application')
           .url_segment(application_id)
-          .url_segment("application-tenant")
+          .url_segment("universal-application-tenant")
+          .url_segment(universal_application_tenant_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post
           .go
@@ -1152,16 +1154,16 @@ module FusionAuth
     end
 
     #
-    # Removes the specified tenant from the universal application tenants list.
+    # Deletes the universal application tenant.
     #
-    # @param application_id [string] The Id of the application that the role belongs to.
-    # @param tenant_id [string] The Id of the tenant to delete from the universal application tenants list.
+    # @param application_id [string] The Id of the application that the UniversalApplicationTenant belongs to.
+    # @param universal_application_tenant_id [string] The Id of the UniversalApplicationTenant to delete.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def delete_universal_application_tenant(application_id, tenant_id)
+    def delete_universal_application_tenant(application_id, universal_application_tenant_id)
       start.uri('/api/application')
           .url_segment(application_id)
-          .url_segment("application-tenant")
-          .url_segment(tenant_id)
+          .url_segment("universal-application-tenant")
+          .url_segment(universal_application_tenant_id)
           .delete
           .go
     end
@@ -3338,14 +3340,16 @@ module FusionAuth
     end
 
     #
-    # Retrieves the application tenants for universal applications.
+    # Retrieves the universal application tenant.
     #
-    # @param application_id [string] The Id of the application that the role belongs to.
+    # @param application_id [string] The Id of the universal application that tenant is mapped to
+    # @param universal_application_tenant_id [string] The Id of the universal application tenant.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_universal_application_tenants(application_id)
+    def retrieve_universal_application_tenant(application_id, universal_application_tenant_id)
       start.uri('/api/application')
           .url_segment(application_id)
           .url_segment("application-tenant")
+          .url_segment(universal_application_tenant_id)
           .get
           .go
     end
@@ -4077,6 +4081,20 @@ module FusionAuth
     end
 
     #
+    # Searches universal application tenants for the specified applicationId and with the specified criteria and pagination.
+    #
+    # @param request [OpenStruct, Hash] The search criteria and pagination information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_universal_application_tenants(request)
+      start.uri('/api/application')
+          .url_segment("universal-application-tenant")
+          .url_segment("search")
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post
+          .go
+    end
+
+    #
     # Searches user comments with the specified criteria and pagination.
     #
     # @param request [OpenStruct, Hash] The search criteria and pagination information.
@@ -4696,6 +4714,23 @@ module FusionAuth
     def update_theme(theme_id, request)
       start.uri('/api/theme')
           .url_segment(theme_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .put
+          .go
+    end
+
+    #
+    # Adds the application tenants for universal applications.
+    #
+    # @param application_id [string] The Id of the application that the UniversalApplicationTenant belongs to.
+    # @param universal_application_tenant_id [string] The Id of the universal application tenant.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the UniversalApplicationTenant.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def update_universal_application_tenant(application_id, universal_application_tenant_id, request)
+      start.uri('/api/application')
+          .url_segment(application_id)
+          .url_segment("universal-application-tenant")
+          .url_segment(universal_application_tenant_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .put
           .go
