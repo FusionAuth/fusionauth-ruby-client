@@ -2,7 +2,7 @@ require 'ostruct'
 require 'fusionauth/rest_client'
 
 #
-# Copyright (c) 2018-2023, FusionAuth, All Rights Reserved
+# Copyright (c) 2018-2025, FusionAuth, All Rights Reserved
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -751,7 +751,7 @@ module FusionAuth
     end
 
     #
-    # Deactivates the users with the given ids.
+    # Deactivates the users with the given Ids.
     #
     # @param user_ids [Array] The ids of the users to deactivate.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -766,7 +766,7 @@ module FusionAuth
     end
 
     #
-    # Deactivates the users with the given ids.
+    # Deactivates the users with the given Ids.
     #
     # @param user_ids [Array] The ids of the users to deactivate.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -1208,8 +1208,8 @@ module FusionAuth
     end
 
     #
-    # Deletes the users with the given ids, or users matching the provided JSON query or queryString.
-    # The order of preference is ids, query and then queryString, it is recommended to only provide one of the three for the request.
+    # Deletes the users with the given Ids, or users matching the provided JSON query or queryString.
+    # The order of preference is Ids, query and then queryString, it is recommended to only provide one of the three for the request.
     # 
     # This method can be used to deactivate or permanently delete (hard-delete) users based upon the hardDelete boolean in the request body.
     # Using the dryRun parameter you may also request the result of the action without actually deleting or deactivating any users.
@@ -1225,8 +1225,8 @@ module FusionAuth
     end
 
     #
-    # Deletes the users with the given ids, or users matching the provided JSON query or queryString.
-    # The order of preference is ids, query and then queryString, it is recommended to only provide one of the three for the request.
+    # Deletes the users with the given Ids, or users matching the provided JSON query or queryString.
+    # The order of preference is Ids, query and then queryString, it is recommended to only provide one of the three for the request.
     # 
     # This method can be used to deactivate or permanently delete (hard-delete) users based upon the hardDelete boolean in the request body.
     # Using the dryRun parameter you may also request the result of the action without actually deleting or deactivating any users.
@@ -1747,7 +1747,7 @@ module FusionAuth
     # Modifies a temporal user action by changing the expiration of the action and optionally adding a comment to the
     # action.
     #
-    # @param action_id [string] The Id of the action to modify. This is technically the user action log id.
+    # @param action_id [string] The Id of the action to modify. This is technically the user action log Id.
     # @param request [OpenStruct, Hash] The request that contains all the information about the modification.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def modify_action(action_id, request)
@@ -1771,16 +1771,16 @@ module FusionAuth
     end
 
     #
-    # Updates an authentication API key by given id
+    # Updates an API key with the given Id.
     #
-    # @param key_id [string] The Id of the authentication key. If not provided a secure random api key will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all the information needed to create the APIKey.
+    # @param key_id [string] The Id of the API key. If not provided a secure random api key will be generated.
+    # @param request [OpenStruct, Hash] The request object that contains all the information needed to create the API key.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def patch_api_key(key_id, request)
       start.uri('/api/api-key')
           .url_segment(key_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
-          .post
+          .patch
           .go
     end
 
@@ -2289,7 +2289,7 @@ module FusionAuth
     end
 
     #
-    # Removes a user from the family with the given id.
+    # Removes a user from the family with the given Id.
     #
     # @param family_id [string] The Id of the family to remove the user from.
     # @param user_id [string] The Id of the user to remove from the family.
@@ -2344,7 +2344,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves an authentication API key for the given id
+    # Retrieves an authentication API key for the given Id.
     #
     # @param key_id [string] The Id of the API key to retrieve.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -2410,7 +2410,7 @@ module FusionAuth
     #
     # Retrieves the application for the given Id or all the applications if the Id is null.
     #
-    # @param application_id [string] (Optional) The application id.
+    # @param application_id [string] (Optional) The application Id.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_application(application_id)
       start.uri('/api/application')
@@ -2486,10 +2486,10 @@ module FusionAuth
     end
 
     #
-    # Retrieves the daily active user report between the two instants. If you specify an application id, it will only
+    # Retrieves the daily active user report between the two instants. If you specify an application Id, it will only
     # return the daily active counts for that application.
     #
-    # @param application_id [string] (Optional) The application id.
+    # @param application_id [string] (Optional) The application Id.
     # @param start [OpenStruct, Hash] The start instant as UTC milliseconds since Epoch.
     # @param _end [OpenStruct, Hash] The end instant as UTC milliseconds since Epoch.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -2503,7 +2503,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves the email template for the given Id. If you don't specify the id, this will return all the email templates.
+    # Retrieves the email template for the given Id. If you don't specify the Id, this will return all the email templates.
     #
     # @param email_template_id [string] (Optional) The Id of the email template.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -2886,10 +2886,10 @@ module FusionAuth
     end
 
     #
-    # Retrieves the login report between the two instants. If you specify an application id, it will only return the
+    # Retrieves the login report between the two instants. If you specify an application Id, it will only return the
     # login counts for that application.
     #
-    # @param application_id [string] (Optional) The application id.
+    # @param application_id [string] (Optional) The application Id.
     # @param start [OpenStruct, Hash] The start instant as UTC milliseconds since Epoch.
     # @param _end [OpenStruct, Hash] The end instant as UTC milliseconds since Epoch.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -2903,7 +2903,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves the message template for the given Id. If you don't specify the id, this will return all the message templates.
+    # Retrieves the message template for the given Id. If you don't specify the Id, this will return all the message templates.
     #
     # @param message_template_id [string] (Optional) The Id of the message template.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -2959,10 +2959,10 @@ module FusionAuth
     end
 
     #
-    # Retrieves the monthly active user report between the two instants. If you specify an application id, it will only
+    # Retrieves the monthly active user report between the two instants. If you specify an application Id, it will only
     # return the monthly active counts for that application.
     #
-    # @param application_id [string] (Optional) The application id.
+    # @param application_id [string] (Optional) The application Id.
     # @param start [OpenStruct, Hash] The start instant as UTC milliseconds since Epoch.
     # @param _end [OpenStruct, Hash] The end instant as UTC milliseconds since Epoch.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -3125,7 +3125,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves the user registration for the user with the given Id and the given application id.
+    # Retrieves the user registration for the user with the given Id and the given application Id.
     #
     # @param user_id [string] The Id of the user.
     # @param application_id [string] The Id of the application.
@@ -3139,10 +3139,10 @@ module FusionAuth
     end
 
     #
-    # Retrieves the registration report between the two instants. If you specify an application id, it will only return
+    # Retrieves the registration report between the two instants. If you specify an application Id, it will only return
     # the registration counts for that application.
     #
-    # @param application_id [string] (Optional) The application id.
+    # @param application_id [string] (Optional) The application Id.
     # @param start [OpenStruct, Hash] The start instant as UTC milliseconds since Epoch.
     # @param _end [OpenStruct, Hash] The end instant as UTC milliseconds since Epoch.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -3305,7 +3305,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves the user action for the given Id. If you pass in null for the id, this will return all the user
+    # Retrieves the user action for the given Id. If you pass in null for the Id, this will return all the user
     # actions.
     #
     # @param user_action_id [string] (Optional) The Id of the user action.
@@ -3318,7 +3318,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves the user action reason for the given Id. If you pass in null for the id, this will return all the user
+    # Retrieves the user action reason for the given Id. If you pass in null for the Id, this will return all the user
     # action reasons.
     #
     # @param user_action_reason_id [string] (Optional) The Id of the user action reason.
@@ -3417,8 +3417,8 @@ module FusionAuth
     # 
     # This API is useful if you want to build your own login workflow to complete a device grant.
     #
-    # @param client_id [string] The client id.
-    # @param client_secret [string] The client id.
+    # @param client_id [string] The client Id.
+    # @param client_secret [string] The client Id.
     # @param user_code [string] The end-user verification code.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_user_code(client_id, client_secret, user_code)
@@ -3531,11 +3531,11 @@ module FusionAuth
     end
 
     #
-    # Retrieves the login report between the two instants for a particular user by Id. If you specify an application id, it will only return the
+    # Retrieves the login report between the two instants for a particular user by Id. If you specify an application Id, it will only return the
     # login counts for that application.
     #
-    # @param application_id [string] (Optional) The application id.
-    # @param user_id [string] The userId id.
+    # @param application_id [string] (Optional) The application Id.
+    # @param user_id [string] The userId Id.
     # @param start [OpenStruct, Hash] The start instant as UTC milliseconds since Epoch.
     # @param _end [OpenStruct, Hash] The end instant as UTC milliseconds since Epoch.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -3550,11 +3550,11 @@ module FusionAuth
     end
 
     #
-    # Retrieves the login report between the two instants for a particular user by login Id. If you specify an application id, it will only return the
+    # Retrieves the login report between the two instants for a particular user by login Id. If you specify an application Id, it will only return the
     # login counts for that application.
     #
-    # @param application_id [string] (Optional) The application id.
-    # @param login_id [string] The userId id.
+    # @param application_id [string] (Optional) The application Id.
+    # @param login_id [string] The userId Id.
     # @param start [OpenStruct, Hash] The start instant as UTC milliseconds since Epoch.
     # @param _end [OpenStruct, Hash] The end instant as UTC milliseconds since Epoch.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -3631,7 +3631,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves the webhook for the given Id. If you pass in null for the id, this will return all the webhooks.
+    # Retrieves the webhook for the given Id. If you pass in null for the Id, this will return all the webhooks.
     #
     # @param webhook_id [string] (Optional) The Id of the webhook.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -3863,7 +3863,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves the entities for the given ids. If any Id is invalid, it is ignored.
+    # Retrieves the entities for the given Ids. If any Id is invalid, it is ignored.
     #
     # @param ids [Array] The entity ids to search for.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -4031,7 +4031,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves the users for the given ids. If any Id is invalid, it is ignored.
+    # Retrieves the users for the given Ids. If any Id is invalid, it is ignored.
     #
     # @param ids [Array] The user ids to search for.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -4044,9 +4044,9 @@ module FusionAuth
     end
 
     #
-    # Retrieves the users for the given ids. If any Id is invalid, it is ignored.
+    # Retrieves the users for the given Ids. If any Id is invalid, it is ignored.
     #
-    # @param ids [Array] The user ids to search for.
+    # @param ids [Array] The user Ids to search for.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def search_users_by_ids(ids)
       start.uri('/api/user/search')
@@ -4107,7 +4107,7 @@ module FusionAuth
     end
 
     #
-    # Send an email using an email template id. You can optionally provide <code>requestData</code> to access key value
+    # Send an email using an email template Id. You can optionally provide <code>requestData</code> to access key value
     # pairs in the email template.
     #
     # @param email_template_id [string] The Id for the template.
@@ -4277,14 +4277,14 @@ module FusionAuth
     end
 
     #
-    # Updates an API key by given id
+    # Updates an API key with the given Id.
     #
-    # @param api_key_id [string] The Id of the API key to update.
-    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the API Key.
+    # @param key_id [string] The Id of the API key to update.
+    # @param request [OpenStruct, Hash] The request that contains all the new API key information.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def update_api_key(api_key_id, request)
+    def update_api_key(key_id, request)
       start.uri('/api/api-key')
-          .url_segment(api_key_id)
+          .url_segment(key_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .put
           .go
@@ -4733,7 +4733,7 @@ module FusionAuth
     # If you build your own activation form you should validate the user provided code prior to beginning the Authorization grant.
     #
     # @param user_code [string] The end-user verification code.
-    # @param client_id [string] The client id.
+    # @param client_id [string] The client Id.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def validate_device(user_code, client_id)
       startAnonymous.uri('/oauth2/device/validate')
