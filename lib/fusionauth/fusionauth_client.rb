@@ -266,6 +266,18 @@ module FusionAuth
     end
 
     #
+    # Completes verification of an identity using verification codes from the Verify Start API.
+    #
+    # @param request [OpenStruct, Hash] The identity verify complete request that contains all the information used to verify the identity.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def complete_verify_identity(request)
+      start.uri('/api/identity/verify/complete')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post
+          .go
+    end
+
+    #
     # Complete a WebAuthn authentication ceremony by validating the signature against the previously generated challenge without logging the user in
     #
     # @param request [OpenStruct, Hash] An object containing data necessary for completing the authentication ceremony
@@ -3406,6 +3418,20 @@ module FusionAuth
     end
 
     #
+    # Retrieves the user for the loginId, using specific loginIdTypes.
+    #
+    # @param login_id [string] The email or username of the user.
+    # @param login_id_types [Array] the identity types that FusionAuth will compare the loginId to.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_user_by_login_id_with_login_id_types(login_id, login_id_types)
+      start.uri('/api/user')
+          .url_parameter('loginId', login_id)
+          .url_parameter('loginIdTypes', login_id_types)
+          .get
+          .go
+    end
+
+    #
     # Retrieves the user for the given username.
     #
     # @param username [string] The username of the user.
@@ -3582,6 +3608,27 @@ module FusionAuth
           .url_parameter('loginId', login_id)
           .url_parameter('start', start)
           .url_parameter('end', _end)
+          .get
+          .go
+    end
+
+    #
+    # Retrieves the login report between the two instants for a particular user by login Id, using specific loginIdTypes. If you specify an application id, it will only return the
+    # login counts for that application.
+    #
+    # @param application_id [string] (Optional) The application id.
+    # @param login_id [string] The userId id.
+    # @param start [OpenStruct, Hash] The start instant as UTC milliseconds since Epoch.
+    # @param _end [OpenStruct, Hash] The end instant as UTC milliseconds since Epoch.
+    # @param login_id_types [Array] the identity types that FusionAuth will compare the loginId to.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_user_login_report_by_login_id_and_login_id_types(application_id, login_id, start, _end, login_id_types)
+      start.uri('/api/report/login')
+          .url_parameter('applicationId', application_id)
+          .url_parameter('loginId', login_id)
+          .url_parameter('start', start)
+          .url_parameter('end', _end)
+          .url_parameter('loginIdTypes', login_id_types)
           .get
           .go
     end
@@ -4216,6 +4263,18 @@ module FusionAuth
     end
 
     #
+    # Send a verification code using the appropriate transport for the identity type being verified.
+    #
+    # @param request [OpenStruct, Hash] The identity verify send request that contains all the information used send the code.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def send_verify_identity(request)
+      start.uri('/api/identity/verify/send')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post
+          .go
+    end
+
+    #
     # Begins a login request for a 3rd party login that requires user interaction such as HYPR.
     #
     # @param request [OpenStruct, Hash] The third-party login request that contains information from the third-party login
@@ -4253,6 +4312,19 @@ module FusionAuth
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def start_two_factor_login(request)
       start.uri('/api/two-factor/start')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post
+          .go
+    end
+
+    #
+    # Start a verification of an identity by generating a code. This code can be sent to the User using the Verify Send API
+    # Verification Code API or using a mechanism outside of FusionAuth. The verification is completed by using the Verify Complete API with this code.
+    #
+    # @param request [OpenStruct, Hash] The identity verify start request that contains all the information used to begin the request.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def start_verify_identity(request)
+      start.uri('/api/identity/verify/start')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post
           .go
@@ -4835,6 +4907,18 @@ module FusionAuth
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def verify_email_address_by_user_id(request)
       start.uri('/api/user/verify-email')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post
+          .go
+    end
+
+    #
+    # Administratively verify a user identity.
+    #
+    # @param request [OpenStruct, Hash] The identity verify request that contains information to verify the identity.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def verify_identity(request)
+      start.uri('/api/identity/verify')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post
           .go
