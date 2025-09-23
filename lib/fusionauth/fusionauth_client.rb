@@ -88,18 +88,28 @@ module FusionAuth
     # @param client_secret [string] (Optional) The client secret. This value will be required if client authentication is enabled.
     # @param token [string] The access token used to identify the user.
     # @param user_code [string] The end-user verification code.
-    # @param tenant_id [string] (Optional) The Id of the tenant to use for this request.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def approve_device(client_id, client_secret, token, user_code, tenant_id)
+    def approve_device(client_id, client_secret, token, user_code)
       body = {
         "client_id" => client_id,
         "client_secret" => client_secret,
         "token" => token,
-        "user_code" => user_code,
-        "tenantId" => tenantId
+        "user_code" => user_code
       }
       start.uri('/oauth2/device/approve')
           .body_handler(FusionAuth::FormDataBodyHandler.new(body))
+          .post
+          .go
+    end
+
+    #
+    # Approve a device grant.
+    #
+    # @param request [OpenStruct, Hash] The request object containing the device approval information and optional tenantId.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def approve_device_with_request(request)
+      start.uri('/oauth2/device/approve')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post
           .go
     end
@@ -241,18 +251,28 @@ module FusionAuth
     # @param client_secret [string] (Optional) The client secret used to authenticate this request.
     #     This parameter is optional when Basic Authorization is used to authenticate this request.
     # @param scope [string] (Optional) This parameter is used to indicate which target entity you are requesting access. To request access to an entity, use the format target-entity:&lt;target-entity-id&gt;:&lt;roles&gt;. Roles are an optional comma separated list.
-    # @param tenant_id [string] (Optional) The Id of the tenant to use for this request.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def client_credentials_grant(client_id, client_secret, scope, tenant_id)
+    def client_credentials_grant(client_id, client_secret, scope)
       body = {
         "client_id" => client_id,
         "client_secret" => client_secret,
         "grant_type" => "client_credentials",
-        "scope" => scope,
-        "tenantId" => tenantId
+        "scope" => scope
       }
       startAnonymous.uri('/oauth2/token')
           .body_handler(FusionAuth::FormDataBodyHandler.new(body))
+          .post
+          .go
+    end
+
+    #
+    # Make a Client Credentials grant request to obtain an access token.
+    #
+    # @param request [OpenStruct, Hash] The client credentials grant request containing client authentication, scope and optional tenantId.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def client_credentials_grant_with_request(request)
+      startAnonymous.uri('/oauth2/token')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post
           .go
     end
@@ -1299,6 +1319,37 @@ module FusionAuth
     end
 
     #
+    # Start the Device Authorization flow using form-encoded parameters
+    #
+    # @param client_id [string] The unique client identifier. The client Id is the Id of the FusionAuth Application in which you are attempting to authenticate.
+    # @param client_secret [string] (Optional) The client secret. This value may optionally be provided in the request body instead of the Authorization header.
+    # @param scope [string] (Optional) A space-delimited string of the requested scopes. Defaults to all scopes configured in the Application's OAuth configuration.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def device_authorize(client_id, client_secret, scope)
+      body = {
+        "client_id" => client_id,
+        "client_secret" => client_secret,
+        "scope" => scope
+      }
+      startAnonymous.uri('/oauth2/device_authorize')
+          .body_handler(FusionAuth::FormDataBodyHandler.new(body))
+          .post
+          .go
+    end
+
+    #
+    # Start the Device Authorization flow using a request body
+    #
+    # @param request [OpenStruct, Hash] The device authorization request containing client authentication, scope, and optional device metadata.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def device_authorize_with_request(request)
+      startAnonymous.uri('/oauth2/device_authorize')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post
+          .go
+    end
+
+    #
     # Disable two-factor authentication for a user.
     #
     # @param user_id [string] The Id of the User for which you're disabling two-factor authentication.
@@ -1351,16 +1402,14 @@ module FusionAuth
     #     This parameter is optional when Basic Authorization is used to authenticate this request.
     # @param client_secret [string] (Optional) The client secret. This value will be required if client authentication is enabled.
     # @param redirect_uri [string] The URI to redirect to upon a successful request.
-    # @param tenant_id [string] (Optional) The Id of the tenant to use for this request.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def exchange_o_auth_code_for_access_token(code, client_id, client_secret, redirect_uri, tenant_id)
+    def exchange_o_auth_code_for_access_token(code, client_id, client_secret, redirect_uri)
       body = {
         "code" => code,
         "client_id" => client_id,
         "client_secret" => client_secret,
         "grant_type" => "authorization_code",
-        "redirect_uri" => redirect_uri,
-        "tenantId" => tenantId
+        "redirect_uri" => redirect_uri
       }
       startAnonymous.uri('/oauth2/token')
           .body_handler(FusionAuth::FormDataBodyHandler.new(body))
@@ -1378,20 +1427,44 @@ module FusionAuth
     # @param client_secret [string] (Optional) The client secret. This value may optionally be provided in the request body instead of the Authorization header.
     # @param redirect_uri [string] The URI to redirect to upon a successful request.
     # @param code_verifier [string] The random string generated previously. Will be compared with the code_challenge sent previously, which allows the OAuth provider to authenticate your app.
-    # @param tenant_id [string] (Optional) The Id of the tenant to use for this request.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def exchange_o_auth_code_for_access_token_using_pkce(code, client_id, client_secret, redirect_uri, code_verifier, tenant_id)
+    def exchange_o_auth_code_for_access_token_using_pkce(code, client_id, client_secret, redirect_uri, code_verifier)
       body = {
         "code" => code,
         "client_id" => client_id,
         "client_secret" => client_secret,
         "grant_type" => "authorization_code",
         "redirect_uri" => redirect_uri,
-        "code_verifier" => code_verifier,
-        "tenantId" => tenantId
+        "code_verifier" => code_verifier
       }
       startAnonymous.uri('/oauth2/token')
           .body_handler(FusionAuth::FormDataBodyHandler.new(body))
+          .post
+          .go
+    end
+
+    #
+    # Exchanges an OAuth authorization code and code_verifier for an access token.
+    # Makes a request to the Token endpoint to exchange the authorization code returned from the Authorize endpoint and a code_verifier for an access token.
+    #
+    # @param request [OpenStruct, Hash] The PKCE OAuth code access token exchange request.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def exchange_o_auth_code_for_access_token_using_pkce_with_request(request)
+      startAnonymous.uri('/oauth2/token')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post
+          .go
+    end
+
+    #
+    # Exchanges an OAuth authorization code for an access token.
+    # Makes a request to the Token endpoint to exchange the authorization code returned from the Authorize endpoint for an access token.
+    #
+    # @param request [OpenStruct, Hash] The OAuth code access token exchange request.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def exchange_o_auth_code_for_access_token_with_request(request)
+      startAnonymous.uri('/oauth2/token')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post
           .go
     end
@@ -1406,20 +1479,31 @@ module FusionAuth
     # @param client_secret [string] (Optional) The client secret. This value may optionally be provided in the request body instead of the Authorization header.
     # @param scope [string] (Optional) This parameter is optional and if omitted, the same scope requested during the authorization request will be used. If provided the scopes must match those requested during the initial authorization request.
     # @param user_code [string] (Optional) The end-user verification code. This code is required if using this endpoint to approve the Device Authorization.
-    # @param tenant_id [string] (Optional) The Id of the tenant to use for this request. Required if the request is for a universal application.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def exchange_refresh_token_for_access_token(refresh_token, client_id, client_secret, scope, user_code, tenant_id)
+    def exchange_refresh_token_for_access_token(refresh_token, client_id, client_secret, scope, user_code)
       body = {
         "refresh_token" => refresh_token,
         "client_id" => client_id,
         "client_secret" => client_secret,
         "grant_type" => "refresh_token",
         "scope" => scope,
-        "user_code" => user_code,
-        "tenantId" => tenantId
+        "user_code" => user_code
       }
       startAnonymous.uri('/oauth2/token')
           .body_handler(FusionAuth::FormDataBodyHandler.new(body))
+          .post
+          .go
+    end
+
+    #
+    # Exchange a Refresh Token for an Access Token.
+    # If you will be using the Refresh Token Grant, you will make a request to the Token endpoint to exchange the user’s refresh token for an access token.
+    #
+    # @param request [OpenStruct, Hash] The refresh token access token exchange request.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def exchange_refresh_token_for_access_token_with_request(request)
+      startAnonymous.uri('/oauth2/token')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post
           .go
     end
@@ -1447,9 +1531,8 @@ module FusionAuth
     # @param client_secret [string] (Optional) The client secret. This value may optionally be provided in the request body instead of the Authorization header.
     # @param scope [string] (Optional) This parameter is optional and if omitted, the same scope requested during the authorization request will be used. If provided the scopes must match those requested during the initial authorization request.
     # @param user_code [string] (Optional) The end-user verification code. This code is required if using this endpoint to approve the Device Authorization.
-    # @param tenant_id [string] (Optional) The Id of the tenant to use for this request.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def exchange_user_credentials_for_access_token(username, password, client_id, client_secret, scope, user_code, tenant_id)
+    def exchange_user_credentials_for_access_token(username, password, client_id, client_secret, scope, user_code)
       body = {
         "username" => username,
         "password" => password,
@@ -1457,11 +1540,23 @@ module FusionAuth
         "client_secret" => client_secret,
         "grant_type" => "password",
         "scope" => scope,
-        "user_code" => user_code,
-        "tenantId" => tenantId
+        "user_code" => user_code
       }
       startAnonymous.uri('/oauth2/token')
           .body_handler(FusionAuth::FormDataBodyHandler.new(body))
+          .post
+          .go
+    end
+
+    #
+    # Exchange User Credentials for a Token.
+    # If you will be using the Resource Owner Password Credential Grant, you will make a request to the Token endpoint to exchange the user’s email and password for an access token.
+    #
+    # @param request [OpenStruct, Hash] The user credentials access token exchange request.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def exchange_user_credentials_for_access_token_with_request(request)
+      startAnonymous.uri('/oauth2/token')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post
           .go
     end
@@ -1643,13 +1738,38 @@ module FusionAuth
     #
     # @param client_id [string] The unique client identifier. The client Id is the Id of the FusionAuth Application for which this token was generated.
     # @param token [string] The access token returned by this OAuth provider as the result of a successful client credentials grant.
-    # @param tenant_id [string] (Optional) The Id of the tenant to use for this request.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def introspect_access_token(client_id, token, tenant_id)
+    def introspect_access_token(client_id, token)
       body = {
         "client_id" => client_id,
-        "token" => token,
-        "tenantId" => tenantId
+        "token" => token
+      }
+      startAnonymous.uri('/oauth2/introspect')
+          .body_handler(FusionAuth::FormDataBodyHandler.new(body))
+          .post
+          .go
+    end
+
+    #
+    # Inspect an access token issued as the result of the User based grant such as the Authorization Code Grant, Implicit Grant, the User Credentials Grant or the Refresh Grant.
+    #
+    # @param request [OpenStruct, Hash] The access token introspection request.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def introspect_access_token_with_request(request)
+      startAnonymous.uri('/oauth2/introspect')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post
+          .go
+    end
+
+    #
+    # Inspect an access token issued as the result of the Client Credentials Grant.
+    #
+    # @param token [string] The access token returned by this OAuth provider as the result of a successful client credentials grant.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def introspect_client_credentials_access_token(token)
+      body = {
+        "token" => token
       }
       startAnonymous.uri('/oauth2/introspect')
           .body_handler(FusionAuth::FormDataBodyHandler.new(body))
@@ -1660,16 +1780,11 @@ module FusionAuth
     #
     # Inspect an access token issued as the result of the Client Credentials Grant.
     #
-    # @param token [string] The access token returned by this OAuth provider as the result of a successful client credentials grant.
-    # @param tenant_id [string] (Optional) The Id of the tenant to use for this request.
+    # @param request [OpenStruct, Hash] The client credentials access token.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def introspect_client_credentials_access_token(token, tenant_id)
-      body = {
-        "token" => token,
-        "tenantId" => tenantId
-      }
+    def introspect_client_credentials_access_token_with_request(request)
       startAnonymous.uri('/oauth2/introspect')
-          .body_handler(FusionAuth::FormDataBodyHandler.new(body))
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post
           .go
     end
@@ -3480,16 +3595,14 @@ module FusionAuth
     # @param client_id [string] The client Id.
     # @param client_secret [string] The client Id.
     # @param user_code [string] The end-user verification code.
-    # @param tenant_id [string] (Optional) The Id of the tenant to use for this request.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_user_code(client_id, client_secret, user_code, tenant_id)
+    def retrieve_user_code(client_id, client_secret, user_code)
       body = {
         "client_id" => client_id,
         "client_secret" => client_secret,
-        "user_code" => user_code,
+        "user_code" => user_code
       }
       startAnonymous.uri('/oauth2/device/user-code')
-          .url_parameter('tenantId', tenant_id)
           .body_handler(FusionAuth::FormDataBodyHandler.new(body))
           .get
           .go
@@ -3503,16 +3616,44 @@ module FusionAuth
     # This request will require an API key.
     #
     # @param user_code [string] The end-user verification code.
-    # @param tenant_id [string] (Optional) The Id of the tenant to use for this request.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_user_code_using_api_key(user_code, tenant_id)
+    def retrieve_user_code_using_api_key(user_code)
       body = {
-        "user_code" => user_code,
+        "user_code" => user_code
       }
       startAnonymous.uri('/oauth2/device/user-code')
-          .url_parameter('tenantId', tenant_id)
           .body_handler(FusionAuth::FormDataBodyHandler.new(body))
           .get
+          .go
+    end
+
+    #
+    # Retrieve a user_code that is part of an in-progress Device Authorization Grant.
+    # 
+    # This API is useful if you want to build your own login workflow to complete a device grant.
+    # 
+    # This request will require an API key.
+    #
+    # @param request [OpenStruct, Hash] The user code retrieval request including optional tenantId.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_user_code_using_api_key_with_request(request)
+      startAnonymous.uri('/oauth2/device/user-code')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post
+          .go
+    end
+
+    #
+    # Retrieve a user_code that is part of an in-progress Device Authorization Grant.
+    # 
+    # This API is useful if you want to build your own login workflow to complete a device grant.
+    #
+    # @param request [OpenStruct, Hash] The user code retrieval request.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_user_code_with_request(request)
+      startAnonymous.uri('/oauth2/device/user-code')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post
           .go
     end
 
@@ -4846,14 +4987,25 @@ module FusionAuth
     #
     # @param user_code [string] The end-user verification code.
     # @param client_id [string] The client Id.
-    # @param tenant_id [string] (Optional) The Id of the tenant to use for this request.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def validate_device(user_code, client_id, tenant_id)
+    def validate_device(user_code, client_id)
       startAnonymous.uri('/oauth2/device/validate')
           .url_parameter('user_code', user_code)
           .url_parameter('client_id', client_id)
-          .url_parameter('tenantId', tenant_id)
           .get
+          .go
+    end
+
+    #
+    # Validates the end-user provided user_code from the user-interaction of the Device Authorization Grant.
+    # If you build your own activation form you should validate the user provided code prior to beginning the Authorization grant.
+    #
+    # @param request [OpenStruct, Hash] The device validation request.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def validate_device_with_request(request)
+      startAnonymous.uri('/oauth2/device/validate')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post
           .go
     end
 
