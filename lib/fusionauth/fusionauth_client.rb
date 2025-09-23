@@ -3697,12 +3697,10 @@ module FusionAuth
     # Call the UserInfo endpoint to retrieve User Claims from the access token issued by FusionAuth.
     #
     # @param encoded_jwt [string] The encoded JWT (access token).
-    # @param tenant_id [string] (Optional) The Id of the tenant to use for this request.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_user_info_from_access_token(encoded_jwt, tenant_id)
+    def retrieve_user_info_from_access_token(encoded_jwt)
       startAnonymous.uri('/oauth2/userinfo')
           .authorization('Bearer ' + encoded_jwt)
-          .url_parameter('tenantId', tenant_id)
           .get
           .go
     end
