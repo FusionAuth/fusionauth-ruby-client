@@ -243,7 +243,7 @@ module FusionAuth
     # @param encoded_jwt [string] The encoded JWT (access token).
     # @param ip_address [string] (Optional) IP address of the user changing their password. This is used for MFA risk assessment.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def check_change_password_using_jwt(encoded_jwt, ip_address)
+    def check_change_password_using_jwt_and_ip_address(encoded_jwt, ip_address)
       startAnonymous.uri('/api/user/change-password')
           .authorization('Bearer ' + encoded_jwt)
           .url_parameter('ipAddress', ip_address)
@@ -277,7 +277,7 @@ module FusionAuth
     # @param login_id [string] The loginId (email or username) of the User that you intend to change the password for.
     # @param ip_address [string] (Optional) IP address of the user changing their password. This is used for MFA risk assessment.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def check_change_password_using_login_id(login_id, ip_address)
+    def check_change_password_using_login_id_and_ip_address(login_id, ip_address)
       start.uri('/api/user/change-password')
           .url_parameter('loginId', login_id)
           .url_parameter('ipAddress', ip_address)
@@ -314,7 +314,7 @@ module FusionAuth
     # @param login_id_types [Array] The identity types that FusionAuth will compare the loginId to.
     # @param ip_address [string] (Optional) IP address of the user changing their password. This is used for MFA risk assessment.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def check_change_password_using_login_id_and_login_id_types(login_id, login_id_types, ip_address)
+    def check_change_password_using_login_id_and_login_id_types_and_ip_address(login_id, login_id_types, ip_address)
       start.uri('/api/user/change-password')
           .url_parameter('loginId', login_id)
           .url_parameter('loginIdTypes', login_id_types)
