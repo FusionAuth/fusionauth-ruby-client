@@ -3341,6 +3341,22 @@ module FusionAuth
     end
 
     #
+    # Retrieve a user's two-factor status.
+    # 
+    # This can be used to see if a user will need to complete a two-factor challenge to complete a login,
+    # and optionally identify the state of the two-factor trust across various applications. This operation
+    # provides more payload options than retrieveTwoFactorStatus.
+    #
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to check the status.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_two_factor_status_body(request)
+      start.uri('/api/two-factor/status')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post
+          .go
+    end
+
+    #
     # Retrieves the user for the given Id.
     #
     # @param user_id [string] The Id of the user.
