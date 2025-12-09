@@ -3349,7 +3349,7 @@ module FusionAuth
     #
     # @param request [OpenStruct, Hash] The request object that contains all the information used to check the status.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_two_factor_status_body(request)
+    def retrieve_two_factor_status_using(request)
       start.uri('/api/two-factor/status')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post
