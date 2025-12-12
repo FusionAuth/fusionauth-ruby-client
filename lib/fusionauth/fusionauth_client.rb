@@ -3441,6 +3441,18 @@ module FusionAuth
     end
 
     #
+    # Retrieves the totals report. This allows excluding applicationTotals from the report. An empty list will include the applicationTotals.
+    #
+    # @param excludes [Array] List of fields to exclude in the response. Currently only allows applicationTotals.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_total_report_with_excludes(excludes)
+      start.uri('/api/report/totals')
+          .url_parameter('excludes', excludes)
+          .get
+          .go
+    end
+
+    #
     # Retrieve two-factor recovery codes for a user.
     #
     # @param user_id [string] The Id of the user to retrieve Two Factor recovery codes.
