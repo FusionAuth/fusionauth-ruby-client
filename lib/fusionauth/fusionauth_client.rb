@@ -90,14 +90,14 @@ module FusionAuth
     # @param user_code [string] The end-user verification code.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def approve_device(client_id, client_secret, token, user_code)
-      body = {
+      form_parameters = {
         "client_id" => client_id,
         "client_secret" => client_secret,
         "token" => token,
-        "user_code" => user_code
+        "user_code" => user_code,
       }
       start.uri('/oauth2/device/approve')
-          .body_handler(FusionAuth::FormDataBodyHandler.new(body))
+          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
           .post
           .go
     end
@@ -108,8 +108,15 @@ module FusionAuth
     # @param request [OpenStruct, Hash] The request object containing the device approval information and optional tenantId.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def approve_device_with_request(request)
+      form_parameters = {
+        "client_id" => request.client_id,
+        "client_secret" => request.client_secret,
+        "tenantId" => (request.tenantId.to_s unless request.tenantId.nil?),
+        "token" => request.token,
+        "user_code" => request.user_code,
+      }
       start.uri('/oauth2/device/approve')
-          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
           .post
           .go
     end
@@ -271,14 +278,14 @@ module FusionAuth
     # @param scope [string] (Optional) This parameter is used to indicate which target entity you are requesting access. To request access to an entity, use the format target-entity:&lt;target-entity-id&gt;:&lt;roles&gt;. Roles are an optional comma separated list.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def client_credentials_grant(client_id, client_secret, scope)
-      body = {
+      form_parameters = {
         "client_id" => client_id,
         "client_secret" => client_secret,
-        "grant_type" => "client_credentials",
-        "scope" => scope
+        "grant_type" => 'client_credentials',
+        "scope" => scope,
       }
       startAnonymous.uri('/oauth2/token')
-          .body_handler(FusionAuth::FormDataBodyHandler.new(body))
+          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
           .post
           .go
     end
@@ -289,8 +296,15 @@ module FusionAuth
     # @param request [OpenStruct, Hash] The client credentials grant request containing client authentication, scope and optional tenantId.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def client_credentials_grant_with_request(request)
+      form_parameters = {
+        "client_id" => request.client_id,
+        "client_secret" => request.client_secret,
+        "grant_type" => request.grant_type,
+        "scope" => request.scope,
+        "tenantId" => request.tenantId,
+      }
       startAnonymous.uri('/oauth2/token')
-          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
           .post
           .go
     end
@@ -1344,13 +1358,13 @@ module FusionAuth
     # @param scope [string] (Optional) A space-delimited string of the requested scopes. Defaults to all scopes configured in the Application's OAuth configuration.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def device_authorize(client_id, client_secret, scope)
-      body = {
+      form_parameters = {
         "client_id" => client_id,
         "client_secret" => client_secret,
-        "scope" => scope
+        "scope" => scope,
       }
       startAnonymous.uri('/oauth2/device_authorize')
-          .body_handler(FusionAuth::FormDataBodyHandler.new(body))
+          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
           .post
           .go
     end
@@ -1361,8 +1375,14 @@ module FusionAuth
     # @param request [OpenStruct, Hash] The device authorization request containing client authentication, scope, and optional device metadata.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def device_authorize_with_request(request)
+      form_parameters = {
+        "client_id" => request.client_id,
+        "client_secret" => request.client_secret,
+        "scope" => request.scope,
+        "tenantId" => (request.tenantId.to_s unless request.tenantId.nil?),
+      }
       startAnonymous.uri('/oauth2/device_authorize')
-          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
           .post
           .go
     end
@@ -1422,15 +1442,15 @@ module FusionAuth
     # @param redirect_uri [string] The URI to redirect to upon a successful request.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def exchange_o_auth_code_for_access_token(code, client_id, client_secret, redirect_uri)
-      body = {
+      form_parameters = {
         "code" => code,
         "client_id" => client_id,
         "client_secret" => client_secret,
-        "grant_type" => "authorization_code",
-        "redirect_uri" => redirect_uri
+        "grant_type" => 'authorization_code',
+        "redirect_uri" => redirect_uri,
       }
       startAnonymous.uri('/oauth2/token')
-          .body_handler(FusionAuth::FormDataBodyHandler.new(body))
+          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
           .post
           .go
     end
@@ -1447,16 +1467,16 @@ module FusionAuth
     # @param code_verifier [string] The random string generated previously. Will be compared with the code_challenge sent previously, which allows the OAuth provider to authenticate your app.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def exchange_o_auth_code_for_access_token_using_pkce(code, client_id, client_secret, redirect_uri, code_verifier)
-      body = {
+      form_parameters = {
         "code" => code,
         "client_id" => client_id,
         "client_secret" => client_secret,
-        "grant_type" => "authorization_code",
+        "grant_type" => 'authorization_code',
         "redirect_uri" => redirect_uri,
-        "code_verifier" => code_verifier
+        "code_verifier" => code_verifier,
       }
       startAnonymous.uri('/oauth2/token')
-          .body_handler(FusionAuth::FormDataBodyHandler.new(body))
+          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
           .post
           .go
     end
@@ -1468,8 +1488,17 @@ module FusionAuth
     # @param request [OpenStruct, Hash] The PKCE OAuth code access token exchange request.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def exchange_o_auth_code_for_access_token_using_pkce_with_request(request)
+      form_parameters = {
+        "client_id" => request.client_id,
+        "client_secret" => request.client_secret,
+        "code" => request.code,
+        "code_verifier" => request.code_verifier,
+        "grant_type" => request.grant_type,
+        "redirect_uri" => request.redirect_uri,
+        "tenantId" => (request.tenantId.to_s unless request.tenantId.nil?),
+      }
       startAnonymous.uri('/oauth2/token')
-          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
           .post
           .go
     end
@@ -1481,8 +1510,16 @@ module FusionAuth
     # @param request [OpenStruct, Hash] The OAuth code access token exchange request.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def exchange_o_auth_code_for_access_token_with_request(request)
+      form_parameters = {
+        "client_id" => request.client_id,
+        "client_secret" => request.client_secret,
+        "code" => request.code,
+        "grant_type" => request.grant_type,
+        "redirect_uri" => request.redirect_uri,
+        "tenantId" => request.tenantId,
+      }
       startAnonymous.uri('/oauth2/token')
-          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
           .post
           .go
     end
@@ -1499,16 +1536,16 @@ module FusionAuth
     # @param user_code [string] (Optional) The end-user verification code. This code is required if using this endpoint to approve the Device Authorization.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def exchange_refresh_token_for_access_token(refresh_token, client_id, client_secret, scope, user_code)
-      body = {
+      form_parameters = {
         "refresh_token" => refresh_token,
         "client_id" => client_id,
         "client_secret" => client_secret,
-        "grant_type" => "refresh_token",
+        "grant_type" => 'refresh_token',
         "scope" => scope,
-        "user_code" => user_code
+        "user_code" => user_code,
       }
       startAnonymous.uri('/oauth2/token')
-          .body_handler(FusionAuth::FormDataBodyHandler.new(body))
+          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
           .post
           .go
     end
@@ -1520,8 +1557,17 @@ module FusionAuth
     # @param request [OpenStruct, Hash] The refresh token access token exchange request.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def exchange_refresh_token_for_access_token_with_request(request)
+      form_parameters = {
+        "client_id" => request.client_id,
+        "client_secret" => request.client_secret,
+        "grant_type" => request.grant_type,
+        "refresh_token" => request.refresh_token,
+        "scope" => request.scope,
+        "tenantId" => (request.tenantId.to_s unless request.tenantId.nil?),
+        "user_code" => request.user_code,
+      }
       startAnonymous.uri('/oauth2/token')
-          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
           .post
           .go
     end
@@ -1551,17 +1597,17 @@ module FusionAuth
     # @param user_code [string] (Optional) The end-user verification code. This code is required if using this endpoint to approve the Device Authorization.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def exchange_user_credentials_for_access_token(username, password, client_id, client_secret, scope, user_code)
-      body = {
+      form_parameters = {
         "username" => username,
         "password" => password,
         "client_id" => client_id,
         "client_secret" => client_secret,
-        "grant_type" => "password",
+        "grant_type" => 'password',
         "scope" => scope,
-        "user_code" => user_code
+        "user_code" => user_code,
       }
       startAnonymous.uri('/oauth2/token')
-          .body_handler(FusionAuth::FormDataBodyHandler.new(body))
+          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
           .post
           .go
     end
@@ -1573,8 +1619,18 @@ module FusionAuth
     # @param request [OpenStruct, Hash] The user credentials access token exchange request.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def exchange_user_credentials_for_access_token_with_request(request)
+      form_parameters = {
+        "client_id" => request.client_id,
+        "client_secret" => request.client_secret,
+        "grant_type" => request.grant_type,
+        "password" => request.password,
+        "scope" => request.scope,
+        "tenantId" => request.tenantId,
+        "user_code" => request.user_code,
+        "username" => request.username,
+      }
       startAnonymous.uri('/oauth2/token')
-          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
           .post
           .go
     end
@@ -1758,12 +1814,12 @@ module FusionAuth
     # @param token [string] The access token returned by this OAuth provider as the result of a successful client credentials grant.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def introspect_access_token(client_id, token)
-      body = {
+      form_parameters = {
         "client_id" => client_id,
-        "token" => token
+        "token" => token,
       }
       startAnonymous.uri('/oauth2/introspect')
-          .body_handler(FusionAuth::FormDataBodyHandler.new(body))
+          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
           .post
           .go
     end
@@ -1774,8 +1830,13 @@ module FusionAuth
     # @param request [OpenStruct, Hash] The access token introspection request.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def introspect_access_token_with_request(request)
+      form_parameters = {
+        "client_id" => request.client_id,
+        "tenantId" => request.tenantId,
+        "token" => request.token,
+      }
       startAnonymous.uri('/oauth2/introspect')
-          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
           .post
           .go
     end
@@ -1786,11 +1847,11 @@ module FusionAuth
     # @param token [string] The access token returned by this OAuth provider as the result of a successful client credentials grant.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def introspect_client_credentials_access_token(token)
-      body = {
-        "token" => token
+      form_parameters = {
+        "token" => token,
       }
       startAnonymous.uri('/oauth2/introspect')
-          .body_handler(FusionAuth::FormDataBodyHandler.new(body))
+          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
           .post
           .go
     end
@@ -1801,8 +1862,12 @@ module FusionAuth
     # @param request [OpenStruct, Hash] The client credentials access token.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def introspect_client_credentials_access_token_with_request(request)
+      form_parameters = {
+        "tenantId" => request.tenantId,
+        "token" => request.token,
+      }
       startAnonymous.uri('/oauth2/introspect')
-          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
           .post
           .go
     end
@@ -3627,13 +3692,13 @@ module FusionAuth
     # @param user_code [string] The end-user verification code.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_user_code(client_id, client_secret, user_code)
-      body = {
+      form_parameters = {
         "client_id" => client_id,
         "client_secret" => client_secret,
-        "user_code" => user_code
+        "user_code" => user_code,
       }
       startAnonymous.uri('/oauth2/device/user-code')
-          .body_handler(FusionAuth::FormDataBodyHandler.new(body))
+          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
           .get
           .go
     end
@@ -3648,11 +3713,11 @@ module FusionAuth
     # @param user_code [string] The end-user verification code.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_user_code_using_api_key(user_code)
-      body = {
-        "user_code" => user_code
+      form_parameters = {
+        "user_code" => user_code,
       }
       startAnonymous.uri('/oauth2/device/user-code')
-          .body_handler(FusionAuth::FormDataBodyHandler.new(body))
+          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
           .get
           .go
     end
@@ -3667,8 +3732,12 @@ module FusionAuth
     # @param request [OpenStruct, Hash] The user code retrieval request including optional tenantId.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_user_code_using_api_key_with_request(request)
+      form_parameters = {
+        "tenantId" => (request.tenantId.to_s unless request.tenantId.nil?),
+        "user_code" => request.user_code,
+      }
       startAnonymous.uri('/oauth2/device/user-code')
-          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
           .post
           .go
     end
@@ -3681,8 +3750,14 @@ module FusionAuth
     # @param request [OpenStruct, Hash] The user code retrieval request.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def retrieve_user_code_with_request(request)
+      form_parameters = {
+        "client_id" => request.client_id,
+        "client_secret" => request.client_secret,
+        "tenantId" => (request.tenantId.to_s unless request.tenantId.nil?),
+        "user_code" => request.user_code,
+      }
       startAnonymous.uri('/oauth2/device/user-code')
-          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
           .post
           .go
     end
@@ -5031,8 +5106,13 @@ module FusionAuth
     # @param request [OpenStruct, Hash] The device validation request.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def validate_device_with_request(request)
+      form_parameters = {
+        "client_id" => request.client_id,
+        "tenantId" => (request.tenantId.to_s unless request.tenantId.nil?),
+        "user_code" => request.user_code,
+      }
       startAnonymous.uri('/oauth2/device/validate')
-          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
           .post
           .go
     end
