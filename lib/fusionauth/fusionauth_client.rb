@@ -5196,14 +5196,11 @@ module FusionAuth
     # @param request [OpenStruct, Hash] The device validation request.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def validate_device_with_request(request)
-      form_parameters = {
-        "client_id" => request.client_id,
-        "tenantId" => (request.tenantId.to_s unless request.tenantId.nil?),
-        "user_code" => request.user_code,
-      }
       startAnonymous.uri('/oauth2/device/validate')
-          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
-          .post
+          .url_parameter('client_id', request.client_id)
+          .url_parameter('tenantId', request.tenantId.nil? ? nil : request.tenantId.to_s)
+          .url_parameter('user_code', request.user_code)
+          .get
           .go
     end
 
