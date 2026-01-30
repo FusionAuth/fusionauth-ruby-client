@@ -4006,18 +4006,6 @@ module FusionAuth
     end
 
     #
-    # Retrieves the user for the given Id. This method does not use an API key, instead it uses a JSON Web Token (JWT) for authentication.
-    #
-    # @param encoded_jwt [string] The encoded JWT (access token).
-    # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_user_using_jwt(encoded_jwt)
-      startAnonymous.uri('/api/user')
-          .authorization('Bearer ' + encoded_jwt)
-          .get
-          .go
-    end
-
-    #
     # Retrieves the FusionAuth version string.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
