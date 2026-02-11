@@ -767,6 +767,20 @@ module FusionAuth
     end
 
     #
+    # Creates a tenant manager identity provider type configuration for the given identity provider type.
+    #
+    # @param type [string] The type of the identity provider.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the tenant manager identity provider type configuration.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def create_tenant_manager_identity_provider_type_configuration(type, request)
+      start.uri('/api/tenant-manager/identity-provider')
+          .url_segment(type)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post
+          .go
+    end
+
+    #
     # Creates a Theme. You can optionally specify an Id for the theme, if not provided one will be generated.
     #
     # @param theme_id [string] (Optional) The Id for the theme. If not provided a secure random UUID will be generated.
@@ -1265,6 +1279,18 @@ module FusionAuth
       start.uri('/api/tenant')
           .url_segment(tenant_id)
           .url_parameter('async', true)
+          .delete
+          .go
+    end
+
+    #
+    # Deletes the tenant manager identity provider type configuration for the given identity provider type.
+    #
+    # @param type [string] The type of the identity provider.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_tenant_manager_identity_provider_type_configuration(type)
+      start.uri('/api/tenant-manager/identity-provider')
+          .url_segment(type)
           .delete
           .go
     end
@@ -5070,6 +5096,20 @@ module FusionAuth
     def update_tenant(tenant_id, request)
       start.uri('/api/tenant')
           .url_segment(tenant_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .put
+          .go
+    end
+
+    #
+    # Updates the tenant manager identity provider type configuration for the given identity provider type.
+    #
+    # @param type [string] The type of the identity provider.
+    # @param request [OpenStruct, Hash] The request object that contains the updated tenant manager identity provider type configuration.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def update_tenant_manager_identity_provider_type_configuration(type, request)
+      start.uri('/api/tenant-manager/identity-provider')
+          .url_segment(type)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .put
           .go
