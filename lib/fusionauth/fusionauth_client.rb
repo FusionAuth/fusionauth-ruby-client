@@ -2428,6 +2428,20 @@ module FusionAuth
     end
 
     #
+    # Patches the tenant manager identity provider type configuration for the given identity provider type.
+    #
+    # @param type [string] The type of the identity provider.
+    # @param request [OpenStruct, Hash] The request object that contains the new tenant manager identity provider type configuration information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def patch_tenant_manager_identity_provider_type_configuration(type, request)
+      start.uri('/api/tenant-manager/identity-provider')
+          .url_segment(type)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .patch
+          .go
+    end
+
+    #
     # Updates, via PATCH, the theme with the given Id.
     #
     # @param theme_id [string] The Id of the theme to update.
