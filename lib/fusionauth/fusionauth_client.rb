@@ -1413,6 +1413,18 @@ module FusionAuth
     end
 
     #
+    # Deletes all of the WebAuthn credentials for the given User Id.
+    #
+    # @param user_id [string] The unique Id of the User to delete WebAuthn passkeys for.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_web_authn_credentials_for_user(user_id)
+      start.uri('/api/webauthn')
+          .url_parameter('userId', user_id)
+          .delete
+          .go
+    end
+
+    #
     # Deletes the webhook for the given Id.
     #
     # @param webhook_id [string] The Id of the webhook to delete.
@@ -2049,7 +2061,7 @@ module FusionAuth
     end
 
     #
-    # Retrieves the identity provider for the given domain. A 200 response code indicates the domain is managed
+    # Retrieves any global identity providers for the given domain. A 200 response code indicates the domain is managed
     # by a registered identity provider. A 404 indicates the domain is not managed.
     #
     # @param domain [string] The domain or email address to lookup.
@@ -2057,6 +2069,22 @@ module FusionAuth
     def lookup_identity_provider(domain)
       start.uri('/api/identity-provider/lookup')
           .url_parameter('domain', domain)
+          .get
+          .go
+    end
+
+    #
+    # Retrieves the identity provider for the given domain and tenantId. A 200 response code indicates the domain is managed
+    # by a registered identity provider. A 404 indicates the domain is not managed.
+    #
+    # @param domain [string] The domain or email address to lookup.
+    # @param tenant_id [string] If provided, the API searches for an identity provider scoped to the corresponding tenant that manages the requested domain.
+    #     If no result is found, the API then searches for global identity providers.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def lookup_identity_provider_by_tenant_id(domain, tenant_id)
+      start.uri('/api/identity-provider/lookup')
+          .url_parameter('domain', domain)
+          .url_parameter('tenantId', tenant_id)
           .get
           .go
     end
