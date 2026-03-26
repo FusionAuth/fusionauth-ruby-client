@@ -7,6 +7,8 @@
 tag::forDocSite[]
 -->
 
+
+
 This gem is the Ruby client library that helps connect Ruby applications
 to the FusionAuth (<https://fusionauth.io>) Identity and User Management
 platform.
