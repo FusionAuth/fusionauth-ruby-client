@@ -1920,6 +1920,7 @@ module FusionAuth
         "client_id" => request.client_id,
         "tenantId" => request.tenantId,
         "token" => request.token,
+        "token_type_hint" => request.token_type_hint,
       }
       startAnonymous.uri('/oauth2/introspect')
           .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
