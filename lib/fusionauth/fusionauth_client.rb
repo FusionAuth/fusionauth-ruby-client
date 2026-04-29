@@ -767,6 +767,20 @@ module FusionAuth
     end
 
     #
+    # Creates a tenant manager identity provider type configuration for the given identity provider type.
+    #
+    # @param type [string] The type of the identity provider.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the tenant manager identity provider type configuration.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def create_tenant_manager_identity_provider_type_configuration(type, request)
+      start.uri('/api/tenant-manager/identity-provider')
+          .url_segment(type)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post
+          .go
+    end
+
+    #
     # Creates a Theme. You can optionally specify an Id for the theme, if not provided one will be generated.
     #
     # @param theme_id [string] (Optional) The Id for the theme. If not provided a secure random UUID will be generated.
@@ -1265,6 +1279,18 @@ module FusionAuth
       start.uri('/api/tenant')
           .url_segment(tenant_id)
           .url_parameter('async', true)
+          .delete
+          .go
+    end
+
+    #
+    # Deletes the tenant manager identity provider type configuration for the given identity provider type.
+    #
+    # @param type [string] The type of the identity provider.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_tenant_manager_identity_provider_type_configuration(type)
+      start.uri('/api/tenant-manager/identity-provider')
+          .url_segment(type)
           .delete
           .go
     end
@@ -2431,6 +2457,32 @@ module FusionAuth
     end
 
     #
+    # Updates, via PATCH, the Tenant Manager configuration.
+    #
+    # @param request [OpenStruct, Hash] The request that contains just the new Tenant Manager configuration information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def patch_tenant_manager_configuration(request)
+      start.uri('/api/tenant-manager')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .patch
+          .go
+    end
+
+    #
+    # Patches the tenant manager identity provider type configuration for the given identity provider type.
+    #
+    # @param type [string] The type of the identity provider.
+    # @param request [OpenStruct, Hash] The request object that contains the new tenant manager identity provider type configuration information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def patch_tenant_manager_identity_provider_type_configuration(type, request)
+      start.uri('/api/tenant-manager/identity-provider')
+          .url_segment(type)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .patch
+          .go
+    end
+
+    #
     # Updates, via PATCH, the theme with the given Id.
     #
     # @param theme_id [string] The Id of the theme to update.
@@ -3077,6 +3129,18 @@ module FusionAuth
     end
 
     #
+    # Retrieves the results for an identity provider connection test.
+    #
+    # @param connection_test_id [string] The connection test id to retrieve results for.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_identity_provider_connection_test_results(connection_test_id)
+      start.uri('/api/identity-provider/test')
+          .url_parameter('connectionTestId', connection_test_id)
+          .get
+          .go
+    end
+
+    #
     # Retrieves all the identity providers.
     #
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
@@ -3561,6 +3625,16 @@ module FusionAuth
     def retrieve_tenant(tenant_id)
       start.uri('/api/tenant')
           .url_segment(tenant_id)
+          .get
+          .go
+    end
+
+    #
+    # Retrieves the Tenant Manager configuration.
+    #
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_tenant_manager_configuration
+      start.uri('/api/tenant-manager')
           .get
           .go
     end
@@ -4648,6 +4722,18 @@ module FusionAuth
     end
 
     #
+    # Begins an identity provider connection test.
+    #
+    # @param request [OpenStruct, Hash] The request that contains information on the connection test.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def start_identity_provider_connection_test(request)
+      start.uri('/api/identity-provider/test')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post
+          .go
+    end
+
+    #
     # Begins a login request for a 3rd party login that requires user interaction such as HYPR.
     #
     # @param request [OpenStruct, Hash] The third-party login request that contains information from the third-party login
@@ -5087,6 +5173,32 @@ module FusionAuth
     def update_tenant(tenant_id, request)
       start.uri('/api/tenant')
           .url_segment(tenant_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .put
+          .go
+    end
+
+    #
+    # Updates the Tenant Manager configuration.
+    #
+    # @param request [OpenStruct, Hash] The request that contains all the new Tenant Manager configuration information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def update_tenant_manager_configuration(request)
+      start.uri('/api/tenant-manager')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .put
+          .go
+    end
+
+    #
+    # Updates the tenant manager identity provider type configuration for the given identity provider type.
+    #
+    # @param type [string] The type of the identity provider.
+    # @param request [OpenStruct, Hash] The request object that contains the updated tenant manager identity provider type configuration.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def update_tenant_manager_identity_provider_type_configuration(type, request)
+      start.uri('/api/tenant-manager/identity-provider')
+          .url_segment(type)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .put
           .go
