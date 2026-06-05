@@ -5219,6 +5219,20 @@ module FusionAuth
     end
 
     #
+    # Updates the two-factor method for the given user using a JSON body.
+    #
+    # @param user_id [string] The Id of the user to update.
+    # @param request [OpenStruct, Hash] The request information that contains the name and methodId along with any event information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def update_two_factor(user_id, request)
+      start.uri('/api/user/two-factor')
+          .url_segment(user_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .put
+          .go
+    end
+
+    #
     # Updates the user with the given Id.
     #
     # @param user_id [string] The Id of the user to update.
