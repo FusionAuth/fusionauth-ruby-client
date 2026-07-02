@@ -3879,46 +3879,6 @@ module FusionAuth
     # Retrieve a user_code that is part of an in-progress Device Authorization Grant.
     # 
     # This API is useful if you want to build your own login workflow to complete a device grant.
-    #
-    # @param client_id [string] The client Id.
-    # @param client_secret [string] The client Id.
-    # @param user_code [string] The end-user verification code.
-    # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_user_code(client_id, client_secret, user_code)
-      form_parameters = {
-        "client_id" => client_id,
-        "client_secret" => client_secret,
-        "user_code" => user_code,
-      }
-      startAnonymous.uri('/oauth2/device/user-code')
-          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
-          .get
-          .go
-    end
-
-    #
-    # Retrieve a user_code that is part of an in-progress Device Authorization Grant.
-    # 
-    # This API is useful if you want to build your own login workflow to complete a device grant.
-    # 
-    # This request will require an API key.
-    #
-    # @param user_code [string] The end-user verification code.
-    # @return [FusionAuth::ClientResponse] The ClientResponse object.
-    def retrieve_user_code_using_api_key(user_code)
-      form_parameters = {
-        "user_code" => user_code,
-      }
-      startAnonymous.uri('/oauth2/device/user-code')
-          .body_handler(FusionAuth::FormDataBodyHandler.new(form_parameters))
-          .get
-          .go
-    end
-
-    #
-    # Retrieve a user_code that is part of an in-progress Device Authorization Grant.
-    # 
-    # This API is useful if you want to build your own login workflow to complete a device grant.
     # 
     # This request will require an API key.
     #
@@ -4351,6 +4311,24 @@ module FusionAuth
     end
 
     #
+    # Searches consents with the specified criteria and pagination.
+    #
+    # @param name [string] (Optional) The name of the consent to search for. Supports wildcard search using *.
+    # @param number_of_results [Numeric] (Optional) The number of results to return. Defaults to 25.
+    # @param order_by [string] (Optional) The field to order the results by. Supported values: id, insertInstant, name.
+    # @param start_row [Numeric] (Optional) The offset into the total results. Defaults to 0.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_consents_by_parameters(name, number_of_results, order_by, start_row)
+      start.uri('/api/consent/search')
+          .url_parameter('name', name)
+          .url_parameter('numberOfResults', number_of_results)
+          .url_parameter('orderBy', order_by)
+          .url_parameter('startRow', start_row)
+          .get
+          .go
+    end
+
+    #
     # Searches email templates with the specified criteria and pagination.
     #
     # @param request [OpenStruct, Hash] The search criteria and pagination information.
@@ -4399,6 +4377,28 @@ module FusionAuth
     end
 
     #
+    # Searches entity grants with the specified criteria and pagination.
+    #
+    # @param entity_id [string] (Optional) The entity Id to search for grants on.
+    # @param name [string] (Optional) The name of the entity grant to search for. Supports wildcard search using *.
+    # @param user_id [string] (Optional) The user Id to search for grants on.
+    # @param number_of_results [Numeric] (Optional) The number of results to return. Defaults to 25.
+    # @param order_by [string] (Optional) The field to order the results by.
+    # @param start_row [Numeric] (Optional) The offset into the total results. Defaults to 0.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_entity_grants_by_parameters(entity_id, name, user_id, number_of_results, order_by, start_row)
+      start.uri('/api/entity/grant/search')
+          .url_parameter('entityId', entity_id)
+          .url_parameter('name', name)
+          .url_parameter('userId', user_id)
+          .url_parameter('numberOfResults', number_of_results)
+          .url_parameter('orderBy', order_by)
+          .url_parameter('startRow', start_row)
+          .get
+          .go
+    end
+
+    #
     # Searches the entity types with the specified criteria and pagination.
     #
     # @param request [OpenStruct, Hash] The search criteria and pagination information.
@@ -4407,6 +4407,24 @@ module FusionAuth
       start.uri('/api/entity/type/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post
+          .go
+    end
+
+    #
+    # Searches entity types with the specified criteria and pagination.
+    #
+    # @param name [string] The name of the entity type to search for. Use * to return all entity types.
+    # @param number_of_results [Numeric] (Optional) The number of results to return. Defaults to 25.
+    # @param order_by [string] (Optional) The field to order the results by. Supported values: insertInstant, lastUpdateInstant, name.
+    # @param start_row [Numeric] (Optional) The offset into the total results. Defaults to 0.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_entity_types_by_parameters(name, number_of_results, order_by, start_row)
+      start.uri('/api/entity/type/search')
+          .url_parameter('name', name)
+          .url_parameter('numberOfResults', number_of_results)
+          .url_parameter('orderBy', order_by)
+          .url_parameter('startRow', start_row)
+          .get
           .go
     end
 
@@ -4459,6 +4477,24 @@ module FusionAuth
     end
 
     #
+    # Searches IP access control lists with the specified criteria and pagination.
+    #
+    # @param name [string] (Optional) The name of the IP access control list to search for. Supports wildcard search using *.
+    # @param number_of_results [Numeric] (Optional) The number of results to return. Defaults to 25.
+    # @param order_by [string] (Optional) The field to order the results by. Supported values: id, insertInstant, lastUpdateInstant, name.
+    # @param start_row [Numeric] (Optional) The offset into the total results. Defaults to 0.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_ip_access_control_lists_by_parameters(name, number_of_results, order_by, start_row)
+      start.uri('/api/ip-acl/search')
+          .url_parameter('name', name)
+          .url_parameter('numberOfResults', number_of_results)
+          .url_parameter('orderBy', order_by)
+          .url_parameter('startRow', start_row)
+          .get
+          .go
+    end
+
+    #
     # Searches identity providers with the specified criteria and pagination.
     #
     # @param request [OpenStruct, Hash] The search criteria and pagination information.
@@ -4471,6 +4507,30 @@ module FusionAuth
     end
 
     #
+    # Searches identity providers with the specified criteria and pagination.
+    #
+    # @param application_id [string] (Optional) The application Id to search for identity providers.
+    # @param name [string] (Optional) The name of the identity provider to search for. Supports wildcard search using *.
+    # @param number_of_results [Numeric] (Optional) The number of results to return. Defaults to 25.
+    # @param order_by [string] (Optional) The field to order the results by. Supported values: enabled, id, insertInstant, name, type.
+    # @param start_row [Numeric] (Optional) The offset into the total results. Defaults to 0.
+    # @param tenant_id [string] (Optional) The tenant Id to restrict the results to.
+    # @param type [string] (Optional) The type of identity provider to search for.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_identity_providers_by_parameters(application_id, name, number_of_results, order_by, start_row, tenant_id, type)
+      start.uri('/api/identity-provider/search')
+          .url_parameter('applicationId', application_id)
+          .url_parameter('name', name)
+          .url_parameter('numberOfResults', number_of_results)
+          .url_parameter('orderBy', order_by)
+          .url_parameter('startRow', start_row)
+          .url_parameter('tenantId', tenant_id)
+          .url_parameter('type', type)
+          .get
+          .go
+    end
+
+    #
     # Searches keys with the specified criteria and pagination.
     #
     # @param request [OpenStruct, Hash] The search criteria and pagination information.
@@ -4479,6 +4539,28 @@ module FusionAuth
       start.uri('/api/key/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post
+          .go
+    end
+
+    #
+    # Searches keys with the specified criteria and pagination.
+    #
+    # @param algorithm [string] (Optional) The algorithm of the key to search for.
+    # @param name [string] (Optional) The name of the key to search for. Supports wildcard search using *.
+    # @param number_of_results [Numeric] (Optional) The number of results to return. Defaults to 25.
+    # @param order_by [string] (Optional) The field to order the results by. Supported values: algorithm, expiration, id, insertInstant, name, type.
+    # @param start_row [Numeric] (Optional) The offset into the total results. Defaults to 0.
+    # @param type [string] (Optional) The type of key to search for. Supported values: EC, HMAC, OKP, RSA.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_keys_by_parameters(algorithm, name, number_of_results, order_by, start_row, type)
+      start.uri('/api/key/search')
+          .url_parameter('algorithm', algorithm)
+          .url_parameter('name', name)
+          .url_parameter('numberOfResults', number_of_results)
+          .url_parameter('orderBy', order_by)
+          .url_parameter('startRow', start_row)
+          .url_parameter('type', type)
+          .get
           .go
     end
 
@@ -4615,6 +4697,28 @@ module FusionAuth
       start.uri('/api/webhook/search')
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .post
+          .go
+    end
+
+    #
+    # Searches webhooks with the specified criteria and pagination.
+    #
+    # @param description [string] (Optional) The description of the webhook to search for. Supports wildcard search using *.
+    # @param number_of_results [Numeric] (Optional) The number of results to return. Defaults to 25.
+    # @param order_by [string] (Optional) The field to order the results by. Supported values: description, id, insertInstant, url.
+    # @param start_row [Numeric] (Optional) The offset into the total results. Defaults to 0.
+    # @param tenant_id [string] (Optional) The tenant Id to restrict the results to.
+    # @param url [string] (Optional) The URL of the webhook to search for. Supports wildcard search using *.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_webhooks_by_parameters(description, number_of_results, order_by, start_row, tenant_id, url)
+      start.uri('/api/webhook/search')
+          .url_parameter('description', description)
+          .url_parameter('numberOfResults', number_of_results)
+          .url_parameter('orderBy', order_by)
+          .url_parameter('startRow', start_row)
+          .url_parameter('tenantId', tenant_id)
+          .url_parameter('url', url)
+          .get
           .go
     end
 
