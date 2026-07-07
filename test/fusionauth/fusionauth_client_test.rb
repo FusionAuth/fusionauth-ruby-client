@@ -20,7 +20,7 @@ module FusionAuth
   class FusionAuthClientTest < Minitest::Test
     def setup
       @fusionauthUrl = ENV['FUSIONAUTH_URL'] || 'http://localhost:9011'
-      @fusionauthApiKey = ENV['FUSIONAUTH_API_KEY'] || '72a8c464b86c3c9098c33da73f471b8a0352f6e14087ddc3'
+      @fusionauthApiKey = ENV['FUSIONAUTH_API_KEY'] || 'bf69486b-4733-4470-a592-f1bfce7af580'
     end
 
     def handle_response(response)
