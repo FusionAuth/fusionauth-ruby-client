@@ -508,6 +508,38 @@ module FusionAuth
     end
 
     #
+    # Creates a CIMD domain. You can optionally provide an Id for the CIMD domain, if not provided one will be generated.
+    #
+    # @param domain_id [string] (Optional) The Id to use for the CIMD domain. If not provided a secure random UUID will be generated.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the CIMD domain.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def create_cimd_domain(domain_id, request)
+      start.uri('/api/cimd/domain')
+          .url_segment(domain_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post
+          .go
+    end
+
+    #
+    # Creates a new custom OAuth scope for a CIMD Domain. You must specify the Id of the CIMD domain you are creating the scope for.
+    # You can optionally specify an Id for the OAuth scope on the URL, if not provided one will be generated.
+    #
+    # @param domain_id [string] The Id of the CIMD domain to create the OAuth scope on.
+    # @param scope_id [string] (Optional) The Id of the OAuth scope. If not provided a secure random UUID will be generated.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the OAuth scope.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def create_cimd_domain_o_auth_scope(domain_id, scope_id, request)
+      start.uri('/api/cimd/domain')
+          .url_segment(domain_id)
+          .url_segment("scope")
+          .url_segment(scope_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post
+          .go
+    end
+
+    #
     # Creates a connector.  You can optionally specify an Id for the connector, if not provided one will be generated.
     #
     # @param connector_id [string] (Optional) The Id for the connector. If not provided a secure random UUID will be generated.
@@ -740,7 +772,7 @@ module FusionAuth
     #
     # @param application_id [string] The Id of the application to create the OAuth scope on.
     # @param scope_id [string] (Optional) The Id of the OAuth scope. If not provided a secure random UUID will be generated.
-    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the OAuth OAuth scope.
+    # @param request [OpenStruct, Hash] The request object that contains all the information used to create the OAuth scope.
     # @return [FusionAuth::ClientResponse] The ClientResponse object.
     def create_o_auth_scope(application_id, scope_id, request)
       start.uri('/api/application')
@@ -993,6 +1025,46 @@ module FusionAuth
           .url_segment(application_id)
           .url_segment("role")
           .url_segment(role_id)
+          .delete
+          .go
+    end
+
+    #
+    # Deletes the CIMD client registration for the given Id, along with its refresh tokens.
+    #
+    # @param registration_id [string] The Id of the CIMD client registration to delete.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_cimd_client_registration(registration_id)
+      start.uri('/api/cimd/registration')
+          .url_segment(registration_id)
+          .delete
+          .go
+    end
+
+    #
+    # Deletes the CIMD domain for the given Id.
+    #
+    # @param domain_id [string] The Id of the CIMD domain to delete.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_cimd_domain(domain_id)
+      start.uri('/api/cimd/domain')
+          .url_segment(domain_id)
+          .delete
+          .go
+    end
+
+    #
+    # Hard deletes a custom OAuth scope for a CIMD Domain.
+    # OAuth workflows that are still requesting the deleted OAuth scope may fail depending on the CIMD domain's unknown scope policy.
+    #
+    # @param domain_id [string] The Id of the CIMD domain that the OAuth scope belongs to.
+    # @param scope_id [string] The Id of the OAuth scope to delete.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def delete_cimd_domain_o_auth_scope(domain_id, scope_id)
+      start.uri('/api/cimd/domain')
+          .url_segment(domain_id)
+          .url_segment("scope")
+          .url_segment(scope_id)
           .delete
           .go
     end
@@ -2189,6 +2261,37 @@ module FusionAuth
     end
 
     #
+    # Updates, via PATCH, the CIMD domain with the given Id.
+    #
+    # @param domain_id [string] The Id of the CIMD domain to update.
+    # @param request [OpenStruct, Hash] The request that contains just the new CIMD domain information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def patch_cimd_domain(domain_id, request)
+      start.uri('/api/cimd/domain')
+          .url_segment(domain_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .patch
+          .go
+    end
+
+    #
+    # Updates, via PATCH, the custom OAuth scope with the given Id for the CIMD domain.
+    #
+    # @param domain_id [string] The Id of the CIMD domain that the OAuth scope belongs to.
+    # @param scope_id [string] The Id of the OAuth scope to update.
+    # @param request [OpenStruct, Hash] The request that contains just the new OAuth scope information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def patch_cimd_domain_o_auth_scope(domain_id, scope_id, request)
+      start.uri('/api/cimd/domain')
+          .url_segment(domain_id)
+          .url_segment("scope")
+          .url_segment(scope_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .patch
+          .go
+    end
+
+    #
     # Updates, via PATCH, the connector with the given Id.
     #
     # @param connector_id [string] The Id of the connector to update.
@@ -2836,6 +2939,55 @@ module FusionAuth
     def retrieve_audit_log(audit_log_id)
       start.uri('/api/system/audit-log')
           .url_segment(audit_log_id)
+          .get
+          .go
+    end
+
+    #
+    # Retrieves the CIMD client registration for the given Id.
+    #
+    # @param registration_id [string] The Id of the CIMD client registration.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_cimd_client_registration(registration_id)
+      start.uri('/api/cimd/registration')
+          .url_segment(registration_id)
+          .get
+          .go
+    end
+
+    #
+    # Retrieves the CIMD domain for the given Id.
+    #
+    # @param domain_id [string] The Id of the CIMD domain.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_cimd_domain(domain_id)
+      start.uri('/api/cimd/domain')
+          .url_segment(domain_id)
+          .get
+          .go
+    end
+
+    #
+    # Retrieves a custom OAuth scope for a CIMD Domain.
+    #
+    # @param domain_id [string] The Id of the CIMD domain that the OAuth scope belongs to.
+    # @param scope_id [string] The Id of the OAuth scope to retrieve.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_cimd_domain_o_auth_scope(domain_id, scope_id)
+      start.uri('/api/cimd/domain')
+          .url_segment(domain_id)
+          .url_segment("scope")
+          .url_segment(scope_id)
+          .get
+          .go
+    end
+
+    #
+    # Retrieves all the CIMD domains for the tenant in context.
+    #
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def retrieve_cimd_domains
+      start.uri('/api/cimd/domain')
           .get
           .go
     end
@@ -4299,6 +4451,30 @@ module FusionAuth
     end
 
     #
+    # Searches the CIMD client registrations with the specified criteria and pagination.
+    #
+    # @param request [OpenStruct, Hash] The search criteria and pagination information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_cimd_client_registrations(request)
+      start.uri('/api/cimd/registration/search')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post
+          .go
+    end
+
+    #
+    # Searches the CIMD domains with the specified criteria and pagination.
+    #
+    # @param request [OpenStruct, Hash] The search criteria and pagination information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def search_cimd_domains(request)
+      start.uri('/api/cimd/domain/search')
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .post
+          .go
+    end
+
+    #
     # Searches consents with the specified criteria and pagination.
     #
     # @param request [OpenStruct, Hash] The search criteria and pagination information.
@@ -4969,6 +5145,37 @@ module FusionAuth
           .url_segment(application_id)
           .url_segment("role")
           .url_segment(role_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .put
+          .go
+    end
+
+    #
+    # Updates the CIMD domain with the given Id.
+    #
+    # @param domain_id [string] The Id of the CIMD domain to update.
+    # @param request [OpenStruct, Hash] The request that contains all the new CIMD domain information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def update_cimd_domain(domain_id, request)
+      start.uri('/api/cimd/domain')
+          .url_segment(domain_id)
+          .body_handler(FusionAuth::JSONBodyHandler.new(request))
+          .put
+          .go
+    end
+
+    #
+    # Updates the OAuth scope with the given Id for the CIMD domain.
+    #
+    # @param domain_id [string] The Id of the CIMD domain that the OAuth scope belongs to.
+    # @param scope_id [string] The Id of the OAuth scope to update.
+    # @param request [OpenStruct, Hash] The request that contains all the new OAuth scope information.
+    # @return [FusionAuth::ClientResponse] The ClientResponse object.
+    def update_cimd_domain_o_auth_scope(domain_id, scope_id, request)
+      start.uri('/api/cimd/domain')
+          .url_segment(domain_id)
+          .url_segment("scope")
+          .url_segment(scope_id)
           .body_handler(FusionAuth::JSONBodyHandler.new(request))
           .put
           .go
