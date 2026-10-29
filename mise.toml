@@ -1,2 +1,6 @@
 [tools]
 ruby = "3.4"
+
+[tasks.install]
+description="Installs dependencies"
+run = "bundle install"
