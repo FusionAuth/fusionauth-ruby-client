@@ -21,10 +21,10 @@ jobs:
         working-directory: .github/fusionauth
         run: docker compose up -d
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+      - name: setup mise
+        uses: jdx/mise-action@6be3c7ed4c21d4f76b208d351d95aac273ebb76d # v5.2.4
         with:
-          bundler-cache: true
+          version: 2026.10.4
 
       - name: Waiting for FusionAuth App
         run: timeout 30 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:9011)" != "200" ]]; do sleep 5; done' || false

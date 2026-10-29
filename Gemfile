@@ -13,7 +13,7 @@
 # language governing permissions and limitations under the License.
 
 source 'https://rubygems.org'
-ruby '3.4.2'
+ruby '3.4.12'
 
 gem 'minitest',      '~> 5.25'
 gem 'rake',          '~> 13.2'

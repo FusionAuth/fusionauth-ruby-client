@@ -1,17 +1,5 @@
 /*
- * Copyright (c) 2018-2024, FusionAuth, All Rights Reserved
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied. See the License for the specific
- * language governing permissions and limitations under the License.
+ * Copyright (c) 2018-2026, FusionAuth, All Rights Reserved
  */
 
 pubVersion = ""
@@ -48,7 +36,6 @@ target(name: "clean", description: "Cleans build directory") {
 
 target(name: "compile", description: "Compiles the source code") {
   ProcessBuilder pb = new ProcessBuilder('rake', 'build').inheritIO()
-  clearEnvironment(pb)
   if (pb.start().waitFor() != 0) {
     fail("Build failed")
   }
@@ -56,7 +43,6 @@ target(name: "compile", description: "Compiles the source code") {
 
 target(name: "test", description: "Runs the project's unit tests", dependsOn: ["compile"]) {
   ProcessBuilder pb = new ProcessBuilder('rake', 'test').inheritIO()
-  clearEnvironment(pb)
   if (pb.start().waitFor() != 0) {
     fail("Tests failed")
   }
@@ -75,7 +61,6 @@ target(name: "bundle", description: "Builds the project release bundle", depends
 
 target(name: "publish", description: "Publish the GEM file", dependsOn: ["clean", "compile"]) {
   ProcessBuilder pb = new ProcessBuilder('gem', 'push', "pkg/fusionauth_client-${pubVersion}.gem").inheritIO()
-  clearEnvironment(pb)
   if (pb.start().waitFor() != 0) {
     fail("Gem push failed")
   }
@@ -83,15 +68,4 @@ target(name: "publish", description: "Publish the GEM file", dependsOn: ["clean"
 
 target(name: "release", description: "Releases a full version of the project", dependsOn: ["clean", "int"]) {
   release.release()
-}
-
-/**
- * Clears out the RBENV variables in the environment.
- *
- * @param pb THe ProcessBuilder to clear out.
- */
-private static void clearEnvironment(ProcessBuilder pb) {
-  pb.environment().remove("RBENV_VERSION")
-  pb.environment().remove("RBENV_DIR")
-  pb.environment().remove("RBENV_ROOT")
 }
